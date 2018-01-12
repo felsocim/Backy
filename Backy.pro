@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         interface.cpp \
     item.cpp \
-    reader.cpp
+    reader.cpp \
+    writer.cpp
 
 HEADERS += \
         interface.h \
     item.h \
-    reader.h
+    reader.h \
+    writer.h
 
 FORMS += \
         interface.ui

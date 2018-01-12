@@ -8,14 +8,15 @@
 #include <QString>
 #include <QDirIterator>
 #include <QFileInfo>
+#include <QDebug>
 #include "item.h"
 
 class Reader : public QThread {
   private:
     QString begin;
     std::queue<Item> * buffer;
-    int id,
-      nbItemsProcessed,
+    bool * ended;
+    int nbItemsProcessed,
       bufferUsage,
       bufferLimit;
     QMutex * lock;
@@ -24,13 +25,13 @@ class Reader : public QThread {
   public:
     Reader();
     Reader(
-      int id,
       QString begin,
       std::queue<Item> * buffer,
       int bufferLimit,
       QMutex * lock,
       QWaitCondition * conditionNotEmpty,
-      QWaitCondition * conditionNotFull
+      QWaitCondition * conditionNotFull,
+      bool * ended
     );
     void run();
 };
