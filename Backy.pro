@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         interface.cpp \
-    item.cpp
+    item.cpp \
+    reader.cpp
 
 HEADERS += \
         interface.h \
-    item.h
+    item.h \
+    reader.h
 
 FORMS += \
         interface.ui
