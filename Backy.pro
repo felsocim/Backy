@@ -26,16 +26,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         interface.cpp \
-    item.cpp \
-    reader.cpp \
-    writer.cpp \
     filer.cpp
 
 HEADERS += \
         interface.h \
-    item.h \
-    reader.h \
-    writer.h \
     filer.h
 
 FORMS += \
