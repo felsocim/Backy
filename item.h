@@ -1,7 +1,7 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-#include <iostream>
+#include <QString>
 
 typedef enum {
   ITEM_FILE,
@@ -10,14 +10,14 @@ typedef enum {
 
 class Item {
   private:
-    std::string name;
+    QString name;
     ItemType type;
   public:
     Item();
-    Item(std::string name, ItemType type);
-    std::string getName();
+    Item(QString name, ItemType type);
+    QString getName();
     ItemType getType();
-    void setName(std::string name);
+    void setName(QString name);
     void setType(ItemType type);
 };
 

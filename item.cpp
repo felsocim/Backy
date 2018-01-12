@@ -2,12 +2,12 @@
 
 Item::Item() {}
 
-Item::Item(std::string name, ItemType type) {
+Item::Item(QString name, ItemType type) {
   this->name = name;
   this->type = type;
 }
 
-std::string Item::getName() {
+QString Item::getName() {
   return this->name;
 }
 
@@ -15,7 +15,7 @@ ItemType Item::getType() {
   return this->type;
 }
 
-void Item::setName(std::string name) {
+void Item::setName(QString name) {
   this->name = name;
 }
 
