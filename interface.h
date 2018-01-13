@@ -2,21 +2,33 @@
 #define INTERFACE_H
 
 #include <QMainWindow>
+#include <QFileDialog>
+#include <QString>
+#include "filer.h"
 
 namespace Ui {
-class Interface;
+  class Interface;
 }
 
-class Interface : public QMainWindow
-{
-    Q_OBJECT
+class Interface : public QMainWindow {
+  Q_OBJECT
 
-public:
+  public:
     explicit Interface(QWidget *parent = 0);
     ~Interface();
 
-private:
-    Ui::Interface *ui;
+  private:
+    Ui::Interface * ui;
+    QFileDialog * sourceDialog,
+      * targetDialog;
+    Filer * filer;
+  private slots:
+    void browseSourceSlot(bool clicked);
+    void browseTargetSlot(bool clicked);
+    void launchBackup(bool clicked);
+    void onSourceChoosen(QString selected);
+    void onTargetChoosen(QString selected);
+    void onStatus(int processed, QString current);
 };
 
 #endif // INTERFACE_H
