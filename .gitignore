@@ -6,3 +6,10 @@
 CMakeLists.txt.user*
 build/*
 !build/CMakeLists.txt
+
+# LaTeX
+doc/*.aux
+doc/*.log
+doc/*.out
+doc/*.toc
+doc/*.pdf
