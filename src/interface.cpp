@@ -36,7 +36,7 @@ void Interface::onSourceChoosen(QString selected) {
   this->ui->sourceFolder->setText(selected);
   this->filer->setRoot(selected);
   this->filer->computeStats();
-  this->ui->detected->setText(QString::number(this->filer->getDirectoriesToProcess() + this->filer->getFilesToProcess()));
+  //this->ui->detected->setText(QString::number(this->filer->getDirectoriesToProcess() + this->filer->getFilesToProcess()));
 }
 
 void Interface::onTargetChoosen(QString selected) {
@@ -45,12 +45,12 @@ void Interface::onTargetChoosen(QString selected) {
 }
 
 void Interface::launchBackup(bool clicked) {
-  this->ui->processed->setText("0");
+  //this->ui->processed->setText("0");
   this->filer->run();
   this->filer->wait();
 }
 
 void Interface::onStatus(int processed, QString current) {
-  this->ui->beingProcessed->setText(current);
-  this->ui->processed->setText(QString::number(processed));
+  //this->ui->beingProcessed->setText(current);
+  //this->ui->processed->setText(QString::number(processed));
 }
