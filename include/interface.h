@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QString>
-#include "filer.h"
 
 namespace Ui {
   class Interface;
@@ -21,7 +20,6 @@ class Interface : public QMainWindow {
     Ui::Interface * ui;
     QFileDialog * sourceDialog,
       * targetDialog;
-    Filer * filer;
   private slots:
     void browseSourceSlot(bool clicked);
     void browseTargetSlot(bool clicked);

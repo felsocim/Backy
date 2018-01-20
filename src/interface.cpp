@@ -5,8 +5,7 @@ Interface::Interface(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Interface),
     sourceDialog(new QFileDialog(this)),
-    targetDialog(new QFileDialog(this)),
-    filer(new Filer())
+    targetDialog(new QFileDialog(this))
 {
     ui->setupUi(this);
     this->sourceDialog->setFileMode(QFileDialog::Directory);
@@ -16,7 +15,6 @@ Interface::Interface(QWidget *parent) :
     QObject::connect(ui->start, SIGNAL(clicked(bool)), this, SLOT(launchBackup(bool)));
     QObject::connect(this->sourceDialog, SIGNAL(fileSelected(QString)), this, SLOT(onSourceChoosen(QString)));
     QObject::connect(this->targetDialog, SIGNAL(fileSelected(QString)), this, SLOT(onTargetChoosen(QString)));
-    QObject::connect(this->filer, SIGNAL(currentStatus(int,QString)), this, SLOT(onStatus(int,QString)));
 }
 
 Interface::~Interface()
@@ -34,20 +32,15 @@ void Interface::browseTargetSlot(bool clicked) {
 
 void Interface::onSourceChoosen(QString selected) {
   this->ui->sourceFolder->setText(selected);
-  this->filer->setRoot(selected);
-  this->filer->computeStats();
   //this->ui->detected->setText(QString::number(this->filer->getDirectoriesToProcess() + this->filer->getFilesToProcess()));
 }
 
 void Interface::onTargetChoosen(QString selected) {
   this->ui->targetFolder->setText(selected);
-  this->filer->setTarget(selected);
 }
 
 void Interface::launchBackup(bool clicked) {
-  //this->ui->processed->setText("0");
-  this->filer->run();
-  this->filer->wait();
+
 }
 
 void Interface::onStatus(int processed, QString current) {
