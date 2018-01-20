@@ -1,7 +1,9 @@
 #ifndef __ITEM_H
 #define __ITEM_H
 
-#include <string>
+#include <QString>
+#include <QDateTime>
+#include <ostream>
 
 typedef enum {
   TYPE_FILE,
@@ -13,24 +15,31 @@ using namespace std;
 class Item {
   private:
     Type type;
-    string name,
+    QString name,
       path;
-    time_t lastModified;
-    off_t size;
+    QDateTime lastModified;
+    qint64 size;
   public:
-    Item();
-    Item(Type type, string name, string path, time_t lastModified, off_t size);
-    ~Item();
+    Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size);
     Type getType();
-    string getName();
-    string getPath();
-    time_t getLastModified();
-    off_t getSize();
+    QString getName();
+    QString getPath();
+    QDateTime getLastModified();
+    qint64 getSize();
     void setType(Type type);
-    void setName(string name);
-    void setPath(string path);
-    void setLastModified(time_t lastModified);
-    void setSize(off_t size);
+    void setName(QString name);
+    void setPath(QString path);
+    void setLastModified(QDateTime lastModified);
+    void setSize(qint64 size);
+    friend ostream& operator<<(ostream &output, Item &source) {
+      output << (source.getType() == TYPE_FILE ? "File: " : "Directory: ")
+        << source.getName().toStdString()
+        << ", in " << source.getPath().toStdString()
+        << " was last modified on " << source.getLastModified().toString().toStdString()
+        << " (" << source.getSize() << " bytes)";
+
+      return output;
+    }
 };
 
 #endif // __ITEM_H

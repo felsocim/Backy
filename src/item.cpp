@@ -1,8 +1,6 @@
 #include "item.h"
 
-Item::Item() {}
-
-Item::Item(Type type, string name, string path, time_t lastModified, off_t size) {
+Item::Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size) {
   this->type = type;
   this->name = name;
   this->path = path;
@@ -10,25 +8,23 @@ Item::Item(Type type, string name, string path, time_t lastModified, off_t size)
   this->size = size;
 }
 
-Item::~Item() {}
-
 Type Item::getType() {
   return this->type;
 }
 
-string Item::getName() {
+QString Item::getName() {
   return this->name;
 }
 
-string Item::getPath() {
+QString Item::getPath() {
   return this->path;
 }
 
-time_t Item::getLastModified() {
+QDateTime Item::getLastModified() {
   return this->lastModified;
 }
 
-off_t Item::getSize() {
+qint64 Item::getSize() {
   return this->size;
 }
 
@@ -36,18 +32,18 @@ void Item::setType(Type type) {
   this->type = type;
 }
 
-void Item::setName(string name) {
+void Item::setName(QString name) {
   this->name = name;
 }
 
-void Item::setPath(string path) {
+void Item::setPath(QString path) {
   this->path = path;
 }
 
-void Item::setLastModified(time_t lastModified) {
+void Item::setLastModified(QDateTime lastModified) {
   this->lastModified = lastModified;
 }
 
-void Item::setSize(off_t size) {
+void Item::setSize(qint64 size) {
   this->size = size;
 }
