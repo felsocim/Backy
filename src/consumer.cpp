@@ -31,6 +31,11 @@ int Consumer::getProcessedCount() {
   return this->processedCount;
 }
 
+
+void Consumer::setTarget(QString target) {
+  this->target = target;
+}
+
 void Consumer::setDetectedCount(int detectedCount) {
   this->detectedCount = 1 + detectedCount;
 }

@@ -21,6 +21,7 @@ class Consumer : public QThread {
     QMutex * lock;
     QWaitCondition * notEmpty,
       * notFull;
+    QString target;
     int detectedCount,
       processedCount;
     size_t bufferMax;
@@ -38,6 +39,7 @@ class Consumer : public QThread {
     ~Consumer();
     int getDetectedCount();
     int getProcessedCount();
+    void setTarget(QString target);
     void setDetectedCount(int detectedCount);
     void run();
   signals:
