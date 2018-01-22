@@ -1,17 +1,17 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.5)
 
 project(Backy LANGUAGES C CXX)
 
 add_compile_options(-std=c++11 -Wall -g)
 
-set(CMAKE_PREFIX_PATH /opt/Qt/5.10.0/gcc_64/lib/cmake)
+set(CMAKE_PREFIX_PATH /home/marek/Qt/5.10.0/gcc_64/lib/cmake)
 find_package(Qt5Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*.h")
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*.cpp")
+file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*")
 
 add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
