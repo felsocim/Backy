@@ -55,7 +55,31 @@ void Consumer::run() {
     while(this->buffer->empty()) {
       this->notFull->wait(this->lock);
     }
-    cout << this->buffer->front() << endl;
+    Item current = this->buffer->front();
+    QString existing(this->target + "/" + current.getPath());
+    QFileInfo info(existing);
+
+    if(this->synchronize) {
+      if(current.getType() == TYPE_FILE) {
+        if(info.exists() && current.isSuperiorThan(existing, this->criterion)) {
+          // TODO: overwrite existing
+        } else {
+          // TODO: copy
+        }
+      } else {
+        if(!info.exists()) {
+          // TODO: mkdir in backup location
+        }
+      }
+      // TODO: write processed item to a temporary file (for removed items detection to be performed afterwards)
+    } else {
+      if(current.getType() == TYPE_FILE) {
+        // TODO : copy
+      } else {
+        // TODO : mkdir in backup location
+      }
+    }
+
     this->processedCount++;
     this->buffer->pop();
     this->notEmpty->wakeOne();
