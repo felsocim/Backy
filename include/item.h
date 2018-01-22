@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QDateTime>
+#include <QFileInfo>
 #include <ostream>
 
 typedef enum {
@@ -36,6 +37,7 @@ class Item {
     void setPath(QString path);
     void setLastModified(QDateTime lastModified);
     void setSize(qint64 size);
+    bool isSuperiorThan(QString &another, Criterion &criterion);
     friend ostream& operator<<(ostream &output, Item &source) {
       output << (source.getType() == TYPE_FILE ? "File: " : "Directory: ")
         << source.getName().toStdString()

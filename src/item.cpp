@@ -47,3 +47,16 @@ void Item::setLastModified(QDateTime lastModified) {
 void Item::setSize(qint64 size) {
   this->size = size;
 }
+
+bool Item::isSuperiorThan(QString &another, Criterion &criterion) {
+  QFileInfo info(another);
+  switch(criterion) {
+    case CRITERION_MORE_RECENT:
+      return this->lastModified > info.lastModified();
+    case CRITERION_BIGGER:
+      return this->size > another.size();
+    default:
+      break;
+  }
+  return true;
+}
