@@ -10,6 +10,11 @@ typedef enum {
   TYPE_DIRECTORY
 } Type;
 
+typedef enum {
+  CRITERION_MORE_RECENT,
+  CRITERION_BIGGER
+} Criterion;
+
 using namespace std;
 
 class Item {
