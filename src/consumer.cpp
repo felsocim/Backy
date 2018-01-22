@@ -44,6 +44,10 @@ void Consumer::setDetectedCount(int detectedCount) {
   this->detectedCount = 1 + detectedCount;
 }
 
+void Consumer::setCriterion(Criterion criterion) {
+  this->criterion = criterion;
+}
+
 void Consumer::run() {
   this->log->logEvent("Consumer has started");
   do {
