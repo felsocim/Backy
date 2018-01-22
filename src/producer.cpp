@@ -55,7 +55,7 @@ void Producer::run() {
         Item(
           current.isDir() ? TYPE_DIRECTORY : TYPE_FILE,
           current.fileName(),
-          current.filePath(),
+          this->root.relativeFilePath(current.filePath()),
           current.lastModified(),
           current.size()
         )
@@ -83,7 +83,7 @@ void Producer::analyze() {
     }
   }
   this->log->logEvent(
-    "Producer analyzed root directory '" + this->root + "' (" +
+    "Producer analyzed root directory '" + this->root.absolutePath() + "' (" +
     QString::number(this->directoriesCount) +
     " folder(s) and " +
     QString::number(this->filesCount) +
