@@ -22,6 +22,7 @@ class Consumer : public QThread {
     QWaitCondition * notEmpty,
       * notFull;
     QString target;
+    bool synchronize;
     int detectedCount,
       processedCount;
     size_t bufferMax;
@@ -39,6 +40,7 @@ class Consumer : public QThread {
     ~Consumer();
     int getDetectedCount();
     int getProcessedCount();
+    void setSynchronize(bool synchronize);
     void setTarget(QString target);
     void setDetectedCount(int detectedCount);
     void run();

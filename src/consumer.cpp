@@ -9,6 +9,7 @@ Consumer::Consumer(
   QString eventLog,
   QString errorLog
 ) {
+  this->synchronize = false;
   this->buffer = buffer;
   this->lock = lock;
   this->notEmpty = notEmpty;
@@ -31,6 +32,9 @@ int Consumer::getProcessedCount() {
   return this->processedCount;
 }
 
+void Consumer::setSynchronize(bool synchronize) {
+  this->synchronize = synchronize;
+}
 
 void Consumer::setTarget(QString target) {
   this->target = target;
