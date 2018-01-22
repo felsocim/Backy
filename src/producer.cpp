@@ -24,10 +24,6 @@ Producer::~Producer() {
   delete this->log;
 }
 
-QString Producer::getRoot() {
-  return this->root;
-}
-
 int Producer::getFilesCount() {
   return this->filesCount;
 }
@@ -41,7 +37,7 @@ size_t Producer::getSize() {
 }
 
 void Producer::setRoot(QString root) {
-  this->root = root;
+  this->root = QDir(root);
 }
 
 void Producer::run() {

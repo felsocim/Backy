@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QThread>
+#include <QDir>
 #include <QDirIterator>
 #include <QFileInfo>
 #include <QMutex>
@@ -19,7 +20,7 @@ class Producer : public QThread {
     QMutex * lock;
     QWaitCondition * notEmpty,
       * notFull;
-    QString root;
+    QDir root;
     int filesCount,
       directoriesCount;
     size_t bufferMax;
@@ -36,7 +37,6 @@ class Producer : public QThread {
       QString errorLog
     );
     ~Producer();
-    QString getRoot();
     int getFilesCount();
     int getDirectoriesCount();
     size_t getSize();
