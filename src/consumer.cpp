@@ -18,6 +18,7 @@ Consumer::Consumer(
   this->detectedCount = 1;
   this->processedCount = 0;
   this->log = new Logger(eventLog, errorLog);
+  //QObject::connect(this->currentFile, SIGNAL(bytesWritten(qint64)), this, SLOT(inputOutputProgress(qint64)));
 }
 
 Consumer::~Consumer() {
@@ -36,6 +37,10 @@ void Consumer::setSynchronize(bool synchronize) {
   this->synchronize = synchronize;
 }
 
+void Consumer::setSource(QString source) {
+  this->source = source;
+}
+
 void Consumer::setTarget(QString target) {
   this->target = target;
 }
@@ -48,42 +53,115 @@ void Consumer::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
+void Consumer::setTemporary(QString temporary) {
+  this->temporary = temporary;
+}
+
+void Consumer::setKeepObsolete(bool keepObsolete) {
+  this->keepObsolete = keepObsolete;
+}
+
+void Consumer::inputOutputProgress(qint64 bytes) {
+  emit this->currentProgress((int)((float) bytes / (float) this->current->getSize()), this->current->getName());
+}
+
 void Consumer::run() {
   this->log->logEvent("Consumer has started");
+  QFile * temp;
+  QTextStream * outstream, * instream;
+  if(!this->keepObsolete) {
+    temp = new QFile(this->temporary);
+    if(temp->open(QIODevice::ReadWrite))
+      this->log->logEvent("Successfully opened temporary file: " + this->temporary);
+    else
+      this->log->logEvent("Failed to open temporary file: " + this->temporary);
+    outstream = new QTextStream(temp), instream = new QTextStream(temp);
+  }
   do {
     this->lock->lock();
     while(this->buffer->empty()) {
       this->notFull->wait(this->lock);
     }
-    Item current = this->buffer->front();
-    QString existing(this->target + "/" + current.getPath());
-    QFileInfo info(existing);
-
-    if(this->synchronize) {
-      if(current.getType() == TYPE_FILE) {
-        if(info.exists() && current.isSuperiorThan(existing, this->criterion)) {
-          // TODO: overwrite existing
-        } else {
-          // TODO: copy
-        }
-      } else {
-        if(!info.exists()) {
-          // TODO: mkdir in backup location
-        }
-      }
-      // TODO: write processed item to a temporary file (for removed items detection to be performed afterwards)
+    Item item = this->buffer->front();
+    this->current = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
+    QString left(this->source + "/" + this->current->getPath());
+    QString existing(this->target + "/" + this->current->getPath());
+    QFile * before;
+    QDir * beforeDirectory;
+    if(this->current->getType() == TYPE_FILE) {
+      before = new QFile(left);
+      this->currentFile = new QFile(existing);
     } else {
-      if(current.getType() == TYPE_FILE) {
-        // TODO : copy
-      } else {
-        // TODO : mkdir in backup location
-      }
+      beforeDirectory = new QDir(left);
+      this->currentDirectory = new QDir(existing);
     }
 
+    if(this->synchronize) {
+      if(this->current->getType() == TYPE_FILE) {
+        if(this->currentFile->exists() && this->current->isSuperiorThan(existing, this->criterion)) {
+          if(this->currentFile->remove())
+            this->log->logEvent("Successfully removed previous version of file: " + existing);
+          else
+            this->log->logError("Failed to remove previous version of file: " + existing);
+        }
+        goto copying;
+      } else {
+        if(!this->currentFile->exists())
+          goto cloning;
+      }
+      if(!this->keepObsolete)
+        (*outstream) << this->current->getPath() << endl;
+    } else {
+      if(this->current->getType() == TYPE_FILE)
+        goto copying;
+      else
+        goto cloning;
+    }
+
+    copying:
+      if(before->copy(existing))
+        this->log->logEvent("Successfully copied file: " + left + " to " + existing);
+      else
+        this->log->logError("Failed to copy file: " + left + " to " + existing);
+    goto done;
+    cloning:
+      if(beforeDirectory->mkdir(existing))
+        this->log->logEvent("Successfully cloned directory: " + left + " to " + existing);
+      else
+        this->log->logError("Failed to clone directory: " + left + " to " + existing);
+    done:
     this->processedCount++;
     this->buffer->pop();
+
+    if(this->current->getType() == TYPE_FILE) {
+      delete before;
+      delete this->currentFile;
+    } else {
+      delete beforeDirectory;
+      delete this->currentDirectory;
+    }
+
+    delete this->current;
+
+    emit overallProgress((int)((float) this->processedCount / (float) this->detectedCount) * 100.0);
     this->notEmpty->wakeOne();
     this->lock->unlock();
   } while(this->processedCount < this->detectedCount);
+
+  if(!this->keepObsolete) {
+    while(!instream->atEnd()) {
+      QString line(instream->readLine()), fullpath(this->target + "/" + line);
+      QFile file(fullpath);
+      if(file.remove())
+        this->log->logEvent("Successfully removed obsolete file: " + fullpath);
+      else
+        this->log->logError("Failed to remove obsolete file: " + fullpath);
+    }
+    temp->close();
+    delete temp;
+    delete outstream;
+    delete instream;
+  }
+
   this->log->logEvent("Consumer has finished");
 }

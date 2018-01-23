@@ -21,13 +21,20 @@ class Consumer : public QThread {
     QMutex * lock;
     QWaitCondition * notEmpty,
       * notFull;
-    QString target;
-    bool synchronize;
+    QString source,
+      target,
+      temporary;
+    bool synchronize,
+      keepObsolete;
     Criterion criterion;
     int detectedCount,
       processedCount;
     size_t bufferMax;
     Logger * log;
+    Item * current;
+    QFile * currentFile;
+    QDir * currentDirectory;
+    void signalCurrent(int current);
   public:
     Consumer(
       queue<Item> * buffer,
@@ -42,12 +49,18 @@ class Consumer : public QThread {
     int getDetectedCount();
     int getProcessedCount();
     void setSynchronize(bool synchronize);
+    void setSource(QString source);
     void setTarget(QString target);
     void setDetectedCount(int detectedCount);
     void setCriterion(Criterion criterion);
+    void setTemporary(QString temporary);
+    void setKeepObsolete(bool keepObsolete);
     void run();
   signals:
-    void currentStatus(int current, int overall);
+    void currentProgress(int current, QString item);
+    void overallProgress(int overall);
+  private slots:
+    void inputOutputProgress(qint64 bytes);
 };
 
 #endif // __CONSUMER_H
