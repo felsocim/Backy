@@ -22,6 +22,10 @@ int main(int argc, char *argv[])
     if(prod.getDirectoriesCount() + prod.getFilesCount() > 0) {
       Consumer cons(&buff, &lock, &notEmpty, &notFull, 5, "eventC.log", "errorC.log");
       cons.setDetectedCount(prod.getDirectoriesCount() + prod.getFilesCount());
+      cons.setSource("/home/marek/Dokumenty/projekty");
+      cons.setTarget("/home/marek/test");
+      cons.setTemporary("/tmp/backy.txt");
+      cons.setKeepObsolete(false);
       prod.start();
       cons.start();
       prod.wait();
