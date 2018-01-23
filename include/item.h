@@ -26,6 +26,7 @@ class Item {
     QDateTime lastModified;
     qint64 size;
   public:
+    Item();
     Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size);
     Type getType();
     QString getName();

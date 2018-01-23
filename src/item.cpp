@@ -1,5 +1,7 @@
 #include "item.h"
 
+Item::Item() {}
+
 Item::Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size) {
   this->type = type;
   this->name = name;
