@@ -130,24 +130,35 @@ void Consumer::run() {
 
     if(this->synchronize) {
       if(this->current->getType() == TYPE_FILE) {
-        if(this->currentFile->exists() && this->current->isSuperiorThan(existing, this->criterion)) {
-          if(this->currentFile->remove())
-            this->log->logEvent("Successfully removed previous version of file: " + existing);
-          else
-            this->log->logError("Failed to remove previous version of file: " + existing);
+        if(this->currentFile->exists()) {
+          if(this->current->isSuperiorThan(existing, this->criterion)) {
+            if(this->currentFile->remove())
+              this->log->logEvent("Successfully removed previous version of file: " + existing);
+            else
+              this->log->logError("Failed to remove previous version of file: " + existing);
+            goto copying;
+          } else {
+            this->log->logEvent("Skipping item: " + this->current->getName());
+            goto done;
+          }
+        } else {
+          goto copying;
         }
-        goto copying;
+      } else if(!this->currentDirectory->exists()) {
+        goto cloning;
       } else {
-        if(!this->currentFile->exists())
-          goto cloning;
+        this->log->logEvent("Skipping item: " + this->current->getName());
+        goto done;
       }
     } else {
-      if(this->current->getType() == TYPE_FILE)
+      if(this->current->getType() == TYPE_FILE) {
         goto copying;
-      else if(this->current->getType() == TYPE_DIRECTORY)
+      } else if(this->current->getType() == TYPE_DIRECTORY) {
         goto cloning;
-      else
+      } else {
         this->log->logEvent("Skipping item: " + this->current->getName());
+        goto done;
+      }
     }
 
     copying:
