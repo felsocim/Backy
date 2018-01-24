@@ -36,7 +36,6 @@ class Consumer : public QThread {
     Item * current;
     QFile * currentFile;
     QDir * currentDirectory;
-    void signalCurrent(int current);
     bool copyFile(QFile * source, QFile * destination, qint64 size);
   public:
     Consumer(
