@@ -114,8 +114,10 @@ void Consumer::run() {
     } else {
       if(this->current->getType() == TYPE_FILE)
         goto copying;
-      else
+      else if(this->current->getType() == TYPE_DIRECTORY)
         goto cloning;
+      else
+        this->log->logEvent("Skipping item: " + this->current->getName());
     }
 
     copying:
