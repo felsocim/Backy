@@ -9,6 +9,8 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include <queue>
+#include <sys/types.h>
+#include <utime.h>
 #include "item.h"
 #include "logger.h"
 
@@ -36,6 +38,7 @@ class Consumer : public QThread {
     QFile * currentFile;
     QDir * currentDirectory;
     void signalCurrent(int current);
+    bool copyFile(QFile * source, QFile * destination, qint64 size);
   public:
     Consumer(
       queue<Item> * buffer,
@@ -58,10 +61,9 @@ class Consumer : public QThread {
     void setKeepObsolete(bool keepObsolete);
     void run();
   signals:
-    void currentProgress(int current, QString item);
+    void currentItem(QString item);
+    void currentProgress(int current);
     void overallProgress(int overall);
-  private slots:
-    void inputOutputProgress(qint64 bytes);
 };
 
 #endif // __CONSUMER_H

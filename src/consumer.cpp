@@ -26,6 +26,52 @@ Consumer::~Consumer() {
   delete this->log;
 }
 
+bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
+  char * bytes = new char[this->copyBufferSize];
+  qint64 code = 0;
+
+  if(source->open(QIODevice::ReadOnly))
+    this->log->logEvent("Opened source file: "+ source->fileName());
+  else
+    this->log->logError("Unable to open source file: " + source->fileName());
+
+  if(destination->open(QIODevice::WriteOnly))
+    this->log->logEvent("Opened destination file: "+ destination->fileName());
+  else
+    this->log->logError("Unable to open destination file: " + destination->fileName());
+
+  if(source->isReadable() && destination->isWritable()) {
+    while((code = source->read(bytes, this->copyBufferSize)) != 0) {
+      if(code < 0)
+        goto error;
+      if((code = destination->write(bytes, code)) < 1)
+        goto error;
+      memset(bytes, 0, this->copyBufferSize);
+      emit this->currentProgress((int) (((float) code / (float) size) * 100.0));
+    }
+    delete bytes;
+    source->close();
+    destination->close();
+    if(!(code = destination->setPermissions(source->permissions()))) {
+      this->log->logError("File copy failed (could not transfer file permissions)");
+      return false;
+    }
+    QFileInfo s(*source);
+    struct utimbuf time;
+    time.actime = s.lastRead().toSecsSinceEpoch();
+    time.modtime = s.lastModified().toSecsSinceEpoch();
+    if((code = utime(destination->fileName().toStdString().c_str(), &time)) < 0){
+      this->log->logError("File copy failed (could not transfer file dates)");
+      return false;
+    }
+    return true;
+  }
+  error:
+  delete bytes;
+  this->log->logError("File copy failed (error code: " + QString::number(code) + ")");
+  return false;
+}
+
 int Consumer::getDetectedCount() {
   return this->detectedCount;
 }
@@ -47,7 +93,7 @@ void Consumer::setTarget(QString target) {
 }
 
 void Consumer::setDetectedCount(int detectedCount) {
-  this->detectedCount = 1 + detectedCount;
+  this->detectedCount = detectedCount;
 }
 
 void Consumer::setCriterion(Criterion criterion) {
@@ -60,10 +106,6 @@ void Consumer::setTemporary(QString temporary) {
 
 void Consumer::setKeepObsolete(bool keepObsolete) {
   this->keepObsolete = keepObsolete;
-}
-
-void Consumer::inputOutputProgress(qint64 bytes) {
-  emit this->currentProgress((int)((float) bytes / (float) this->current->getSize()), this->current->getName());
 }
 
 void Consumer::run() {
@@ -85,6 +127,9 @@ void Consumer::run() {
     }
     Item item = this->buffer->front();
     this->current = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
+
+    emit this->currentItem(this->current->getPath() + "/" + this->current->getName());
+
     QString left(this->source + "/" + this->current->getPath());
     QString existing(this->target + "/" + this->current->getPath());
     QFile * before;
@@ -122,7 +167,7 @@ void Consumer::run() {
     }
 
     copying:
-      if(before->copy(existing))
+      if(this->copyFile(before, this->currentFile, this->current->getSize()))
         this->log->logEvent("Successfully copied file: " + left + " to " + existing);
       else
         this->log->logError("Failed to copy file: " + left + " to " + existing);
