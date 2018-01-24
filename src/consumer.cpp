@@ -49,7 +49,7 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
       memset(bytes, 0, this->copyBufferSize);
       emit this->currentProgress((int) (((float) code / (float) size) * 100.0));
     }
-    delete bytes;
+    delete[] bytes;
     source->close();
     destination->close();
     if(!(code = destination->setPermissions(source->permissions()))) {
@@ -67,7 +67,7 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
     return true;
   }
   error:
-  delete bytes;
+  delete[] bytes;
   this->log->logError("File copy failed (error code: " + QString::number(code) + ")");
   return false;
 }
