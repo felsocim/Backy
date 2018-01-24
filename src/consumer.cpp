@@ -17,6 +17,7 @@ Consumer::Consumer(
   this->bufferMax = bufferMax;
   this->detectedCount = 1;
   this->processedCount = 0;
+  this->copyBufferSize = 1024;
   this->log = new Logger(eventLog, errorLog);
   //QObject::connect(this->currentFile, SIGNAL(bytesWritten(qint64)), this, SLOT(inputOutputProgress(qint64)));
 }

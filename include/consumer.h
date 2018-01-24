@@ -29,7 +29,8 @@ class Consumer : public QThread {
     Criterion criterion;
     int detectedCount,
       processedCount;
-    size_t bufferMax;
+    size_t bufferMax,
+      copyBufferSize;
     Logger * log;
     Item * current;
     QFile * currentFile;
