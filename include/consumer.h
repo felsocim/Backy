@@ -24,8 +24,7 @@ class Consumer : public QThread {
     QWaitCondition * notEmpty,
       * notFull;
     QString source,
-      target,
-      temporary;
+      target;
     bool synchronize,
       keepObsolete;
     Criterion criterion;
@@ -57,7 +56,6 @@ class Consumer : public QThread {
     void setTarget(QString target);
     void setDetectedCount(int detectedCount);
     void setCriterion(Criterion criterion);
-    void setTemporary(QString temporary);
     void setKeepObsolete(bool keepObsolete);
     void run();
   signals:

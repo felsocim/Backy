@@ -100,10 +100,6 @@ void Consumer::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
-void Consumer::setTemporary(QString temporary) {
-  this->temporary = temporary;
-}
-
 void Consumer::setKeepObsolete(bool keepObsolete) {
   this->keepObsolete = keepObsolete;
 }
