@@ -54,7 +54,7 @@ bool Item::isSuperiorThan(QString &another, Criterion &criterion) {
   QFileInfo info(another);
   switch(criterion) {
     case CRITERION_MORE_RECENT:
-      return this->lastModified > info.lastModified();
+      return this->lastModified.toSecsSinceEpoch() > info.lastModified().toSecsSinceEpoch();
     case CRITERION_BIGGER:
       return this->size > another.size();
     default:
