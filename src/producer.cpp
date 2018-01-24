@@ -41,46 +41,41 @@ void Producer::setRoot(QString root) {
 }
 
 void Producer::run() {
-  QDirIterator i(this->root, QDirIterator::Subdirectories);
+  QDirIterator i(this->root.absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   this->log->logEvent("Producer has started");
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
-    if(current.fileName().compare(".") != 0 && current.fileName().compare("..") != 0) {
-      this->lock->lock();
-      while(this->buffer->size() == this->bufferMax) {
-        this->log->logEvent("Producer is waiting");
-        this->notEmpty->wait(this->lock);
-      }
-      this->buffer->push(
-        Item(
-          current.isDir() ? TYPE_DIRECTORY : TYPE_FILE,
-          current.fileName(),
-          this->root.relativeFilePath(current.filePath()),
-          current.lastModified(),
-          current.size()
-        )
-      );
-      this->log->logEvent("Producer enqueued '" + current.fileName() + "'");
-      this->notFull->wakeOne();
-      this->lock->unlock();
+    this->lock->lock();
+    while(this->buffer->size() == this->bufferMax) {
+      this->log->logEvent("Producer is waiting");
+      this->notEmpty->wait(this->lock);
     }
+    this->buffer->push(
+      Item(
+        current.isDir() ? TYPE_DIRECTORY : TYPE_FILE,
+        current.fileName(),
+        this->root.relativeFilePath(current.filePath()),
+        current.lastModified(),
+        current.size()
+      )
+    );
+    this->log->logEvent("Producer enqueued '" + current.fileName() + "'");
+    this->notFull->wakeOne();
+    this->lock->unlock();
   }
   this->log->logEvent("Producer has finished");
 }
 
 void Producer::analyze() {
-  QDirIterator i(this->root, QDirIterator::Subdirectories);
+  QDirIterator i(this->root.absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
-    if(current.fileName().compare(".") != 0 && current.fileName().compare("..") != 0) {
-
-      if(current.isDir()) {
-        this->directoriesCount++;
-      } else {
-        this->filesCount++;
-      }
-      this->size += current.size();
+    if(current.isDir()) {
+      this->directoriesCount++;
+    } else {
+      this->filesCount++;
     }
+    this->size += current.size();
   }
   this->log->logEvent(
     "Producer analyzed root directory '" + this->root.absolutePath() + "' (" +
