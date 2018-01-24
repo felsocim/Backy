@@ -22,8 +22,9 @@ int main(int argc, char *argv[])
       cons.setDetectedCount(prod.getDirectoriesCount() + prod.getFilesCount());
       cons.setSource("/home/marek/Dokumenty/projekty");
       cons.setTarget("/home/marek/test");
-      cons.setTemporary("/tmp/backy.txt");
       cons.setKeepObsolete(false);
+      cons.setSynchronize(true);
+      cons.setCriterion(CRITERION_MORE_RECENT);
       prod.start();
       cons.start();
       prod.wait();
