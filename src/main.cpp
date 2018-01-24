@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     std::queue<Item> buff;
     QFileInfo root("/home/marek/Dokumenty/projekty");
-    buff.push(Item(TYPE_DIRECTORY, root.fileName(), root.filePath(), root.lastModified(), root.size()));
+    //buff.push(Item(TYPE_DIRECTORY, root.fileName(), root.filePath(), root.lastModified(), root.size()));
     QMutex lock;
     QWaitCondition notEmpty, notFull;
 
