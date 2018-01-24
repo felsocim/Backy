@@ -145,7 +145,7 @@ void Consumer::run() {
 
     delete this->current;
 
-    emit overallProgress((int)((float) this->processedCount / (float) this->detectedCount) * 100.0);
+    emit overallProgress((int) (((float) this->processedCount / (float) this->detectedCount) * 100.0));
     this->notEmpty->wakeOne();
     this->lock->unlock();
   } while(this->processedCount < this->detectedCount);
