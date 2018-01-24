@@ -110,16 +110,6 @@ void Consumer::setKeepObsolete(bool keepObsolete) {
 
 void Consumer::run() {
   this->log->logEvent("Consumer has started");
-  QFile * temp;
-  QTextStream * outstream, * instream;
-  if(!this->keepObsolete) {
-    temp = new QFile(this->temporary);
-    if(temp->open(QIODevice::ReadWrite))
-      this->log->logEvent("Successfully opened temporary file: " + this->temporary);
-    else
-      this->log->logEvent("Failed to open temporary file: " + this->temporary);
-    outstream = new QTextStream(temp), instream = new QTextStream(temp);
-  }
   do {
     this->lock->lock();
     while(this->buffer->empty()) {
@@ -155,8 +145,6 @@ void Consumer::run() {
         if(!this->currentFile->exists())
           goto cloning;
       }
-      if(!this->keepObsolete)
-        (*outstream) << this->current->getPath() << endl;
     } else {
       if(this->current->getType() == TYPE_FILE)
         goto copying;
@@ -197,18 +185,18 @@ void Consumer::run() {
   } while(this->processedCount < this->detectedCount);
 
   if(!this->keepObsolete) {
-    while(!instream->atEnd()) {
-      QString line(instream->readLine()), fullpath(this->target + "/" + line);
-      QFile file(fullpath);
-      if(file.remove())
-        this->log->logEvent("Successfully removed obsolete file: " + fullpath);
-      else
-        this->log->logError("Failed to remove obsolete file: " + fullpath);
+    QDirIterator i(this->target, QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    QDir t(this->target);
+    while(i.hasNext()) {
+      QString current(i.next());
+      QString corresponding(this->source + "/" + t.relativeFilePath(current));
+      if(!QFile::exists(corresponding)) {
+        if(QFile::remove(current))
+          this->log->logEvent("Successfully removed obsolete file: " + current);
+        else
+          this->log->logError("Failed to remove obsolete file: " + current);
+      }
     }
-    temp->close();
-    delete temp;
-    delete outstream;
-    delete instream;
   }
 
   this->log->logEvent("Consumer has finished");
