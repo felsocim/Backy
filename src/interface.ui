@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>603</height>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,13 +18,13 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>520</y>
+      <y>590</y>
       <width>121</width>
       <height>26</height>
      </rect>
     </property>
     <property name="text">
-     <string>Go!</string>
+     <string>&amp;Backup</string>
     </property>
     <property name="icon">
      <iconset resource="../res/backy.qrc">
@@ -37,7 +37,7 @@
       <x>10</x>
       <y>10</y>
       <width>601</width>
-      <height>121</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="title">
@@ -47,22 +47,12 @@
      <property name="geometry">
       <rect>
        <x>18</x>
-       <y>30</y>
+       <y>40</y>
        <width>561</width>
-       <height>81</height>
+       <height>119</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layoutSource">
-      <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="sourceFolder"/>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="labelSourceDescription">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the source folder or drive you want to backup the contents of.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="browseSource">
         <property name="text">
@@ -74,6 +64,65 @@
         </property>
        </widget>
       </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLineEdit" name="sourceFolder"/>
+      </item>
+      <item row="0" column="0" colspan="3">
+       <widget class="QLabel" name="labelSourceDescription">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the source folder or drive you want to backup the contents of.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelDiscoveredDescription">
+        <property name="text">
+         <string>Directory analysis:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="labelDiscoveredDirectoriesValue">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="labelDiscoveredFilesValue">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="labelDiscoveredDirectoriesDescription">
+        <property name="text">
+         <string>folder(s)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="labelDiscoveredFilesDescription">
+        <property name="text">
+         <string>file(s)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="labelDiscoveredTotalSizeValue">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="labelDiscoveredTotalSizeUnits">
+        <property name="text">
+         <string>B</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -81,9 +130,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>200</y>
       <width>601</width>
-      <height>101</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="title">
@@ -93,7 +142,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>40</y>
        <width>561</width>
        <height>52</height>
       </rect>
@@ -127,9 +176,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>260</y>
+      <y>320</y>
       <width>601</width>
-      <height>251</height>
+      <height>261</height>
      </rect>
     </property>
     <property name="title">
@@ -139,7 +188,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>30</y>
+       <y>40</y>
        <width>561</width>
        <height>164</height>
       </rect>
@@ -149,6 +198,13 @@
        <widget class="QLabel" name="labelStatusCurrentDescription">
         <property name="text">
          <string>Current item</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelBackupParameters">
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </item>
@@ -211,19 +267,6 @@
        <normaloff>:/Backy/process-stop.png</normaloff>:/Backy/process-stop.png</iconset>
      </property>
     </widget>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>520</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
