@@ -4,6 +4,19 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QString>
+#include <QMutex>
+#include <QWaitCondition>
+#include <QMessageBox>
+#include <queue>
+#include "item.h"
+#include "producer.h"
+#include "consumer.h"
+#include "preferences.h"
+
+#define KILOBYTE (qint64) 1024
+#define MEGABYTE (KILOBYTE * 1024)
+#define GIGABYTE (MEGABYTE * 1024)
+#define TERABYTE (GIGABYTE * 1024)
 
 namespace Ui {
   class Interface;
@@ -18,14 +31,22 @@ class Interface : public QMainWindow {
 
   private:
     Ui::Interface * ui;
+    Preferences * preferences;
     QFileDialog * sourceDialog,
       * targetDialog;
+    std::queue<Item> * buffer;
+    QMutex * lock;
+    QWaitCondition * notEmpty,
+      * notFull;
+    Producer * producer;
+    Consumer * consumer;
   private slots:
-    void browseSourceSlot(bool clicked);
-    void browseTargetSlot(bool clicked);
+    void onBrowseSource(bool clicked);
+    void onBrowseTarget(bool clicked);
+    void onQuit(bool clicked);
     void launchBackup(bool clicked);
-    void onSourceChoosen(QString selected);
-    void onTargetChoosen(QString selected);
+    void onChooseSource(QString selected);
+    void onChooseTarget(QString selected);
     void onStatus(int processed, QString current);
 };
 
