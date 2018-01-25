@@ -1,25 +1,21 @@
 #include "consumer.h"
 
-Consumer::Consumer(
-  queue<Item> * buffer,
-  QMutex * lock,
-  QWaitCondition * notEmpty,
-  QWaitCondition * notFull,
-  size_t bufferMax,
-  QString eventLog,
-  QString errorLog
-) {
+Consumer::Consumer() {
+  this->buffer = nullptr;
+  this->lock = nullptr;
+  this->notEmpty = nullptr;
+  this->notFull = nullptr;
   this->synchronize = false;
-  this->buffer = buffer;
-  this->lock = lock;
-  this->notEmpty = notEmpty;
-  this->notFull = notFull;
-  this->bufferMax = bufferMax;
-  this->detectedCount = 1;
+  this->keepObsolete = false;
+  this->criterion = CRITERION_MORE_RECENT;
+  this->detectedCount = 0;
   this->processedCount = 0;
-  this->copyBufferSize = 1024;
-  this->log = new Logger(eventLog, errorLog);
-  //QObject::connect(this->currentFile, SIGNAL(bytesWritten(qint64)), this, SLOT(inputOutputProgress(qint64)));
+  this->bufferMax = DEFAULT_BUFFER_MAX;
+  this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
+  this->log = nullptr;
+  this->current = nullptr;
+  this->currentFile = nullptr;
+  this->currentDirectory = nullptr;
 }
 
 Consumer::~Consumer() {
@@ -72,16 +68,24 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   return false;
 }
 
-int Consumer::getDetectedCount() {
-  return this->detectedCount;
-}
-
-int Consumer::getProcessedCount() {
+qint64 Consumer::getProcessedCount() const {
   return this->processedCount;
 }
 
-void Consumer::setSynchronize(bool synchronize) {
-  this->synchronize = synchronize;
+void Consumer::setBuffer(std::queue<Item> * buffer) {
+  this->buffer = buffer;
+}
+
+void Consumer::setLock(QMutex * lock) {
+  this->lock = lock;
+}
+
+void Consumer::setNotEmpty(QWaitCondition * notEmpty) {
+  this->notEmpty = notEmpty;
+}
+
+void Consumer::setNotFull(QWaitCondition * notFull) {
+  this->notFull = notFull;
 }
 
 void Consumer::setSource(QString source) {
@@ -92,16 +96,24 @@ void Consumer::setTarget(QString target) {
   this->target = target;
 }
 
-void Consumer::setDetectedCount(int detectedCount) {
-  this->detectedCount = detectedCount;
+void Consumer::setSynchronize(bool synchronize) {
+  this->synchronize = synchronize;
+}
+
+void Consumer::setKeepObsolete(bool keepObsolete) {
+  this->keepObsolete = keepObsolete;
 }
 
 void Consumer::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
-void Consumer::setKeepObsolete(bool keepObsolete) {
-  this->keepObsolete = keepObsolete;
+void Consumer::setDetectedCount(int detectedCount) {
+  this->detectedCount = detectedCount;
+}
+
+void Consumer::setLogger(QString &events, QString &errors) {
+  this->log = new Logger(events, errors);
 }
 
 void Consumer::run() {

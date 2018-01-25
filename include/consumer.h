@@ -14,12 +14,12 @@
 #include "item.h"
 #include "logger.h"
 
-using namespace std;
+#define DEFAULT_COPY_BUFFER_SIZE 1024
 
 class Consumer : public QThread {
   Q_OBJECT
   private:
-    queue<Item> * buffer;
+    std::queue<Item> * buffer;
     QMutex * lock;
     QWaitCondition * notEmpty,
       * notFull;
@@ -28,9 +28,9 @@ class Consumer : public QThread {
     bool synchronize,
       keepObsolete;
     Criterion criterion;
-    int detectedCount,
-      processedCount;
-    size_t bufferMax,
+    qint64 detectedCount,
+      processedCount,
+      bufferMax,
       copyBufferSize;
     Logger * log;
     Item * current;
@@ -38,24 +38,20 @@ class Consumer : public QThread {
     QDir * currentDirectory;
     bool copyFile(QFile * source, QFile * destination, qint64 size);
   public:
-    Consumer(
-      queue<Item> * buffer,
-      QMutex * lock,
-      QWaitCondition * notEmpty,
-      QWaitCondition * notFull,
-      size_t bufferMax,
-      QString eventLog,
-      QString errorLog
-    );
+    Consumer();
     ~Consumer();
-    int getDetectedCount();
-    int getProcessedCount();
-    void setSynchronize(bool synchronize);
+    qint64 getProcessedCount() const;
+    void setBuffer(std::queue<Item> * buffer);
+    void setLock(QMutex * lock);
+    void setNotEmpty(QWaitCondition * notEmpty);
+    void setNotFull(QWaitCondition * notFull);
     void setSource(QString source);
     void setTarget(QString target);
-    void setDetectedCount(int detectedCount);
-    void setCriterion(Criterion criterion);
+    void setSynchronize(bool synchronize);
     void setKeepObsolete(bool keepObsolete);
+    void setCriterion(Criterion criterion);
+    void setDetectedCount(int detectedCount);
+    void setLogger(QString &events, QString &errors);
     void run();
   signals:
     void currentItem(QString item);

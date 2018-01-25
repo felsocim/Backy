@@ -6,6 +6,8 @@
 #include <QFileInfo>
 #include <ostream>
 
+#define DEFAULT_BUFFER_MAX 5
+
 typedef enum {
   TYPE_FILE,
   TYPE_DIRECTORY

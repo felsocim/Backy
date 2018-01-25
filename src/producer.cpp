@@ -1,47 +1,65 @@
 #include "producer.h"
 
-Producer::Producer(
-  queue<Item> * buffer,
-  QMutex * lock,
-  QWaitCondition * notEmpty,
-  QWaitCondition * notFull,
-  size_t bufferMax,
-  QString eventLog,
-  QString errorLog
-) {
-  this->buffer = buffer;
-  this->lock = lock;
-  this->notEmpty = notEmpty;
-  this->notFull = notFull;
-  this->bufferMax = bufferMax;
+Producer::Producer() {
+  this->buffer = nullptr;
+  this->lock = nullptr;
+  this->notEmpty = nullptr;
+  this->notFull = nullptr;
+  this->root = nullptr;
   this->filesCount = 0;
   this->directoriesCount = 0;
+  this->bufferMax = DEFAULT_BUFFER_MAX;
   this->size = 0;
-  this->log = new Logger(eventLog, errorLog);
+  this->log = nullptr;
 }
 
 Producer::~Producer() {
+  delete this->root;
   delete this->log;
 }
 
-int Producer::getFilesCount() {
+qint64 Producer::getFilesCount() const {
   return this->filesCount;
 }
 
-int Producer::getDirectoriesCount() {
+qint64 Producer::getDirectoriesCount() const {
   return this->directoriesCount;
 }
 
-size_t Producer::getSize() {
+qint64 Producer::getSize() const {
   return this->size;
 }
 
-void Producer::setRoot(QString root) {
-  this->root = QDir(root);
+void Producer::setBuffer(std::queue<Item> * buffer) {
+  this->buffer = buffer;
+}
+
+void Producer::setLock(QMutex * lock) {
+  this->lock = lock;
+}
+
+void Producer::setNotEmpty(QWaitCondition * notEmpty) {
+  this->notEmpty = notEmpty;
+}
+
+void Producer::setNotFull(QWaitCondition * notFull) {
+  this->notFull = notFull;
+}
+
+void Producer::setRoot(QString &root) {
+  this->root = new QDir(root);
+}
+
+void Producer::setBufferMax(size_t bufferMax) {
+  this->bufferMax = bufferMax;
+}
+
+void Producer::setLogger(QString &events, QString &errors) {
+  this->log = new Logger(events, errors);
 }
 
 void Producer::run() {
-  QDirIterator i(this->root.absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   this->log->logEvent("Producer has started");
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
@@ -54,7 +72,7 @@ void Producer::run() {
       Item(
         current.isDir() ? TYPE_DIRECTORY : TYPE_FILE,
         current.fileName(),
-        this->root.relativeFilePath(current.filePath()),
+        this->root->relativeFilePath(current.filePath()),
         current.lastModified(),
         current.size()
       )
@@ -67,7 +85,7 @@ void Producer::run() {
 }
 
 void Producer::analyze() {
-  QDirIterator i(this->root.absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
     if(current.isDir()) {
@@ -78,7 +96,7 @@ void Producer::analyze() {
     this->size += current.size();
   }
   this->log->logEvent(
-    "Producer analyzed root directory '" + this->root.absolutePath() + "' (" +
+    "Producer analyzed root directory '" + this->root->absolutePath() + "' (" +
     QString::number(this->directoriesCount) +
     " folder(s) and " +
     QString::number(this->filesCount) +
