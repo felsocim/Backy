@@ -13,7 +13,10 @@ set(CMAKE_AUTOUIC ON)
 file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*")
 file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*")
 
-add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+set(CMAKE_AUTORCC ON)
+file(GLOB RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../res/*.qrc")
+
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${RESOURCES})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/../include")
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)

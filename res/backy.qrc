@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/Backy">
+        <file>document-save.png</file>
+        <file>edit-copy.png</file>
+        <file>edit-cut.png</file>
+        <file>edit-paste.png</file>
+        <file>folder-open.png</file>
+        <file>help-browser.png</file>
+        <file>internet-web-browser.png</file>
+        <file>preferences-system.png</file>
+        <file>process-stop.png</file>
+        <file>system-log-out.png</file>
+    </qresource>
+</RCC>
