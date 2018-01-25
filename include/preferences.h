@@ -9,14 +9,12 @@ namespace Ui {
 
 class Preferences : public QDialog
 {
-    Q_OBJECT
-
+  Q_OBJECT
   public:
-    explicit Preferences(QWidget *parent = 0);
+    explicit Preferences(QWidget * parent = 0);
     ~Preferences();
-
   private:
-    Ui::Preferences *ui;
+    Ui::Preferences * ui;
 };
 
 #endif // PREFERENCES_H
