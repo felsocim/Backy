@@ -7,27 +7,28 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>618</height>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Interface</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">font: 10pt &quot;Open Sans&quot;;</string>
-  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="start">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>540</y>
-      <width>75</width>
-      <height>23</height>
+      <x>490</x>
+      <y>520</y>
+      <width>121</width>
+      <height>26</height>
      </rect>
     </property>
     <property name="text">
      <string>Go!</string>
+    </property>
+    <property name="icon">
+     <iconset resource="../res/backy.qrc">
+      <normaloff>:/Backy/document-save.png</normaloff>:/Backy/document-save.png</iconset>
     </property>
    </widget>
    <widget class="QGroupBox" name="groupSource">
@@ -36,7 +37,7 @@
       <x>10</x>
       <y>10</y>
       <width>601</width>
-      <height>131</height>
+      <height>121</height>
      </rect>
     </property>
     <property name="title">
@@ -67,12 +68,9 @@
         <property name="text">
          <string>Browse...</string>
         </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="3">
-       <widget class="QLabel" name="processedEntries">
-        <property name="text">
-         <string>Found &lt;number&gt; file(s) in &lt;number&gt; folder(s) with the total size of &lt;number&gt; &lt;units&gt;.</string>
+        <property name="icon">
+         <iconset resource="../res/backy.qrc">
+          <normaloff>:/Backy/folder-open.png</normaloff>:/Backy/folder-open.png</iconset>
         </property>
        </widget>
       </item>
@@ -112,6 +110,10 @@
        <widget class="QPushButton" name="browseTarget">
         <property name="text">
          <string>Browse...</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../res/backy.qrc">
+          <normaloff>:/Backy/folder-open.png</normaloff>:/Backy/folder-open.png</iconset>
         </property>
        </widget>
       </item>
@@ -204,6 +206,10 @@
      <property name="text">
       <string>&amp;Abort</string>
      </property>
+     <property name="icon">
+      <iconset resource="../res/backy.qrc">
+       <normaloff>:/Backy/process-stop.png</normaloff>:/Backy/process-stop.png</iconset>
+     </property>
     </widget>
    </widget>
    <widget class="QLabel" name="label">
@@ -226,7 +232,7 @@
      <x>0</x>
      <y>0</y>
      <width>621</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -235,10 +241,12 @@
     </property>
     <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menuLanguage">
+   <widget class="QMenu" name="menuEdit">
     <property name="title">
-     <string>&amp;Language</string>
+     <string>&amp;Edit</string>
     </property>
+    <addaction name="separator"/>
+    <addaction name="actionPreferences"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -248,11 +256,15 @@
     <addaction name="actionAboutBacky"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuLanguage"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/Backy/system-log-out.png</normaloff>:/Backy/system-log-out.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Quit</string>
    </property>
@@ -261,17 +273,42 @@
    </property>
   </action>
   <action name="actionOnlineDocumentation">
+   <property name="icon">
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/Backy/internet-web-browser.png</normaloff>:/Backy/internet-web-browser.png</iconset>
+   </property>
    <property name="text">
     <string>Online &amp;documentation</string>
    </property>
+   <property name="shortcut">
+    <string>F1</string>
+   </property>
   </action>
   <action name="actionAboutBacky">
+   <property name="icon">
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/Backy/help-browser.png</normaloff>:/Backy/help-browser.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;About Backy</string>
    </property>
   </action>
+  <action name="actionPreferences">
+   <property name="icon">
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/Backy/preferences-system.png</normaloff>:/Backy/preferences-system.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Preferences</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+P</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../res/backy.qrc"/>
+ </resources>
  <connections/>
 </ui>
