@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Preferences</class>
  <widget class="QDialog" name="Preferences">
@@ -5,14 +6,168 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>491</width>
+    <height>461</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <widget class="QGroupBox" name="groupLanguage">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>471</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>&amp;Language</string>
+   </property>
+   <widget class="QLabel" name="labelLanguageDescription">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>431</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choose the language of the application's menus, messages and dialogues.</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QListView" name="listLanguages">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>431</width>
+      <height>131</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupAdvanced">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>260</y>
+     <width>471</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>&amp;Advanced</string>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>431</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="layoutAdvanced">
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelItemBufferSize">
+       <property name="text">
+        <string>Item buffer size (no. of entries):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelCopyBufferSize">
+       <property name="text">
+        <string>Copy buffer size (MB):</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="spinItemBufferSize">
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="spinCopyBufferSize">
+       <property name="maximum">
+        <number>1024</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>410</y>
+     <width>471</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="layoutBottom">
+    <item>
+     <spacer name="spacerBottomLeft">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="buttonDiscard">
+      <property name="text">
+       <string> &amp;Discard</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../res/backy.qrc">
+        <normaloff>:/Backy/edit-undo.png</normaloff>:/Backy/edit-undo.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="buttonApply">
+      <property name="text">
+       <string> &amp;Save</string>
+      </property>
+      <property name="icon">
+       <iconset resource="../res/backy.qrc">
+        <normaloff>:/Backy/document-save.png</normaloff>:/Backy/document-save.png</iconset>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="spacerBottomRight">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res/backy.qrc"/>
+ </resources>
  <connections/>
 </ui>
