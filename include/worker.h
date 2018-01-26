@@ -26,7 +26,7 @@ class Worker : public QThread
     void setLock(QMutex * lock);
     void setNotEmpty(QWaitCondition * notEmpty);
     void setNotFull(QWaitCondition * notFull);
-    virtual void setLogger(QString path) = 0;
+    virtual void createLogsAt(QString path) = 0;
 };
 
 #endif // WORKER_H

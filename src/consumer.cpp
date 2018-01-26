@@ -90,7 +90,7 @@ void Consumer::setDetectedCount(int detectedCount) {
   this->detectedCount = detectedCount;
 }
 
-void Consumer::setLogger(QString path) {
+void Consumer::createLogsAt(QString path) {
   this->log = new Logger(path, CONSUMER_EVENT_LOG_FILE_NAME, CONSUMER_ERROR_LOG_FILE_NAME);
 }
 

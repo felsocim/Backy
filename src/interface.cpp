@@ -22,13 +22,13 @@ Interface::Interface(QWidget *parent) :
   this->producer->setLock(this->lock);
   this->producer->setNotEmpty(this->notEmpty);
   this->producer->setNotFull(this->notFull);
-  this->producer->setLogger(this->preferences->getLogsLocation());
+  this->producer->createLogsAt(this->preferences->getLogsLocation());
 
   this->consumer->setBuffer(this->buffer);
   this->consumer->setLock(this->lock);
   this->consumer->setNotEmpty(this->notEmpty);
   this->consumer->setNotFull(this->notFull);
-  this->consumer->setLogger(this->preferences->getLogsLocation());
+  this->consumer->createLogsAt(this->preferences->getLogsLocation());
 
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));

@@ -32,7 +32,7 @@ void Producer::setBufferMax(size_t bufferMax) {
   this->bufferMax = bufferMax;
 }
 
-void Producer::setLogger(QString path) {
+void Producer::createLogsAt(QString path) {
   this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }
 
