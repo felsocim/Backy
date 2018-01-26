@@ -43,6 +43,8 @@ class Interface : public QMainWindow {
   private slots:
     void onBrowseSource(bool clicked);
     void onBrowseTarget(bool clicked);
+    void onEditPreferences(bool clicked);
+    void onShowAboutBox(bool clicked);
     void onQuit(bool clicked);
     void launchBackup(bool clicked);
     void onChooseSource(QString selected);

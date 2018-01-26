@@ -33,6 +33,9 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));
 
+  QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
+  QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
+
   QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit(bool)));
   QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit(bool)));
 
@@ -41,7 +44,16 @@ Interface::Interface(QWidget *parent) :
 }
 
 Interface::~Interface() {
-  delete ui;
+  delete this->ui;
+  delete this->preferences;
+  delete this->sourceDialog;
+  delete this->targetDialog;
+  delete this->buffer;
+  delete this->lock;
+  delete this->notEmpty;
+  delete this->notFull;
+  delete this->producer;
+  delete this->consumer;
 }
 
 void Interface::onBrowseSource(bool clicked) {
@@ -50,6 +62,14 @@ void Interface::onBrowseSource(bool clicked) {
 
 void Interface::onBrowseTarget(bool clicked) {
   this->targetDialog->show();
+}
+
+void Interface::onEditPreferences(bool clicked) {
+  this->preferences->show();
+}
+
+void Interface::onShowAboutBox(bool clicked) {
+  QMessageBox::about(this, "About Backy", tr("Backy is a simple backup program allowing to create and synchronize drive or folder backups.\nCopyright (C) 2018 Marek Felsoci. Lincesed under LGPL License."));
 }
 
 void Interface::onQuit(bool clicked) {

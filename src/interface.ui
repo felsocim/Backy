@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>645</height>
+    <height>685</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,11 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="editSourcePath"/>
+       <widget class="QLineEdit" name="editSourcePath">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0" colspan="3">
        <widget class="QLabel" name="labelSourceDescription">
@@ -118,7 +122,7 @@
       <x>10</x>
       <y>200</y>
       <width>601</width>
-      <height>111</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="title">
@@ -153,7 +157,37 @@
        </widget>
       </item>
       <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="editTargetPath"/>
+       <widget class="QLineEdit" name="editTargetPath">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>100</y>
+       <width>561</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="checkSynchronize">
+        <property name="text">
+         <string>Use as backup basis</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkKeepObsolete">
+        <property name="text">
+         <string>Keep obsolete item(s)</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -162,7 +196,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>320</y>
+      <y>360</y>
       <width>601</width>
       <height>221</height>
      </rect>
@@ -251,7 +285,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>330</y>
+      <y>370</y>
       <width>561</width>
       <height>20</height>
      </rect>
@@ -267,7 +301,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>550</y>
+      <y>590</y>
       <width>601</width>
       <height>41</height>
      </rect>
