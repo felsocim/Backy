@@ -59,6 +59,7 @@ class Interface : public QMainWindow {
     void onConsumerStarted();
     void onProducerFinished();
     void onConsumerFinished();
+    void onSavePreferences();
   signals:
     void signalStart();
     void signalProgress(bool state);

@@ -65,6 +65,8 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->sourceDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseSource(QString)));
   QObject::connect(this->targetDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseTarget(QString)));
 
+  QObject::connect(this->preferences, SIGNAL(triggerSave()), this, SLOT(onSavePreferences()));
+
   this->producerWorker.start();
   this->consumerWorker.start();
 }
@@ -228,4 +230,18 @@ void Interface::onProducerFinished() {
 
 void Interface::onConsumerFinished() {
   this->consumerInProgress = false;
+}
+
+void Interface::onSavePreferences() {
+  if(this->inProgress()) {
+    QMessageBox::warning(
+      this,
+      tr("Unable to save preferences"),
+      tr("A backup is currently in progress!\nThus the changes you've made to application's preferences cannot be applied!\nPlease redo your changes once the backup will be finished."),
+      QMessageBox::Ok
+    );
+  } else {
+    this->producer->setBufferMax(this->preferences->getItemBufferSize());
+    this->consumer->setCopyBufferSize(this->preferences->getCopyBufferSize());
+  }
 }
