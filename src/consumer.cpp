@@ -90,7 +90,7 @@ void Consumer::setDetectedCount(int detectedCount) {
 }
 
 void Consumer::setCopyBufferSize(qint64 copyBufferSize) {
-  this->copyBufferSize = copyBufferSize;
+  this->copyBufferSize = MEGABYTE * copyBufferSize;
 }
 
 void Consumer::createLogsAt(QString path) {
