@@ -178,7 +178,7 @@
       <item>
        <widget class="QCheckBox" name="checkSynchronize">
         <property name="text">
-         <string>Use as backup basis</string>
+         <string>Use to synchronize</string>
         </property>
        </widget>
       </item>

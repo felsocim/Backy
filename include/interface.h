@@ -24,11 +24,9 @@ namespace Ui {
 
 class Interface : public QMainWindow {
   Q_OBJECT
-
   public:
-    explicit Interface(QWidget *parent = 0);
+    explicit Interface(QWidget * parent = 0);
     ~Interface();
-
   private:
     Ui::Interface * ui;
     Preferences * preferences;
@@ -46,7 +44,7 @@ class Interface : public QMainWindow {
     void onEditPreferences(bool clicked);
     void onShowAboutBox(bool clicked);
     void onQuit(bool clicked);
-    void launchBackup(bool clicked);
+    void onBeginBackup(bool clicked);
     void onChooseSource(QString selected);
     void onChooseTarget(QString selected);
     void onStatus(int processed, QString current);

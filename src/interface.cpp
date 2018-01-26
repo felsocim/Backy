@@ -143,7 +143,7 @@ void Interface::onChooseTarget(QString selected) {
   this->consumer->setTarget(selected);
 }
 
-void Interface::launchBackup(bool clicked) {
+void Interface::onBeginBackup(bool clicked) {
 
 }
 
