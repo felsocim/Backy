@@ -1,10 +1,6 @@
 #include "consumer.h"
 
-Consumer::Consumer() {
-  this->buffer = nullptr;
-  this->lock = nullptr;
-  this->notEmpty = nullptr;
-  this->notFull = nullptr;
+Consumer::Consumer() : Worker() {
   this->synchronize = false;
   this->keepObsolete = false;
   this->criterion = CRITERION_MORE_RECENT;
@@ -12,7 +8,6 @@ Consumer::Consumer() {
   this->processedCount = 0;
   this->bufferMax = DEFAULT_BUFFER_MAX;
   this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
-  this->log = nullptr;
   this->current = nullptr;
   this->currentFile = nullptr;
   this->currentDirectory = nullptr;
@@ -72,22 +67,6 @@ qint64 Consumer::getProcessedCount() const {
   return this->processedCount;
 }
 
-void Consumer::setBuffer(std::queue<Item> * buffer) {
-  this->buffer = buffer;
-}
-
-void Consumer::setLock(QMutex * lock) {
-  this->lock = lock;
-}
-
-void Consumer::setNotEmpty(QWaitCondition * notEmpty) {
-  this->notEmpty = notEmpty;
-}
-
-void Consumer::setNotFull(QWaitCondition * notFull) {
-  this->notFull = notFull;
-}
-
 void Consumer::setSource(QString source) {
   this->source = source;
 }
@@ -112,8 +91,8 @@ void Consumer::setDetectedCount(int detectedCount) {
   this->detectedCount = detectedCount;
 }
 
-void Consumer::setLogger(QString &events, QString &errors) {
-  this->log = new Logger(events, errors);
+void Consumer::setLogger(QString path) {
+  this->log = new Logger(path, CONSUMER_EVENT_LOG_FILE_NAME, CONSUMER_ERROR_LOG_FILE_NAME);
 }
 
 void Consumer::run() {

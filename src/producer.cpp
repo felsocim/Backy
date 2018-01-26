@@ -1,21 +1,15 @@
 #include "producer.h"
 
-Producer::Producer() {
-  this->buffer = nullptr;
-  this->lock = nullptr;
-  this->notEmpty = nullptr;
-  this->notFull = nullptr;
+Producer::Producer() : Worker() {
   this->root = nullptr;
   this->filesCount = 0;
   this->directoriesCount = 0;
   this->bufferMax = DEFAULT_BUFFER_MAX;
   this->size = 0;
-  this->log = nullptr;
 }
 
 Producer::~Producer() {
   delete this->root;
-  delete this->log;
 }
 
 qint64 Producer::getFilesCount() const {
@@ -30,22 +24,6 @@ qint64 Producer::getSize() const {
   return this->size;
 }
 
-void Producer::setBuffer(std::queue<Item> * buffer) {
-  this->buffer = buffer;
-}
-
-void Producer::setLock(QMutex * lock) {
-  this->lock = lock;
-}
-
-void Producer::setNotEmpty(QWaitCondition * notEmpty) {
-  this->notEmpty = notEmpty;
-}
-
-void Producer::setNotFull(QWaitCondition * notFull) {
-  this->notFull = notFull;
-}
-
 void Producer::setRoot(QString &root) {
   this->root = new QDir(root);
 }
@@ -54,8 +32,8 @@ void Producer::setBufferMax(size_t bufferMax) {
   this->bufferMax = bufferMax;
 }
 
-void Producer::setLogger(QString &events, QString &errors) {
-  this->log = new Logger(events, errors);
+void Producer::setLogger(QString path) {
+  this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }
 
 void Producer::run() {
