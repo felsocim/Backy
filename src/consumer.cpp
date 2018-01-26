@@ -15,7 +15,7 @@ Consumer::Consumer() : Worker() {
 
 bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   char * bytes = new char[this->copyBufferSize];
-  qint64 code = 0;
+  qint64 actuallyWritten = 0, toBeWritten = 0, code = 0, totalWritten = 0;
 
   if(source->open(QIODevice::ReadOnly))
     this->log->logEvent("Opened source file: "+ source->fileName());
@@ -28,13 +28,16 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
     this->log->logError("Unable to open destination file: " + destination->fileName());
 
   if(source->isReadable() && destination->isWritable()) {
-    while((code = source->read(bytes, this->copyBufferSize)) != 0) {
-      if(code < 0)
+    while((toBeWritten = source->read(bytes, this->copyBufferSize)) != 0) {
+      if(toBeWritten < 0) {
         goto error;
-      if((code = destination->write(bytes, code)) < 1)
+      }
+      if((actuallyWritten = destination->write(bytes, toBeWritten)) != toBeWritten) {
         goto error;
+      }
+      totalWritten += actuallyWritten;
+      emit this->currentProgress((int) ceil(totalWritten * 100 / size));
       memset(bytes, 0, this->copyBufferSize);
-      emit this->currentProgress((int) (((float) code / (float) size) * 100.0));
     }
     delete[] bytes;
     source->close();

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(Backy LANGUAGES C CXX)
 
-add_compile_options(-std=c++11 -Wall -g)
+add_compile_options(-std=c++11 -Wall -g -lm)
 
 set(CMAKE_PREFIX_PATH /home/marek/Qt/5.10.0/gcc_64/lib/cmake)
 find_package(Qt5Widgets REQUIRED)

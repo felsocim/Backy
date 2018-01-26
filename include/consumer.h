@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sys/types.h>
 #include <utime.h>
+#include <math.h>
 #include "worker.h"
 
 class Consumer : public Worker {
