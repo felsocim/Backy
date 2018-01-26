@@ -89,6 +89,10 @@ void Consumer::setDetectedCount(int detectedCount) {
   this->detectedCount = detectedCount;
 }
 
+void Consumer::setCopyBufferSize(qint64 copyBufferSize) {
+  this->copyBufferSize = copyBufferSize;
+}
+
 void Consumer::createLogsAt(QString path) {
   this->log = new Logger(path, CONSUMER_EVENT_LOG_FILE_NAME, CONSUMER_ERROR_LOG_FILE_NAME);
 }

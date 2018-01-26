@@ -31,6 +31,7 @@ class Consumer : public Worker {
     void setKeepObsolete(bool keepObsolete);
     void setCriterion(Criterion criterion);
     void setDetectedCount(int detectedCount);
+    void setCopyBufferSize(qint64 copyBufferSize);
     void createLogsAt(QString path);
     void work();
   signals:
