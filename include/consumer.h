@@ -14,7 +14,6 @@
 #include "item.h"
 #include "logger.h"
 
-#define DEFAULT_COPY_BUFFER_SIZE 1024
 
 class Consumer : public QThread {
   Q_OBJECT

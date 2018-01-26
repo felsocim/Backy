@@ -5,8 +5,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include <ostream>
-
-#define DEFAULT_BUFFER_MAX 5
+#include "preferences.h"
 
 typedef enum {
   TYPE_FILE,
