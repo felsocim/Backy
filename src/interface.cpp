@@ -60,9 +60,7 @@ void Interface::onBrowseTarget(bool clicked) {
 }
 
 void Interface::onQuit(bool clicked) {
-  if(this->producer->isFinished() && this->consumer->isFinished()) {
-    this->close();
-  } else {
+  if(this->producer->isRunning() || this->consumer->isRunning()) {
     if(QMessageBox::question(
       this,
       tr("Abort and quit"),
@@ -71,9 +69,12 @@ void Interface::onQuit(bool clicked) {
       QMessageBox::Cancel
     ) == QMessageBox::Abort) {
       // TODO: Abort producer and consumer threads
-      this->close();
+    } else {
+      return;
     }
   }
+
+  this->close();
 }
 
 void Interface::onChooseSource(QString selected) {
