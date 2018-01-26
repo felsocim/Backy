@@ -13,11 +13,6 @@
 #include "consumer.h"
 #include "preferences.h"
 
-#define KILOBYTE (qint64) 1024
-#define MEGABYTE (KILOBYTE * 1024)
-#define GIGABYTE (MEGABYTE * 1024)
-#define TERABYTE (GIGABYTE * 1024)
-
 namespace Ui {
   class Interface;
 }

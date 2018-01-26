@@ -12,6 +12,11 @@
 #error "Unsupported operating system!"
 #endif
 
+#define KILOBYTE (qint64) 1024
+#define MEGABYTE (KILOBYTE * 1024)
+#define GIGABYTE (MEGABYTE * 1024)
+#define TERABYTE (GIGABYTE * 1024)
+
 #define PRODUCER_EVENT_LOG_FILE_NAME "produder_event.log"
 #define PRODUCER_ERROR_LOG_FILE_NAME "producer_error.log"
 #define CONSUMER_EVENT_LOG_FILE_NAME "consumer_event.log"
