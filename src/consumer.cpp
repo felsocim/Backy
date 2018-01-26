@@ -104,7 +104,7 @@ void Consumer::run() {
     Item item = this->buffer->front();
     this->current = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
 
-    emit this->currentItem(this->current->getPath() + "/" + this->current->getName());
+    emit this->currentItem(this->current->getPath());
 
     QString left(this->source + "/" + this->current->getPath());
     QString existing(this->target + "/" + this->current->getPath());
