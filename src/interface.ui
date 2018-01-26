@@ -229,7 +229,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QProgressBar" name="labelStatusCurrentProgress">
+       <widget class="QProgressBar" name="progressStatusCurrentProgress">
         <property name="value">
          <number>0</number>
         </property>
@@ -252,7 +252,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QProgressBar" name="labelStatusOverallProgress">
+       <widget class="QProgressBar" name="progressStatusOverallProgress">
         <property name="value">
          <number>0</number>
         </property>
@@ -263,7 +263,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="labelStatusAbort">
+    <widget class="QPushButton" name="buttonAbort">
      <property name="geometry">
       <rect>
        <x>490</x>

@@ -94,7 +94,8 @@ void Consumer::createLogsAt(QString path) {
   this->log = new Logger(path, CONSUMER_EVENT_LOG_FILE_NAME, CONSUMER_ERROR_LOG_FILE_NAME);
 }
 
-void Consumer::run() {
+void Consumer::work() {
+  emit this->started();
   this->processedCount = 0;
   this->log->logEvent("Consumer has started");
   do {
@@ -178,9 +179,12 @@ void Consumer::run() {
     delete this->current;
 
     emit overallProgress((int) (((float) this->processedCount / (float) this->detectedCount) * 100.0));
+
     this->notEmpty->wakeOne();
     this->lock->unlock();
-  } while(this->processedCount < this->detectedCount);
+  } while(this->processedCount < this->detectedCount && this->progress);
+
+  if(!this->progress) goto finish;
 
   if(!this->keepObsolete) {
     QDirIterator i(this->target, QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
@@ -197,5 +201,7 @@ void Consumer::run() {
     }
   }
 
+  finish:
+  emit this->finished();
   this->log->logEvent("Consumer has finished");
 }

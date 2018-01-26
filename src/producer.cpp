@@ -36,10 +36,11 @@ void Producer::createLogsAt(QString path) {
   this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }
 
-void Producer::run() {
+void Producer::work() {
+  emit this->started();
   QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   this->log->logEvent("Producer has started");
-  while(i.hasNext()) {
+  while(i.hasNext() && this->progress) {
     QFileInfo current = QFileInfo(i.next());
     this->lock->lock();
     while(this->buffer->size() == this->bufferMax) {
@@ -59,10 +60,12 @@ void Producer::run() {
     this->notFull->wakeOne();
     this->lock->unlock();
   }
+  emit this->finished();
   this->log->logEvent("Producer has finished");
 }
 
 void Producer::analyze() {
+  emit this->started();
   this->directoriesCount = 0;
   this->filesCount = 0;
   this->size = 0;
@@ -85,4 +88,5 @@ void Producer::analyze() {
     QString::number(this->size) +
     " bytes)"
   );
+  emit this->finished();
 }

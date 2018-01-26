@@ -32,8 +32,8 @@ class Consumer : public Worker {
     void setKeepObsolete(bool keepObsolete);
     void setCriterion(Criterion criterion);
     void setDetectedCount(int detectedCount);
-    void run();
     void createLogsAt(QString path);
+    void work();
   signals:
     void currentItem(QString item);
     void currentProgress(int current);

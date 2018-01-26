@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QString>
+#include <QThread>
 #include <QMutex>
 #include <QWaitCondition>
 #include <QMessageBox>
@@ -31,8 +32,14 @@ class Interface : public QMainWindow {
     QMutex * lock;
     QWaitCondition * notEmpty,
       * notFull;
+    QThread producerWorker,
+      consumerWorker;
     Producer * producer;
     Consumer * consumer;
+    bool producerInProgress,
+      consumerInProgress;
+    void abort();
+    bool inProgress();
   private slots:
     void onBrowseSource(bool clicked);
     void onBrowseTarget(bool clicked);
@@ -40,11 +47,21 @@ class Interface : public QMainWindow {
     void onToggleKeepObsolete(bool checked);
     void onEditPreferences(bool clicked);
     void onShowAboutBox(bool clicked);
+    void onAbort(bool clicked);
     void onQuit(bool clicked);
     void onBeginBackup(bool clicked);
     void onChooseSource(QString selected);
     void onChooseTarget(QString selected);
-    void onStatus(int processed, QString current);
+    void onStatusCurrentItem(QString item);
+    void onStatusCurrentProgress(int current);
+    void onStatusOverallProgress(int overall);
+    void onProducerStarted();
+    void onConsumerStarted();
+    void onProducerFinished();
+    void onConsumerFinished();
+  signals:
+    void signalStart();
+    void signalProgress(bool state);
 };
 
 #endif // INTERFACE_H

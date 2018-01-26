@@ -6,9 +6,15 @@ Worker::Worker() {
   this->notEmpty = nullptr;
   this->notFull = nullptr;
   this->log = nullptr;
+  this->progress = true;
+}
+
 Worker::~Worker() {
   delete this->log;
 }
+
+bool Worker::getProgress() const {
+  return this->progress;
 }
 
 void Worker::setBuffer(std::queue<Item> * buffer) {
@@ -25,4 +31,13 @@ void Worker::setNotEmpty(QWaitCondition * notEmpty) {
 
 void Worker::setNotFull(QWaitCondition * notFull) {
   this->notFull = notFull;
+}
+
+void Worker::setProgress(bool progress) {
+  this->progress = progress;
+  if(!this->progress) qDebug() << "FALSE PROGRESS";
+}
+
+void Worker::doWork() {
+  this->work();
 }

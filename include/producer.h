@@ -18,8 +18,9 @@ class Producer : public Worker {
     qint64 getSize() const;
     void setRoot(QString &root);
     void setBufferMax(size_t bufferMax);
-    void run();
     void createLogsAt(QString path);
+    void work();
+  public slots:
     void analyze();
 };
 
