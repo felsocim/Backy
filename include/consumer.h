@@ -17,7 +17,6 @@ class Consumer : public Worker {
     Criterion criterion;
     qint64 detectedCount,
       processedCount,
-      bufferMax,
       copyBufferSize;
     Item * current;
     QFile * currentFile;
