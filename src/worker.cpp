@@ -6,6 +6,9 @@ Worker::Worker() {
   this->notEmpty = nullptr;
   this->notFull = nullptr;
   this->log = nullptr;
+Worker::~Worker() {
+  delete this->log;
+}
 }
 
 void Worker::setBuffer(std::queue<Item> * buffer) {

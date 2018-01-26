@@ -24,7 +24,6 @@ class Consumer : public Worker {
     bool copyFile(QFile * source, QFile * destination, qint64 size);
   public:
     Consumer();
-    ~Consumer();
     qint64 getProcessedCount() const;
     void setSource(QString source);
     void setTarget(QString target);

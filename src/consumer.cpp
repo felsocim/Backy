@@ -13,10 +13,6 @@ Consumer::Consumer() : Worker() {
   this->currentDirectory = nullptr;
 }
 
-Consumer::~Consumer() {
-  delete this->log;
-}
-
 bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   char * bytes = new char[this->copyBufferSize];
   qint64 code = 0;
