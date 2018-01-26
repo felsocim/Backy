@@ -23,7 +23,7 @@
 #define CONSUMER_ERROR_LOG_FILE_NAME "consumer_error.log"
 #define MAIN_EVENT_LOG_FILE_NAME "main_event.log"
 #define MAIN_ERROR_LOG_FILE_NAME "main_error.log"
-#define DEFAULT_COPY_BUFFER_SIZE MEGABYTE
+#define DEFAULT_COPY_BUFFER_SIZE 1
 #define DEFAULT_BUFFER_MAX 5
 
 namespace Ui {

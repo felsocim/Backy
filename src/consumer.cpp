@@ -7,7 +7,7 @@ Consumer::Consumer() : Worker() {
   this->detectedCount = 0;
   this->processedCount = 0;
   this->bufferMax = DEFAULT_BUFFER_MAX;
-  this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
+  this->copyBufferSize = MEGABYTE * DEFAULT_COPY_BUFFER_SIZE;
   this->current = nullptr;
   this->currentFile = nullptr;
   this->currentDirectory = nullptr;
