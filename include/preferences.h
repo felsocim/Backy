@@ -2,6 +2,8 @@
 #define PREFERENCES_H
 
 #include <QDialog>
+#include <QFileDialog>
+
 #if defined Q_OS_WIN
 #define DEFAULT_LOG_LOCATION "C:/"
 #elif defined Q_OS_UNIX
@@ -26,11 +28,30 @@ namespace Ui {
 class Preferences : public QDialog
 {
   Q_OBJECT
+  private:
+    Ui::Preferences * ui;
+    QFileDialog * browseLogsLocation;
+    qint64 itemBufferSize,
+      copyBufferSize;
+    QString logsLocation;
+    void setCurrents();
   public:
     explicit Preferences(QWidget * parent = 0);
     ~Preferences();
-  private:
-    Ui::Preferences * ui;
+    qint64 getItemBufferSize() const;
+    qint64 getCopyBufferSize() const;
+    QString getLogsLocation() const;
+    void setItemBufferSize(qint64 itemBufferSize);
+    void setCopyBufferSize(qint64 copyBufferSize);
+    void setLogsLocation(QString logsLocation);
+    void setDefaults();
+  private slots:
+    void onBrowseLogsLocation();
+    void onChooseLogsLocation(QString selected);
+    void onDiscard();
+    void onSave();
+  signals:
+    void triggerSave();
 };
 
 #endif // PREFERENCES_H
