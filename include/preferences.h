@@ -7,7 +7,7 @@
 #if defined Q_OS_WIN
 #define DEFAULT_LOG_LOCATION "C:/"
 #elif defined Q_OS_UNIX
-#define DEFAULT_LOG_LOCATION "/var/log/Backy"
+#define DEFAULT_LOG_LOCATION "/home/marek/.Backy"
 #else
 #error "Unsupported operating system!"
 #endif
