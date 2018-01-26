@@ -13,6 +13,8 @@ Logger::Logger(QString path, QString eventFile, QString errorFile) {
       this->accessible = false;
       qDebug() << "Warning: Unable to create log directory at path:" << path;
     }
+  } else {
+    this->accessible = true;
   }
 
   if(this->accessible) {
