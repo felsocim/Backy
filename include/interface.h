@@ -41,6 +41,8 @@ class Interface : public QMainWindow {
   private slots:
     void onBrowseSource(bool clicked);
     void onBrowseTarget(bool clicked);
+    void onToggleSynchronize(bool checked);
+    void onToggleKeepObsolete(bool checked);
     void onEditPreferences(bool clicked);
     void onShowAboutBox(bool clicked);
     void onQuit(bool clicked);

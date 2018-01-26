@@ -33,6 +33,9 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));
 
+  QObject::connect(this->ui->checkSynchronize, SIGNAL(toggled(bool)), this, SLOT(onToggleSynchronize(bool)));
+  QObject::connect(this->ui->checkKeepObsolete, SIGNAL(toggled(bool)), this, SLOT(onToggleKeepObsolete(bool)));
+
   QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
   QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
 
@@ -62,6 +65,14 @@ void Interface::onBrowseSource(bool clicked) {
 
 void Interface::onBrowseTarget(bool clicked) {
   this->targetDialog->show();
+}
+
+void Interface::onToggleSynchronize(bool checked) {
+  this->consumer->setSynchronize(checked);
+}
+
+void Interface::onToggleKeepObsolete(bool checked) {
+  this->consumer->setKeepObsolete(checked);
 }
 
 void Interface::onEditPreferences(bool clicked) {
