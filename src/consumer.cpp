@@ -95,6 +95,7 @@ void Consumer::createLogsAt(QString path) {
 }
 
 void Consumer::run() {
+  this->processedCount = 0;
   this->log->logEvent("Consumer has started");
   do {
     this->lock->lock();

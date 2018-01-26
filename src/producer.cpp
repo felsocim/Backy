@@ -63,6 +63,9 @@ void Producer::run() {
 }
 
 void Producer::analyze() {
+  this->directoriesCount = 0;
+  this->filesCount = 0;
+  this->size = 0;
   QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
