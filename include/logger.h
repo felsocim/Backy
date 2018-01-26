@@ -2,6 +2,7 @@
 #define __LOGGER_H
 
 #include <QString>
+#include <QDir>
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
@@ -13,8 +14,9 @@ class Logger {
       * errorFile;
     QTextStream * eventStream,
       * errorStream;
+    bool accessible;
   public:
-    Logger(QString eventFile, QString errorFile);
+    Logger(QString path, QString eventFile, QString errorFile);
     ~Logger();
     void logEvent(QString eventMessage);
     void logError(QString errorMessage);

@@ -1,30 +1,50 @@
 #include "logger.h"
 
-Logger::Logger(QString eventFile, QString errorFile) {
-  this->eventFile = new QFile(eventFile);
-  this->errorFile = new QFile(errorFile);
+Logger::Logger(QString path, QString eventFile, QString errorFile) {
+  this->eventFile = new QFile(path + "/" + eventFile);
+  this->errorFile = new QFile(path + "/" + errorFile);
 
-  if(this->eventFile->open(QIODevice::WriteOnly) && this->errorFile->open(QIODevice::WriteOnly)) {
-    this->eventStream = new QTextStream(this->eventFile);
-    this->errorStream = new QTextStream(this->errorFile);
-  } else {
-    qDebug() << "Warning: Unable to open provided log files (" << eventFile << ", " << errorFile << ")! No logs will be created for this instance!";
+  QDir logs(path);
+
+  if(!logs.exists()) {
+    if(logs.mkdir(path)) {
+      this->accessible = true;
+    } else {
+      this->accessible = false;
+      qDebug() << "Warning: Unable to create log directory at path:" << path;
+    }
+  }
+
+  if(this->accessible) {
+    if(this->eventFile->open(QIODevice::WriteOnly) && this->errorFile->open(QIODevice::WriteOnly)) {
+      this->eventStream = new QTextStream(this->eventFile);
+      this->errorStream = new QTextStream(this->errorFile);
+      this->accessible = true;
+    } else {
+      this->accessible = false;
+      qDebug() << "Warning: Unable to create/open log files (" << eventFile << ", " << errorFile << ")! No logs will be created for this instance!";
+    }
   }
 }
 
 Logger::~Logger() {
-  this->eventStream->~QTextStream();
-  this->errorStream->~QTextStream();
-  this->eventFile->close();
-  this->errorFile->close();
+  if(this->accessible) {
+    this->eventStream->~QTextStream();
+    this->errorStream->~QTextStream();
+    this->eventFile->close();
+    this->errorFile->close();
+  }
+
   delete this->eventFile;
   delete this->errorFile;
 }
 
 void Logger::logEvent(QString eventMessage) {
-  (*this->eventStream) << eventMessage << endl;
+  if(this->accessible)
+    (*this->eventStream) << eventMessage << endl;
 }
 
 void Logger::logError(QString errorMessage) {
-  (*this->errorStream) << errorMessage << endl;
+  if(this->accessible)
+    (*this->errorStream) << errorMessage << endl;
 }

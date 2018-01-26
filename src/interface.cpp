@@ -22,20 +22,13 @@ Interface::Interface(QWidget *parent) :
   this->producer->setLock(this->lock);
   this->producer->setNotEmpty(this->notEmpty);
   this->producer->setNotFull(this->notFull);
-
-  QString prodEvent("prod_event.log");
-  QString prodError("prod_error.log");
-  this->producer->setLogger(prodEvent, prodError);
+  this->producer->setLogger(this->preferences->getLogsLocation());
 
   this->consumer->setBuffer(this->buffer);
   this->consumer->setLock(this->lock);
   this->consumer->setNotEmpty(this->notEmpty);
   this->consumer->setNotFull(this->notFull);
-
-  QString consEvent("prod_event.log");
-  QString consError("prod_error.log");
-  this->consumer->setLogger(consEvent, consError);
-
+  this->consumer->setLogger(this->preferences->getLogsLocation());
 
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));
