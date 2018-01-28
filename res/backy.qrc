@@ -8,5 +8,6 @@
         <file>process-stop.png</file>
         <file>system-log-out.png</file>
         <file>edit-undo.png</file>
+        <file>Backy.png</file>
     </qresource>
 </RCC>
