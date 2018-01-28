@@ -1,6 +1,6 @@
-#include "interface.h"
-#include "producer.h"
-#include "consumer.h"
+#include "../include/interface.h"
+#include "../include/producer.h"
+#include "../include/consumer.h"
 #include <QApplication>
 #include <QCoreApplication>
 

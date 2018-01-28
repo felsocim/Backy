@@ -1,5 +1,5 @@
-#include "interface.h"
-#include "ui_interface.h"
+#include "../include/interface.h"
+#include "../build/ui_interface.h"
 
 Interface::Interface(QWidget *parent) :
   QMainWindow(parent),

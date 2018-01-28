@@ -1,4 +1,4 @@
-#include "consumer.h"
+#include "../include/consumer.h"
 
 Consumer::Consumer() : Worker() {
   this->synchronize = DEFAULT_SYNCHRONIZE;

@@ -1,4 +1,4 @@
-#include "logger.h"
+#include "../include/logger.h"
 
 Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile) {
   this->eventFile = new QFile(path + "/" + eventFile);

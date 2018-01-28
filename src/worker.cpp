@@ -1,4 +1,4 @@
-#include "worker.h"
+#include "../include/worker.h"
 
 Worker::Worker() {
   this->buffer = nullptr;
