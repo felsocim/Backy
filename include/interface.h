@@ -45,6 +45,8 @@ class Interface : public QMainWindow {
     void onBrowseTarget(bool clicked);
     void onToggleSynchronize(bool checked);
     void onToggleKeepObsolete(bool checked);
+    void onToggleCriterionMostRecent(bool checked);
+    void onToggleCriterionBiggest(bool checked);
     void onEditPreferences(bool clicked);
     void onShowAboutBox(bool clicked);
     void onAbort(bool clicked);

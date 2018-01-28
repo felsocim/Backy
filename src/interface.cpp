@@ -48,6 +48,8 @@ Interface::Interface(QWidget *parent) :
 
   QObject::connect(this->ui->checkSynchronize, SIGNAL(toggled(bool)), this, SLOT(onToggleSynchronize(bool)));
   QObject::connect(this->ui->checkKeepObsolete, SIGNAL(toggled(bool)), this, SLOT(onToggleKeepObsolete(bool)));
+  QObject::connect(this->ui->radioCriterionMostRecent, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionMostRecent(bool)));
+  QObject::connect(this->ui->radioCriterionBiggest, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionBiggest(bool)));
 
   QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort(bool)));
   QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup(bool)));
@@ -111,6 +113,18 @@ void Interface::onToggleSynchronize(bool checked) {
 
 void Interface::onToggleKeepObsolete(bool checked) {
   this->consumer->setKeepObsolete(checked);
+}
+
+void Interface::onToggleCriterionMostRecent(bool checked) {
+  this->ui->radioCriterionMostRecent->setChecked(checked);
+  this->ui->radioCriterionBiggest->setChecked(!checked);
+  this->consumer->setCriterion(CRITERION_MORE_RECENT);
+}
+
+void Interface::onToggleCriterionBiggest(bool checked) {
+  this->ui->radioCriterionBiggest->setChecked(checked);
+  this->ui->radioCriterionMostRecent->setChecked(!checked);
+  this->consumer->setCriterion(CRITERION_BIGGER);
 }
 
 void Interface::onEditPreferences(bool clicked) {

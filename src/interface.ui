@@ -2,16 +2,41 @@
 <ui version="4.0">
  <class>Interface</class>
  <widget class="QMainWindow" name="Interface">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>685</height>
+    <width>620</width>
+    <height>700</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>620</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>620</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>620</width>
+    <height>680</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Interface</string>
+   <string>Backy</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res/backy.qrc">
+    <normaloff>:/Backy/Backy.png</normaloff>:/Backy/Backy.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -42,7 +67,7 @@
       <item row="1" column="2">
        <widget class="QPushButton" name="buttonBrowseSource">
         <property name="text">
-         <string>Browse...</string>
+         <string> Browse...</string>
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
@@ -74,14 +99,14 @@
       <item row="2" column="1">
        <widget class="QLabel" name="labelDiscoveredDirectoriesValue">
         <property name="text">
-         <string>0</string>
+         <string>N/A</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
        <widget class="QLabel" name="labelDiscoveredFilesValue">
         <property name="text">
-         <string>0</string>
+         <string>N/A</string>
         </property>
        </widget>
       </item>
@@ -102,7 +127,7 @@
       <item row="4" column="1">
        <widget class="QLabel" name="labelDiscoveredTotalSizeValue">
         <property name="text">
-         <string>0</string>
+         <string>N/A</string>
         </property>
        </widget>
       </item>
@@ -122,7 +147,7 @@
       <x>10</x>
       <y>200</y>
       <width>601</width>
-      <height>151</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="title">
@@ -148,7 +173,7 @@
       <item row="1" column="2">
        <widget class="QPushButton" name="buttonBrowseTarget">
         <property name="text">
-         <string>Browse...</string>
+         <string> Browse...</string>
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
@@ -191,12 +216,45 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="horizontalLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>140</y>
+       <width>561</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="labelCriterionDescription">
+        <property name="text">
+         <string>Comparison criterion:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioCriterionMostRecent">
+        <property name="text">
+         <string>Prefer more recent</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioCriterionBiggest">
+        <property name="text">
+         <string>Prefer bigger</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupStatus">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>360</y>
+      <y>400</y>
       <width>601</width>
       <height>221</height>
      </rect>
@@ -264,6 +322,9 @@
      </layout>
     </widget>
     <widget class="QPushButton" name="buttonAbort">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -273,7 +334,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>&amp;Abort</string>
+      <string> &amp;Abort</string>
      </property>
      <property name="icon">
       <iconset resource="../res/backy.qrc">
@@ -281,27 +342,11 @@
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="labelBackupParameters">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>370</y>
-      <width>561</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;backup parameters&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QWidget" name="horizontalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>590</y>
+      <y>630</y>
       <width>601</width>
       <height>41</height>
      </rect>
@@ -323,7 +368,7 @@
      <item>
       <widget class="QPushButton" name="buttonQuit">
        <property name="text">
-        <string>&amp;Quit</string>
+        <string> &amp;Quit</string>
        </property>
        <property name="icon">
         <iconset resource="../res/backy.qrc">
@@ -333,8 +378,11 @@
      </item>
      <item>
       <widget class="QPushButton" name="buttonBackup">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
-        <string>&amp;Backup</string>
+        <string> &amp;Backup</string>
        </property>
        <property name="icon">
         <iconset resource="../res/backy.qrc">
@@ -363,7 +411,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>621</width>
+     <width>620</width>
      <height>22</height>
     </rect>
    </property>
@@ -371,14 +419,9 @@
     <property name="title">
      <string>&amp;File</string>
     </property>
-    <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>&amp;Edit</string>
-    </property>
-    <addaction name="separator"/>
     <addaction name="actionPreferences"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -388,10 +431,8 @@
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>
-   <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionQuit">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
@@ -432,9 +473,6 @@
    </property>
    <property name="text">
     <string>&amp;Preferences</string>
-   </property>
-   <property name="shortcut">
-    <string>Alt+P</string>
    </property>
   </action>
  </widget>
