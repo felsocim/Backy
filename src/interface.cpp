@@ -270,8 +270,16 @@ void Interface::onChooseTarget(QString selected) {
 
 void Interface::onBeginBackup(bool clicked) {
   if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() > 0 && !this->inProgress()) {
+  if(QMessageBox::question(
+    this,
+    tr("Confirm"),
+    tr("Backup is ready to be performed.\nPlease, verify all backup parameters before you continue.\nAre you sure you want to begin the backup process?"),
+    QMessageBox::Yes | QMessageBox::No
+  ) == QMessageBox::Yes) {
+    this->ui->buttonBackup->setEnabled(false);
     this->producer->setProgress(true);
     this->consumer->setProgress(true);
+    this->ui->buttonAbort->setEnabled(true);
     emit this->signalStart();
   }
 }
@@ -305,6 +313,22 @@ void Interface::onConsumerFinished() {
   this->ui->labelStatusCurrentName->setText("");
   this->ui->progressStatusCurrentProgress->setValue(0);
   this->ui->progressStatusOverallProgress->setValue(0);
+  if(this->aborted) {
+    this->aborted = false;
+    QMessageBox::warning(
+      this,
+      tr("Backup aborted"),
+      tr("Backup has been aborted by the user!"),
+      QMessageBox::Ok
+    );
+  } else {
+    QMessageBox::information(
+      this,
+      tr("Backup complete"),
+      tr("Backup completed succefully!"),
+      QMessageBox::Ok
+    );
+  }
 
   this->ui->buttonBackup->setEnabled(true);
   this->ui->buttonAbort->setEnabled(false);
