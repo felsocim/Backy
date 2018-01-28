@@ -7,6 +7,7 @@ Preferences::Preferences(QWidget * parent) :
   browseLogsLocation(new QFileDialog(this)) {
   this->ui->setupUi(this);
   this->browseLogsLocation->setFileMode(QFileDialog::Directory);
+  this->logsLocationChanged = false;
   this->setDefaults();
 
   QObject::connect(this->ui->buttonLogsLocationBrowse, SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
@@ -63,6 +64,7 @@ void Preferences::onBrowseLogsLocation() {
 
 void Preferences::onChooseLogsLocation(QString selected) {
   this->ui->editLogsLocationValue->setText(selected);
+  this->logsLocationChanged = true;
 }
 
 void Preferences::onDiscard() {
@@ -74,6 +76,21 @@ void Preferences::onSave() {
   this->itemBufferSize = (qint64) this->ui->spinItemBufferSize->value();
   this->copyBufferSize = (qint64) this->ui->spinCopyBufferSize->value();
   this->logsLocation = this->ui->editLogsLocationValue->text();
+  if(this->logsLocationChanged) {
+    if(
+      QMessageBox::information(
+        this,
+        tr("Restart required"),
+        tr("Some changes you've made won't take effect until next application launch."),
+        QMessageBox::Ok | QMessageBox::Cancel
+      ) == QMessageBox::Ok
+    ) {
+      goto trigger;
+    } else {
+      return;
+    }
+  }
+  trigger:
   emit triggerSave();
   this->close();
 }

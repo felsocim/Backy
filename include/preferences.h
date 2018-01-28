@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #if defined Q_OS_WIN
 #define DEFAULT_LOG_LOCATION "C:/"
@@ -42,6 +43,7 @@ class Preferences : public QDialog
     qint64 itemBufferSize,
       copyBufferSize;
     QString logsLocation;
+    bool logsLocationChanged;
     void setCurrents();
   public:
     explicit Preferences(QWidget * parent = 0);
