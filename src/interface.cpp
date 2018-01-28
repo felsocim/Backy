@@ -154,6 +154,7 @@ void Interface::onChooseSource(QString selected) {
   this->ui->labelDiscoveredFilesValue->setText(QString::number(this->producer->getFilesCount()));
 
   this->consumer->setDetectedCount(this->producer->getDirectoriesCount() + this->producer->getFilesCount());
+  this->consumer->setDetectedSize(this->producer->getSize());
 
   size_t bytesDiscovered = this->producer->getSize();
 

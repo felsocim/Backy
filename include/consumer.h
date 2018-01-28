@@ -16,7 +16,9 @@ class Consumer : public Worker {
       keepObsolete;
     Criterion criterion;
     qint64 detectedCount,
+      detectedSize,
       processedCount,
+      processedSize,
       copyBufferSize;
     Item * current;
     QFile * currentFile;
@@ -31,6 +33,7 @@ class Consumer : public Worker {
     void setKeepObsolete(bool keepObsolete);
     void setCriterion(Criterion criterion);
     void setDetectedCount(qint64 detectedCount);
+    void setDetectedSize(qint64 detectedSize);
     void setCopyBufferSize(qint64 copyBufferSize);
     void createLogsAt(QString path);
     void work();

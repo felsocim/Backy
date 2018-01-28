@@ -5,7 +5,9 @@ Consumer::Consumer() : Worker() {
   this->keepObsolete = false;
   this->criterion = CRITERION_MORE_RECENT;
   this->detectedCount = 0;
+  this->detectedSize = 0;
   this->processedCount = 0;
+  this->processedSize = 0;
   this->copyBufferSize = MEGABYTE * DEFAULT_COPY_BUFFER_SIZE;
   this->current = nullptr;
   this->currentFile = nullptr;
@@ -35,7 +37,9 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
         goto error;
       }
       totalWritten += actuallyWritten;
+      this->processedSize += actuallyWritten;
       emit this->currentProgress((int) ceil(totalWritten * 100 / size));
+      emit this->overallProgress((int) ceil(this->processedSize * 100 / this->detectedSize));
       memset(bytes, 0, this->copyBufferSize);
     }
     delete[] bytes;
@@ -89,6 +93,10 @@ void Consumer::setDetectedCount(qint64 detectedCount) {
   this->detectedCount = detectedCount;
 }
 
+void Consumer::setDetectedSize(qint64 detectedSize) {
+  this->detectedSize = detectedSize;
+}
+
 void Consumer::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = MEGABYTE * copyBufferSize;
 }
@@ -100,6 +108,7 @@ void Consumer::createLogsAt(QString path) {
 void Consumer::work() {
   emit this->started();
   this->processedCount = 0;
+  this->processedSize = 0;
   this->log->logEvent("Consumer has started");
   do {
     this->lock->lock();
@@ -180,8 +189,6 @@ void Consumer::work() {
     }
 
     delete this->current;
-
-    emit overallProgress((int) (((float) this->processedCount / (float) this->detectedCount) * 100.0));
 
     this->notEmpty->wakeOne();
     this->lock->unlock();
