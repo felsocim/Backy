@@ -12,7 +12,8 @@ class Consumer : public Worker {
     QString source,
       target;
     bool synchronize,
-      keepObsolete;
+      keepObsolete,
+      errorOccurred;
     Criterion criterion;
     qint64 detectedCount,
       detectedSize,
@@ -27,6 +28,7 @@ class Consumer : public Worker {
   public:
     Consumer();
     qint64 getProcessedCount() const;
+    bool didErrorOccurred() const;
     void setSource(QString source);
     void setTarget(QString target);
     void setSynchronize(bool synchronize);

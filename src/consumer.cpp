@@ -82,6 +82,10 @@ qint64 Consumer::getProcessedCount() const {
   return this->processedCount;
 }
 
+bool Consumer::didErrorOccurred() const {
+  return this->errorOccurred;
+}
+
 void Consumer::setSource(QString source) {
   this->source = source;
 }
@@ -123,6 +127,7 @@ void Consumer::work() {
 
   this->processedCount = 0;
   this->processedSize = 0;
+  this->errorOccurred = false;
 
   this->log->logEvent("Consumer has started");
 
@@ -158,8 +163,10 @@ void Consumer::work() {
             emit this->triggerCurrentOperation(tr("Removing previous version of file"));
             if(this->currentFile->remove())
               this->log->logEvent("Successfully removed previous version of file: " + existing);
-            else
+            else {
+              this->errorOccurred = true;
               this->log->logError("Failed to remove previous version of file: " + existing);
+            }
             goto copying;
           } else {
             this->log->logEvent("Skipping item: " + this->currentItem->getName());
@@ -189,19 +196,25 @@ void Consumer::work() {
     }
 
     copying:
-      if(this->copyFile(before, this->currentFile, this->currentItem->getSize()))
-        this->log->logEvent("Successfully copied file: " + left + " to " + existing);
-      else
-        this->log->logError("Failed to copy file: " + left + " to " + existing);
     emit this->triggerCurrentOperation(tr("Copying file"));
+
+    if(this->copyFile(before, this->currentFile, this->currentItem->getSize()))
+      this->log->logEvent("Successfully copied file: " + left + " to " + existing);
+    else {
+      this->errorOccurred = true;
+      this->log->logError("Failed to copy file: " + left + " to " + existing);
+    }
+
     goto done;
 
     cloning:
-      if(beforeDirectory->mkdir(existing))
-        this->log->logEvent("Successfully cloned directory: " + left + " to " + existing);
-      else
-        this->log->logError("Failed to clone directory: " + left + " to " + existing);
     emit this->triggerCurrentOperation(tr("Creating directory"));
+    if(beforeDirectory->mkdir(existing))
+      this->log->logEvent("Successfully cloned directory: " + left + " to " + existing);
+    else {
+      this->errorOccurred = true;
+      this->log->logError("Failed to clone directory: " + left + " to " + existing);
+    }
 
     done:
     this->processedCount++;
@@ -240,7 +253,9 @@ void Consumer::work() {
         else
           this->log->logError("Failed to remove obsolete file: " + current);
           emit this->triggerCurrentOperation(tr("Removing folder"));
+            this->errorOccurred = true;
           emit this->triggerCurrentOperation(tr("Removing file"));
+            this->errorOccurred = true;
       }
     }
   }

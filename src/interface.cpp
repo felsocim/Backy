@@ -388,6 +388,13 @@ void Interface::onConsumerFinished() {
       tr("Backup has been aborted by the user!"),
       QMessageBox::Ok
     );
+  } else if(this->consumer->didErrorOccurred()) {
+    QMessageBox::warning(
+      this,
+      tr("Backup complete with errors"),
+      tr("Backup completed but errors occurred during the process! Check the log file for more details at location: \n") + this->preferences->getLogsLocation(),
+      QMessageBox::Ok
+    );
   } else {
     QMessageBox::information(
       this,
