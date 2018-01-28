@@ -11,6 +11,7 @@
 #include <QWaitCondition>
 #include <QMessageBox>
 #include <QSettings>
+#include <QDesktopServices>
 #include <queue>
 #include "item.h"
 #include "producer.h"
@@ -69,6 +70,7 @@ class Interface : public QMainWindow {
     void onProducerFinished();
     void onConsumerFinished();
     void onSavePreferences();
+    void onDocumentationSolicitation(bool clicked);
   signals:
     void signalStart();
     void signalProgress(bool state);

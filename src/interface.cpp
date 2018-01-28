@@ -62,6 +62,7 @@ Interface::Interface(QWidget *parent) :
 
   QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
   QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
+  QObject::connect(this->ui->actionDocumentation, SIGNAL(triggered(bool)), this, SLOT(onDocumentationSolicitation(bool)));
 
   QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit(bool)));
   QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit(bool)));
@@ -366,5 +367,14 @@ void Interface::onSavePreferences() {
     this->saveSettings();
   }
 }
+
+void Interface::onDocumentationSolicitation(bool clicked) {
+  if(!QDesktopServices::openUrl(QUrl("https://github.com/felsocim/Backy"))) {
+    QMessageBox::critical(
+      this,
+      tr("Browser unavailable"),
+      tr("Unable to open the online documentation because of unavailable browser!\nPlease, check if there is a default browser set in your system and try again.\nOtherwise refer to https://github.com/felsocim/Backy for the documentation."),
+      QMessageBox::Ok
+    );
   }
 }
