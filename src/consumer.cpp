@@ -1,9 +1,9 @@
 #include "consumer.h"
 
 Consumer::Consumer() : Worker() {
-  this->synchronize = false;
-  this->keepObsolete = false;
-  this->criterion = CRITERION_MORE_RECENT;
+  this->synchronize = DEFAULT_SYNCHRONIZE;
+  this->keepObsolete = DEFAULT_KEEP_OBSOLETE;
+  this->criterion = DEFAULT_COMPARISON_CRITERION;
   this->detectedCount = 0;
   this->detectedSize = 0;
   this->processedCount = 0;

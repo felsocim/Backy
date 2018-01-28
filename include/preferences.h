@@ -25,6 +25,9 @@
 #define MAIN_ERROR_LOG_FILE_NAME "main_error.log"
 #define DEFAULT_COPY_BUFFER_SIZE 1
 #define DEFAULT_BUFFER_MAX 5
+#define DEFAULT_SYNCHRONIZE false
+#define DEFAULT_KEEP_OBSOLETE false
+#define DEFAULT_COMPARISON_CRITERION CRITERION_MORE_RECENT
 
 namespace Ui {
   class Preferences;
