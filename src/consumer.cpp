@@ -246,16 +246,27 @@ void Consumer::work() {
     while(i.hasNext()) {
       QString current(i.next());
       QString corresponding(this->source + "/" + t.relativeFilePath(current));
+      QFileInfo info(corresponding);
 
-      if(!QFile::exists(corresponding)) {
-        if(QFile::remove(current))
-          this->log->logEvent("Successfully removed obsolete file: " + current);
-        else
-          this->log->logError("Failed to remove obsolete file: " + current);
+      if(!info.exists()) {
+        if(info.isDir()) {
           emit this->triggerCurrentOperation(tr("Removing folder"));
+          QDir temp(current);
+          if(temp.removeRecursively()) {
+            this->log->logEvent("Successfully removed obsolete folder: " + current);
+          } else {
             this->errorOccurred = true;
+            this->log->logError("Failed to remove obsolete folder: " + current);
+          }
+        } else {
           emit this->triggerCurrentOperation(tr("Removing file"));
+          if(QFile::remove(current))
+            this->log->logEvent("Successfully removed obsolete file: " + current);
+          else {
             this->errorOccurred = true;
+            this->log->logError("Failed to remove obsolete item: " + current);
+          }
+        }
       }
     }
   }
