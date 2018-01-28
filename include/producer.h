@@ -4,6 +4,7 @@
 #include "worker.h"
 
 class Producer : public Worker {
+  Q_OBJECT
   private:
     QDir * root;
     qint64 filesCount,
