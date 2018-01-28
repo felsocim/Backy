@@ -19,14 +19,14 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   qint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
 
   if(source->open(QIODevice::ReadOnly))
-    this->log->logEvent(tr("Successfully opened source file %1 for copying.").arg(source->fileName()));
+    this->log->logEvent(tr("Successfully opened source file '%1' for copying.").arg(source->fileName()));
   else
-    this->log->logError(tr("Failed to open source file %1 for copying.").arg(source->fileName()));
+    this->log->logError(tr("Failed to open source file '%1' for copying.").arg(source->fileName()));
 
   if(destination->open(QIODevice::WriteOnly))
-    this->log->logEvent(tr("Successfully opened destination file %1 for copying.").arg(destination->fileName()));
+    this->log->logEvent(tr("Successfully opened destination file '%1' for copying.").arg(destination->fileName()));
   else
-    this->log->logError(tr("Failed to open destination file %1 for copying.").arg(destination->fileName()));
+    this->log->logError(tr("Failed to open destination file '%1' for copying.").arg(destination->fileName()));
 
   if(source->isReadable() && destination->isWritable()) {
     while((toBeWritten = source->read(bytes, this->copyBufferSize)) != 0) {
@@ -53,9 +53,9 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
     destination->close();
 
     if(destination->setPermissions(source->permissions())) {
-      this->log->logEvent(tr("Permissions set successfully to the destination file %1.").arg(destination->fileName()));
+      this->log->logEvent(tr("Permissions set successfully to the destination file '%1'.").arg(destination->fileName()));
     } else {
-      this->log->logError(tr("Failed to set permissions to the destination file %1.").arg(destination->fileName()));
+      this->log->logError(tr("Failed to set permissions to the destination file '%1'.").arg(destination->fileName()));
       return false;
     }
 
@@ -66,19 +66,19 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
     time.modtime = s.lastModified().toSecsSinceEpoch();
 
     if(utime(destination->fileName().toStdString().c_str(), &time) < 0){
-      this->log->logEvent(tr("Failed to transfer datetime to the destination file %1.").arg(destination->fileName()));
+      this->log->logEvent(tr("Failed to transfer datetime to the destination file '%1'.").arg(destination->fileName()));
       return false;
     } else {
-      this->log->logEvent(tr("Datetime transferred successfully to the destination file %1.").arg(destination->fileName()));
+      this->log->logEvent(tr("Datetime transferred successfully to the destination file '%1'.").arg(destination->fileName()));
     }
 
-    this->log->logEvent(tr("Successfully copied file %1 to %2.").arg(destination->fileName()).arg(source->fileName()));
+    this->log->logEvent(tr("Successfully copied file '%1' to '%2'.").arg(destination->fileName()).arg(source->fileName()));
     return true;
   }
 
   error:
   delete[] bytes;
-  this->log->logError(tr("Failed to copy file %1 to %2.").arg(destination->fileName()).arg(source->fileName()));
+  this->log->logError(tr("Failed to copy file '%1' to '%2'.").arg(destination->fileName()).arg(source->fileName()));
 
   return false;
 }
@@ -167,10 +167,10 @@ void Consumer::work() {
           if(this->currentItem->isSuperiorThan(existing, this->criterion)) {
             emit this->triggerCurrentOperation(tr("Removing older version of file"));
             if(this->currentFile->remove())
-              this->log->logEvent(tr("Successfully removed older version of file %1.").arg(existing));
+              this->log->logEvent(tr("Successfully removed older version of file '%1'.").arg(existing));
             else {
               this->errorOccurred = true;
-              this->log->logError(tr("Failed to remove older version of file %1.").arg(existing));
+              this->log->logError(tr("Failed to remove older version of file '%1'.").arg(existing));
             }
             goto copying;
           } else {
@@ -206,16 +206,16 @@ void Consumer::work() {
     emit this->triggerCurrentOperation(tr("Creating directory"));
 
     if(beforeDirectory->mkdir(existing)) {
-      this->log->logEvent(tr("Successfully recreated directory %1 as %2.").arg(left).arg(existing));
+      this->log->logEvent(tr("Successfully recreated directory '%1' as '%2'.").arg(left).arg(existing));
     } else {
       this->errorOccurred = true;
-      this->log->logError(tr("Failed to recreate directory %1 as %2.").arg(left).arg(existing));
+      this->log->logError(tr("Failed to recreate directory '%1' as '%2'.").arg(left).arg(existing));
     }
 
     goto done;
 
     skipping:
-    this->log->logEvent(tr("Skipping item %1. The most recent version already exists in backup destination.").arg(this->currentItem->getName()));
+    this->log->logEvent(tr("Skipping item '%1'. The most recent version already exists in backup destination.").arg(this->currentItem->getName()));
     emit this->triggerCurrentOperation(tr("Skipping item"));
 
     done:
@@ -257,19 +257,19 @@ void Consumer::work() {
           QDir temp(current);
 
           if(temp.removeRecursively()) {
-            this->log->logEvent(tr("Successfully removed obsolete folder %1.").arg(current));
+            this->log->logEvent(tr("Successfully removed obsolete folder '%1'.").arg(current));
           } else {
             this->errorOccurred = true;
-            this->log->logError(tr("Failed to remove obsolete folder %1.").arg(current));
+            this->log->logError(tr("Failed to remove obsolete folder '%1'.").arg(current));
           }
         } else {
           emit this->triggerCurrentOperation(tr("Removing file"));
 
           if(QFile::remove(current)) {
-            this->log->logEvent(tr("Successfully removed obsolete file %1.").arg(current));
+            this->log->logEvent(tr("Successfully removed obsolete file '%1'.").arg(current));
           } else {
             this->errorOccurred = true;
-            this->log->logError(tr("Failed to remove obsolete file %1.").arg(current));
+            this->log->logError(tr("Failed to remove obsolete file '%1'.").arg(current));
           }
         }
       }

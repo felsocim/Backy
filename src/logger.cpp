@@ -11,7 +11,7 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
       this->accessible = true;
     } else {
       this->accessible = false;
-      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create log directory in %1! No logs will be created during this instance.").arg(path);
+      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create log directory in '%1'! No logs will be created during this instance.").arg(path);
     }
   } else {
     this->accessible = true;
@@ -24,7 +24,7 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
       this->accessible = true;
     } else {
       this->accessible = false;
-      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create or open log files: %1, %2! No logs will be created for this instance.").arg(eventFile).arg(errorFile);
+      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create or open log files: '%1', '%2'! No logs will be created for this instance.").arg(eventFile).arg(errorFile);
     }
   }
 }

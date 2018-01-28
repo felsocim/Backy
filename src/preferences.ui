@@ -154,7 +154,7 @@ color: rgb(138, 226, 52);</string>
         <string notr="true">color: red;</string>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Setting a buffer size too high may make the application crash or harm your system. We strongly recommend to not modify the two values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Overstepping recommended buffers sizes may cause the application to crash and/or harm your system. We strongly discourage you to modify the values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

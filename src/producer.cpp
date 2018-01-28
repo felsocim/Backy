@@ -63,7 +63,7 @@ void Producer::work() {
       )
     );
 
-    this->log->logEvent(tr("Producer process enqueued %1 in the shared item buffer.").arg(current.fileName()));
+    this->log->logEvent(tr("Producer process enqueued '%1' in the shared item buffer.").arg(current.fileName()));
     this->notFull->wakeOne();
     this->lock->unlock();
   }
@@ -93,7 +93,7 @@ void Producer::analyze() {
   }
 
   this->log->logEvent(
-    tr("During analysis of the source drive or folder (%1) the program has discovered ").arg(this->root->absolutePath()) +
+    tr("During analysis of the source location '%1' the program has discovered ").arg(this->root->absolutePath()) +
     tr("%n folder(s), ", nullptr, this->directoriesCount) +
     tr("%n file(s) ", nullptr, this->filesCount) +
     tr("in %n byte(s).", nullptr, this->size)

@@ -235,7 +235,7 @@ void Interface::onShowAboutBox(bool clicked) {
       "<p>This program is free software: you can redistribute it and/or modify"
       " it under the terms of the GNU General Public License as published by"
       " the Free Software Foundation, either version 3 of the License, or"
-      " (at your option) any later version."
+      " any later version."
       "<p>This program is distributed in the hope that it will be useful,"
       " but WITHOUT ANY WARRANTY; without even the implied warranty of"
       " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>"
@@ -394,7 +394,7 @@ void Interface::onConsumerFinished() {
     QMessageBox::warning(
       this,
       tr("Backup complete with errors"),
-      tr("Backup completed but errors occurred during the process! Check the log file in %1 for more details.\n").arg(this->preferences->getLogsLocation()),
+      tr("Backup completed but errors occurred during the process! Check the log file in '%1' for more details.\n").arg(this->preferences->getLogsLocation()),
       QMessageBox::Ok
     );
   } else {
