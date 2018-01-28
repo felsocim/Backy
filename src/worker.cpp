@@ -35,7 +35,9 @@ void Worker::setNotFull(QWaitCondition * notFull) {
 
 void Worker::setProgress(bool progress) {
   this->progress = progress;
-  if(!this->progress) qDebug() << "FALSE PROGRESS";
+
+  if(!this->progress)
+    this->log->logEvent("Abort requested");
 }
 
 void Worker::doWork() {
