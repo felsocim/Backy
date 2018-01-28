@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
+#include <QCoreApplication>
 #include "common.h"
 
 class Logger {

@@ -37,7 +37,7 @@ void Worker::setProgress(bool progress) {
   this->progress = progress;
 
   if(!this->progress)
-    this->log->logEvent("Abort requested");
+    this->log->logEvent(tr("Backup process abort has been requested."));
 }
 
 void Worker::doWork() {

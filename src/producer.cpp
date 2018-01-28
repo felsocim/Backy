@@ -41,7 +41,7 @@ void Producer::work() {
 
   QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
 
-  this->log->logEvent("Producer has started");
+  this->log->logEvent(tr("Producer process has begun working."));
 
   while(i.hasNext() && this->progress) {
     QFileInfo current = QFileInfo(i.next());
@@ -49,7 +49,7 @@ void Producer::work() {
     this->lock->lock();
 
     while(this->buffer->size() == this->itembufferSize) {
-      this->log->logEvent("Producer is waiting");
+      this->log->logEvent(tr("Producer process is waiting."));
       this->notEmpty->wait(this->lock);
     }
 
@@ -63,14 +63,14 @@ void Producer::work() {
       )
     );
 
-    this->log->logEvent("Producer enqueued '" + current.fileName() + "'");
+    this->log->logEvent(tr("Producer process enqueued %1 in the shared item buffer.").arg(current.fileName()));
     this->notFull->wakeOne();
     this->lock->unlock();
   }
 
   emit this->finished();
 
-  this->log->logEvent("Producer has finished");
+  this->log->logEvent(tr("Producer process has finished working."));
 }
 
 void Producer::analyze() {
@@ -93,13 +93,10 @@ void Producer::analyze() {
   }
 
   this->log->logEvent(
-    "Producer analyzed root directory '" + this->root->absolutePath() + "' (" +
-    QString::number(this->directoriesCount) +
-    " folder(s) and " +
-    QString::number(this->filesCount) +
-    " file(s) in " +
-    QString::number(this->size) +
-    " bytes)"
+    tr("During analysis of the source drive or folder (%1) the program has discovered ").arg(this->root->absolutePath()) +
+    tr("%n folder(s), ", nullptr, this->directoriesCount) +
+    tr("%n file(s) ", nullptr, this->filesCount) +
+    tr("in %n byte(s).", nullptr, this->size)
   );
 
   emit this->finished();

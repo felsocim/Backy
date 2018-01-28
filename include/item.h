@@ -29,11 +29,11 @@ class Item {
     void setSize(qint64 size);
     bool isSuperiorThan(const QString &another, const Criterion &criterion);
     friend std::ostream& operator<<(std::ostream &output, Item &source) {
-      output << (source.getType() == TYPE_FILE ? "File: " : "Directory: ")
+      output << (source.getType() == TYPE_FILE ? "F : " : "D : ")
         << source.getName().toStdString()
-        << ", in " << source.getPath().toStdString()
-        << " was last modified on " << source.getLastModified().toString().toStdString()
-        << " (" << source.getSize() << " bytes)";
+        << ", " << source.getPath().toStdString()
+        << ", " << source.getLastModified().toString().toStdString()
+        << ", (" << source.getSize() << " B";
 
       return output;
     }

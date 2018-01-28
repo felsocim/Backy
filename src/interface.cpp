@@ -108,23 +108,23 @@ QStringList Interface::ready() {
   QStringList result;
 
   if(this->ui->editSourcePath->text().isEmpty())
-    result << QString("No source drive or folder provided!");
+    result << QString(tr("- No source drive or folder provided!"));
   else {
     QDir source(this->ui->editSourcePath->text());
 
     if(!source.exists())
-      result << QString("Source drive or folder does not exists!");
+      result << QString(tr("- Source drive or folder does not exists!"));
   }
 
   if(this->ui->editTargetPath->text().isEmpty())
-    result << QString("No target drive or folder provided!");
+    result << QString(tr("- No target drive or folder provided!"));
   else {
     QDir target(this->ui->editTargetPath->text());
 
     if(!target.exists())
-      result << QString("Target drive or folder does not exists!");
+      result << QString(tr("- Target drive or folder does not exists!"));
     else if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() < 1)
-      result << QString("Source drive or folder does not contain any files or folders!");
+      result << QString(tr("- Source drive or folder does not contain any files or folders!"));
   }
 
   return result;
@@ -227,24 +227,26 @@ void Interface::onEditPreferences(bool clicked) {
 void Interface::onShowAboutBox(bool clicked) {
   QMessageBox::about(
     this,
-    "About Backy",
-    "<h1>Backy</h1>"
-    "<p>Backy is a simple open-source tool to create and maintain backup of a folder or an entire drive.</p>"
-    "<p>Copyright (C) 2018 Marek Felsoci</p>"
-    "<p>This program is free software: you can redistribute it and/or modify"
-    " it under the terms of the GNU General Public License as published by"
-    " the Free Software Foundation, either version 3 of the License, or"
-    " (at your option) any later version."
-    "<p>This program is distributed in the hope that it will be useful,"
-    " but WITHOUT ANY WARRANTY; without even the implied warranty of"
-    " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>"
-    "<p>See the GNU General Public License for more details."
-    " You should have received a copy of the GNU General Public License"
-    " along with this program. If not, see <a href='http://www.gnu.org/licenses/' target='_blank'>http://www.gnu.org/licenses/</a></p>"
-    "<p><strong>Information:</strong> For program's documentation, source code and updates, please, refer to its repository at: <a href='https://github.com/felsocim/Backy' target='_blank'>https://github.com/felsocim/Backy</a></p>"
-    "<p><strong>Credits:</strong> The <em>Fantasque Sans Mono</em> font was created by <a href='mailto:jany.belluz@hotmail.fr' target='_blank'>"
-    "Jany Belluz</a> and is licensed under the terms of <a href='http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL'>"
-    "SIL Open Font License</a>. The <em>Abstract Materials Patterns</em> were freely acquired from <a href='https://www.brusheezy.com' target='_blank'>Brusheezy!</a>"
+    tr("About Backy"),
+    tr(
+      "<h1>Backy</h1>"
+      "<p>Backy is a simple open-source tool to create and maintain backup of a folder or an entire drive.</p>"
+      "<p>Copyright (C) 2018 Marek Felsoci</p>"
+      "<p>This program is free software: you can redistribute it and/or modify"
+      " it under the terms of the GNU General Public License as published by"
+      " the Free Software Foundation, either version 3 of the License, or"
+      " (at your option) any later version."
+      "<p>This program is distributed in the hope that it will be useful,"
+      " but WITHOUT ANY WARRANTY; without even the implied warranty of"
+      " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>"
+      "<p>See the GNU General Public License for more details."
+      " You should have received a copy of the GNU General Public License"
+      " along with this program. If not, see <a href='http://www.gnu.org/licenses/' target='_blank'>http://www.gnu.org/licenses/</a></p>"
+      "<p><strong>Information:</strong> For program's documentation, source code and updates, please, refer to its repository at: <a href='https://github.com/felsocim/Backy' target='_blank'>https://github.com/felsocim/Backy</a></p>"
+      "<p><strong>Credits:</strong> The <em>Fantasque Sans Mono</em> font was created by <a href='mailto:jany.belluz@hotmail.fr' target='_blank'>"
+      "Jany Belluz</a> and is licensed under the terms of <a href='http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL'>"
+      "SIL Open Font License</a>. The <em>Abstract Materials Patterns</em> were freely acquired from <a href='https://www.brusheezy.com' target='_blank'>Brusheezy!</a>"
+    )
   );
 }
 
@@ -252,7 +254,7 @@ void Interface::onAbort(bool clicked) {
   if(QMessageBox::question(
     this,
     tr("Abort requested"),
-    tr("Backup is still in progress!\nNote that if you click on 'Yes' the backup process will be aborted when the backup of the current item will be finished.\nAre you sure you want to abort the backup process?"),
+    tr("Backup is still in progress!\nNote that on confirmation the backup process will be aborted once the backup of the current item will be finished.\nAre you sure you want to abort the backup process?"),
     QMessageBox::Yes | QMessageBox::No
   ) == QMessageBox::Yes) {
     this->abort();
@@ -264,7 +266,7 @@ void Interface::onQuit(bool clicked) {
     if(QMessageBox::question(
       this,
       tr("Abort and quit"),
-      tr("A backup is still in progress!\nAre you sure you want to abort it and quit?"),
+      tr("Backup is still in progress!\nAre you sure you want to abort it and quit?"),
       QMessageBox::Cancel | QMessageBox::Abort,
       QMessageBox::Cancel
     ) == QMessageBox::Abort) {
@@ -283,7 +285,7 @@ void Interface::onBeginBackup(bool clicked) {
   if(!check.isEmpty()) {
     QMessageBox::critical(
       this,
-      tr("Wrong or mismatched parameters"),
+      tr("Wrong parameters"),
       tr("Some backup parameters are unset or set incorrectly!\nPlease verify them before continuing.\nError report:\n") + check.join('\n'),
       QMessageBox::Ok
     );
@@ -292,7 +294,7 @@ void Interface::onBeginBackup(bool clicked) {
 
   if(QMessageBox::question(
     this,
-    tr("Confirm"),
+    tr("Ready"),
     tr("Backup is ready to be performed.\nPlease, verify all backup parameters before you continue.\nAre you sure you want to begin the backup process?"),
     QMessageBox::Yes | QMessageBox::No
   ) == QMessageBox::Yes) {
@@ -322,19 +324,19 @@ void Interface::onChooseSource(QString selected) {
 
   if(bytesDiscovered >= TERABYTE) {
     converted = (double) bytesDiscovered / (double) TERABYTE;
-    this->ui->labelDiscoveredTotalSizeUnits->setText("TB");
+    this->ui->labelDiscoveredTotalSizeUnits->setText(tr("TB"));
   } else if(bytesDiscovered >= GIGABYTE) {
     converted = (double) bytesDiscovered / (double) GIGABYTE;
-    this->ui->labelDiscoveredTotalSizeUnits->setText("GB");
+    this->ui->labelDiscoveredTotalSizeUnits->setText(tr("GB"));
   } else if(bytesDiscovered >= MEGABYTE) {
     converted = (double) bytesDiscovered / (double) MEGABYTE;
-    this->ui->labelDiscoveredTotalSizeUnits->setText("MB");
+    this->ui->labelDiscoveredTotalSizeUnits->setText(tr("MB"));
   } else if(bytesDiscovered >= KILOBYTE) {
     converted = (double) bytesDiscovered / (double) KILOBYTE;
-    this->ui->labelDiscoveredTotalSizeUnits->setText("kB");
+    this->ui->labelDiscoveredTotalSizeUnits->setText(tr("kB"));
   } else {
     converted = (double) bytesDiscovered;
-    this->ui->labelDiscoveredTotalSizeUnits->setText("B");
+    this->ui->labelDiscoveredTotalSizeUnits->setText(tr("B"));
   }
 
   this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'g', 2));
@@ -385,14 +387,14 @@ void Interface::onConsumerFinished() {
     QMessageBox::warning(
       this,
       tr("Backup aborted"),
-      tr("Backup has been aborted by the user!"),
+      tr("Backup process has been aborted by the user!"),
       QMessageBox::Ok
     );
   } else if(this->consumer->didErrorOccurred()) {
     QMessageBox::warning(
       this,
       tr("Backup complete with errors"),
-      tr("Backup completed but errors occurred during the process! Check the log file for more details at location: \n") + this->preferences->getLogsLocation(),
+      tr("Backup completed but errors occurred during the process! Check the log file in %1 for more details.\n").arg(this->preferences->getLogsLocation()),
       QMessageBox::Ok
     );
   } else {
