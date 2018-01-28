@@ -182,7 +182,14 @@ void Interface::onShowAboutBox(bool clicked) {
 }
 
 void Interface::onAbort(bool clicked) {
-  this->abort();
+  if(QMessageBox::question(
+    this,
+    tr("Abort requested"),
+    tr("Backup is still in progress!\nNote that if you click on 'Yes' the backup process will be aborted when the backup of the current item will be finished.\nAre you sure you want to abort the backup process?"),
+    QMessageBox::Yes | QMessageBox::No
+  ) == QMessageBox::Yes) {
+    this->abort();
+  }
 }
 
 void Interface::onQuit(bool clicked) {
