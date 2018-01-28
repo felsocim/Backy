@@ -5,52 +5,52 @@
     <name>Consumer</name>
     <message>
         <location filename="../src/consumer.cpp" line="22"/>
-        <source>Successfully opened source file %1 for copying.</source>
+        <source>Successfully opened source file &apos;%1&apos; for copying.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="24"/>
-        <source>Failed to open source file %1 for copying.</source>
+        <source>Failed to open source file &apos;%1&apos; for copying.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="27"/>
-        <source>Successfully opened destination file %1 for copying.</source>
+        <source>Successfully opened destination file &apos;%1&apos; for copying.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="29"/>
-        <source>Failed to open destination file %1 for copying.</source>
+        <source>Failed to open destination file &apos;%1&apos; for copying.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="56"/>
-        <source>Permissions set successfully to the destination file %1.</source>
+        <source>Permissions set successfully to the destination file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="58"/>
-        <source>Failed to set permissions to the destination file %1.</source>
+        <source>Failed to set permissions to the destination file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="69"/>
-        <source>Failed to transfer datetime to the destination file %1.</source>
+        <source>Failed to transfer datetime to the destination file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="72"/>
-        <source>Datetime transferred successfully to the destination file %1.</source>
+        <source>Datetime transferred successfully to the destination file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="75"/>
-        <source>Successfully copied file %1 to %2.</source>
+        <source>Successfully copied file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="81"/>
-        <source>Failed to copy file %1 to %2.</source>
+        <source>Failed to copy file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -65,12 +65,12 @@
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="170"/>
-        <source>Successfully removed older version of file %1.</source>
+        <source>Successfully removed older version of file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="173"/>
-        <source>Failed to remove older version of file %1.</source>
+        <source>Failed to remove older version of file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -85,17 +85,17 @@
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="209"/>
-        <source>Successfully recreated directory %1 as %2.</source>
+        <source>Successfully recreated directory &apos;%1&apos; as &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="212"/>
-        <source>Failed to recreate directory %1 as %2.</source>
+        <source>Failed to recreate directory &apos;%1&apos; as &apos;%2&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="218"/>
-        <source>Skipping item %1. The most recent version already exists in backup destination.</source>
+        <source>Skipping item &apos;%1&apos;. The most recent version already exists in backup destination.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -110,12 +110,12 @@
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="260"/>
-        <source>Successfully removed obsolete folder %1.</source>
+        <source>Successfully removed obsolete folder &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="263"/>
-        <source>Failed to remove obsolete folder %1.</source>
+        <source>Failed to remove obsolete folder &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -125,12 +125,12 @@
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="269"/>
-        <source>Successfully removed obsolete file %1.</source>
+        <source>Successfully removed obsolete file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/consumer.cpp" line="272"/>
-        <source>Failed to remove obsolete file %1.</source>
+        <source>Failed to remove obsolete file &apos;%1&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -159,7 +159,7 @@
     </message>
     <message>
         <location filename="../src/interface.ui" line="88"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the source folder or drive you want to backup the contents of.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>Browse for the source drive or folder you want to backup the contents of.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -197,96 +197,96 @@
     </message>
     <message>
         <location filename="../src/interface.ui" line="169"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the backup destination folder or drive.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>Browse for the backup destination drive or folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="206"/>
+        <location filename="../src/interface.ui" line="196"/>
         <source>Use to synchronize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="213"/>
+        <location filename="../src/interface.ui" line="203"/>
         <source>Keep obsolete item(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="232"/>
+        <location filename="../src/interface.ui" line="224"/>
         <source>Comparison criterion:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="239"/>
+        <location filename="../src/interface.ui" line="231"/>
         <source>Prefer more recent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="246"/>
+        <location filename="../src/interface.ui" line="238"/>
         <source>Prefer bigger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="263"/>
+        <location filename="../src/interface.ui" line="255"/>
         <source>Backup &amp;progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="308"/>
+        <location filename="../src/interface.ui" line="300"/>
         <source>Overall progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="337"/>
+        <location filename="../src/interface.ui" line="329"/>
         <source> &amp;Abort</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="371"/>
+        <location filename="../src/interface.ui" line="363"/>
         <source> &amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="385"/>
+        <location filename="../src/interface.ui" line="377"/>
         <source> &amp;Backup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="420"/>
+        <location filename="../src/interface.ui" line="412"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="428"/>
+        <location filename="../src/interface.ui" line="420"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="442"/>
+        <location filename="../src/interface.ui" line="434"/>
         <source>&amp;Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="445"/>
+        <location filename="../src/interface.ui" line="437"/>
         <source>Ctrl+Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="454"/>
+        <location filename="../src/interface.ui" line="446"/>
         <source>Online &amp;documentation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="457"/>
+        <location filename="../src/interface.ui" line="449"/>
         <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="466"/>
+        <location filename="../src/interface.ui" line="458"/>
         <source>&amp;About Backy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="475"/>
+        <location filename="../src/interface.ui" line="467"/>
         <source>&amp;Preferences</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,7 +322,7 @@
     </message>
     <message>
         <location filename="../src/interface.cpp" line="231"/>
-        <source>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy is a simple open-source tool to create and maintain backup of a folder or an entire drive.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information:&lt;/strong&gt; For program&apos;s documentation, source code and updates, please, refer to its repository at: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Credits:&lt;/strong&gt; The &lt;em&gt;Fantasque Sans Mono&lt;/em&gt; font was created by &lt;a href=&apos;mailto:jany.belluz@hotmail.fr&apos; target=&apos;_blank&apos;&gt;Jany Belluz&lt;/a&gt; and is licensed under the terms of &lt;a href=&apos;http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL&apos;&gt;SIL Open Font License&lt;/a&gt;. The &lt;em&gt;Abstract Materials Patterns&lt;/em&gt; were freely acquired from &lt;a href=&apos;https://www.brusheezy.com&apos; target=&apos;_blank&apos;&gt;Brusheezy!&lt;/a&gt;</source>
+        <source>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy is a simple open-source tool to create and maintain backup of a folder or an entire drive.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information:&lt;/strong&gt; For program&apos;s documentation, source code and updates, please, refer to its repository at: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Credits:&lt;/strong&gt; The &lt;em&gt;Fantasque Sans Mono&lt;/em&gt; font was created by &lt;a href=&apos;mailto:jany.belluz@hotmail.fr&apos; target=&apos;_blank&apos;&gt;Jany Belluz&lt;/a&gt; and is licensed under the terms of &lt;a href=&apos;http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL&apos;&gt;SIL Open Font License&lt;/a&gt;. The &lt;em&gt;Abstract Materials Patterns&lt;/em&gt; were freely acquired from &lt;a href=&apos;https://www.brusheezy.com&apos; target=&apos;_blank&apos;&gt;Brusheezy!&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -410,7 +410,7 @@ Are you sure you want to begin the backup process?</source>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="397"/>
-        <source>Backup completed but errors occurred during the process! Check the log file in %1 for more details.
+        <source>Backup completed but errors occurred during the process! Check the log file in &apos;%1&apos; for more details.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -453,12 +453,12 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     <name>Logger</name>
     <message>
         <location filename="../src/logger.cpp" line="14"/>
-        <source>Warning: Failed to create log directory in %1! No logs will be created during this instance.</source>
+        <source>Warning: Failed to create log directory in &apos;%1&apos;! No logs will be created during this instance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/logger.cpp" line="27"/>
-        <source>Warning: Failed to create or open log files: %1, %2! No logs will be created for this instance.</source>
+        <source>Warning: Failed to create or open log files: &apos;%1&apos;, &apos;%2&apos;! No logs will be created for this instance.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -501,7 +501,7 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     </message>
     <message>
         <location filename="../src/preferences.ui" line="157"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Setting a buffer size too high may make the application crash or harm your system. We strongly recommend to not modify the two values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Overstepping recommended buffers sizes may cause the application to crash and/or harm your system. We strongly discourage you to modify the values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -549,7 +549,7 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     </message>
     <message>
         <location filename="../src/producer.cpp" line="66"/>
-        <source>Producer process enqueued %1 in the shared item buffer.</source>
+        <source>Producer process enqueued &apos;%1&apos; in the shared item buffer.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -559,7 +559,7 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     </message>
     <message>
         <location filename="../src/producer.cpp" line="96"/>
-        <source>During analysis of the source drive or folder (%1) the program has discovered </source>
+        <source>During analysis of the source location &apos;%1&apos; the program has discovered </source>
         <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
