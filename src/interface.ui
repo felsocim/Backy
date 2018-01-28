@@ -60,7 +60,7 @@
        <x>18</x>
        <y>40</y>
        <width>561</width>
-       <height>119</height>
+       <height>136</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layoutSource">
@@ -85,7 +85,7 @@
       <item row="0" column="0" colspan="3">
        <widget class="QLabel" name="labelSourceDescription">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the source folder or drive you want to backup the contents of.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Browse for the source drive or folder you want to backup the contents of.</string>
         </property>
        </widget>
       </item>
@@ -159,14 +159,14 @@
        <x>20</x>
        <y>40</y>
        <width>561</width>
-       <height>52</height>
+       <height>81</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="layoutTarget">
       <item row="0" column="0" colspan="3">
        <widget class="QLabel" name="labelTargetDescription">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Browse for the backup destination folder or drive.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>Browse for the backup destination drive or folder.</string>
         </property>
        </widget>
       </item>
@@ -188,31 +188,23 @@
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>100</y>
-       <width>561</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QCheckBox" name="checkSynchronize">
-        <property name="text">
-         <string>Use to synchronize</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="checkKeepObsolete">
-        <property name="text">
-         <string>Keep obsolete item(s)</string>
-        </property>
-       </widget>
+      <item row="2" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QCheckBox" name="checkSynchronize">
+          <property name="text">
+           <string>Use to synchronize</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="checkKeepObsolete">
+          <property name="text">
+           <string>Keep obsolete item(s)</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
