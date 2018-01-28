@@ -3,6 +3,7 @@
 #include "../include/consumer.h"
 #include <QApplication>
 #include <QCoreApplication>
+#include <QTranslator>
 
 int main(int argc, char *argv[])
 {
@@ -12,6 +13,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationName("Marek Felsoci");
     QCoreApplication::setOrganizationDomain("marekonline.eu");
     QCoreApplication::setApplicationVersion("1.0");
+
+    QTranslator translator;
+    translator.load("Backy_sk.qm");
+    a.installTranslator(&translator);
 
     Interface w;
     w.show();
