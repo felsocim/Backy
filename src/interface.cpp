@@ -16,6 +16,7 @@ Interface::Interface(QWidget *parent) :
   this->ui->setupUi(this);
   this->producerInProgress = false;
   this->consumerInProgress = false;
+  this->loadSettings();
 
   this->sourceDialog->setFileMode(QFileDialog::Directory);
   this->targetDialog->setFileMode(QFileDialog::Directory);
@@ -78,6 +79,7 @@ Interface::~Interface() {
   this->consumerWorker.quit();
   this->producerWorker.wait();
   this->consumerWorker.wait();
+  this->saveSettings();
   delete this->ui;
   delete this->preferences;
   delete this->sourceDialog;
@@ -97,6 +99,50 @@ bool Interface::inProgress() {
 void Interface::abort() {
   this->producer->setProgress(false);
   this->consumer->setProgress(false);
+void Interface::loadSettings() {
+  QSettings settings;
+  settings.beginGroup("Backup");
+  bool synchronize = settings.value("synchronize", DEFAULT_SYNCHRONIZE).toBool();
+  bool keepObsolete = settings.value("keepObsolete", DEFAULT_KEEP_OBSOLETE).toBool();
+  Criterion comparisonCriterion = (Criterion) settings.value("comparisonCriterion", DEFAULT_COMPARISON_CRITERION).toInt();
+  this->consumer->setSynchronize(synchronize);
+  this->ui->checkSynchronize->setChecked(synchronize);
+  this->consumer->setKeepObsolete(keepObsolete);
+  this->ui->checkKeepObsolete->setChecked(keepObsolete);
+  switch(comparisonCriterion) {
+    case CRITERION_MORE_RECENT:
+    default:
+      this->onToggleCriterionMostRecent(true);
+      break;
+    case CRITERION_BIGGER:
+      this->onToggleCriterionBiggest(true);
+      break;
+  }
+  settings.endGroup();
+  settings.beginGroup("Application");
+  qint64 itemBufferSize = settings.value("itemBufferSize", DEFAULT_ITEM_BUFFER_SIZE).toLongLong();
+  qint64 copyBufferSize = settings.value("copyBufferSize", DEFAULT_COPY_BUFFER_SIZE).toLongLong();
+  QString logsLocation = settings.value("logsLocation", DEFAULT_LOGS_LOCATION).toString();
+  this->producer->setBufferMax(itemBufferSize);
+  this->preferences->setItemBufferSize(itemBufferSize);
+  this->consumer->setCopyBufferSize(copyBufferSize);
+  this->preferences->setCopyBufferSize(copyBufferSize);
+  this->preferences->setLogsLocation(logsLocation);
+  settings.endGroup();
+}
+
+void Interface::saveSettings() {
+  QSettings settings;
+  settings.beginGroup("Backup");
+  settings.setValue("synchronize", this->ui->checkSynchronize->isChecked());
+  settings.setValue("keepObsolete", this->ui->checkKeepObsolete->isChecked());
+  settings.setValue("comparisonCriterion", (this->ui->radioCriterionMostRecent->isChecked() ? CRITERION_MORE_RECENT : CRITERION_BIGGER));
+  settings.endGroup();
+  settings.beginGroup("Application");
+  settings.setValue("itemBufferSize", this->preferences->getItemBufferSize());
+  settings.setValue("copyBufferSize", this->preferences->getCopyBufferSize());
+  settings.setValue("logsLocation", this->preferences->getLogsLocation());
+  settings.endGroup();
 }
 
 void Interface::onBrowseSource(bool clicked) {
@@ -256,7 +302,8 @@ void Interface::onSavePreferences() {
       QMessageBox::Ok
     );
   } else {
-    this->producer->setBufferMax(this->preferences->getItemBufferSize());
-    this->consumer->setCopyBufferSize(this->preferences->getCopyBufferSize());
+    this->saveSettings();
+  }
+}
   }
 }

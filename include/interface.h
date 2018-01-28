@@ -8,6 +8,7 @@
 #include <QMutex>
 #include <QWaitCondition>
 #include <QMessageBox>
+#include <QSettings>
 #include <queue>
 #include "item.h"
 #include "producer.h"
@@ -40,6 +41,8 @@ class Interface : public QMainWindow {
       consumerInProgress;
     void abort();
     bool inProgress();
+    void loadSettings();
+    void saveSettings();
   private slots:
     void onBrowseSource(bool clicked);
     void onBrowseTarget(bool clicked);
