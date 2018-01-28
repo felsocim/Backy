@@ -6,8 +6,8 @@
 
 #if defined Q_OS_WIN
 #define DEFAULT_LOG_LOCATION "C:/"
-#elif defined Q_OS_UNIX
-#define DEFAULT_LOG_LOCATION "/home/marek/.Backy"
+#elif defined Q_OS_LINUX
+#define DEFAULT_LOGS_LOCATION QDir::homePath() + "/.Backy"
 #else
 #error "Unsupported operating system!"
 #endif

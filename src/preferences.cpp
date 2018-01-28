@@ -53,7 +53,7 @@ void Preferences::setLogsLocation(QString eventLogLocation) {
 void Preferences::setDefaults() {
   this->itemBufferSize = DEFAULT_ITEM_BUFFER_SIZE;
   this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
-  this->logsLocation = DEFAULT_LOG_LOCATION;
+  this->logsLocation = DEFAULT_LOGS_LOCATION;
   this->setCurrents();
 }
 
