@@ -16,6 +16,7 @@ Interface::Interface(QWidget *parent) :
   this->ui->setupUi(this);
   this->producerInProgress = false;
   this->consumerInProgress = false;
+  this->aborted = false;
   this->loadSettings();
 
   this->sourceDialog->setFileMode(QFileDialog::Directory);
@@ -99,6 +100,9 @@ bool Interface::inProgress() {
 void Interface::abort() {
   this->producer->setProgress(false);
   this->consumer->setProgress(false);
+  this->aborted = true;
+}
+
 void Interface::loadSettings() {
   QSettings settings;
   settings.beginGroup("Backup");

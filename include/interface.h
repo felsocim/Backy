@@ -38,7 +38,8 @@ class Interface : public QMainWindow {
     Producer * producer;
     Consumer * consumer;
     bool producerInProgress,
-      consumerInProgress;
+      consumerInProgress,
+      aborted;
     void abort();
     bool inProgress();
     void loadSettings();
