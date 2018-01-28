@@ -206,7 +206,27 @@ void Interface::onEditPreferences(bool clicked) {
 }
 
 void Interface::onShowAboutBox(bool clicked) {
-  QMessageBox::about(this, "About Backy", tr("Backy is a simple backup program allowing to create and synchronize drive or folder backups.\nCopyright (C) 2018 Marek Felsoci. Lincesed under LGPL License."));
+  QMessageBox::about(
+    this,
+    "About Backy",
+    "<h1>Backy</h1>"
+    "<p>Backy is a simple open-source tool to create and maintain backup of a folder or an entire drive.</p>"
+    "<p>Copyright (C) 2018 Marek Felsoci</p>"
+    "<p>This program is free software: you can redistribute it and/or modify"
+    " it under the terms of the GNU General Public License as published by"
+    " the Free Software Foundation, either version 3 of the License, or"
+    " (at your option) any later version."
+    "<p>This program is distributed in the hope that it will be useful,"
+    " but WITHOUT ANY WARRANTY; without even the implied warranty of"
+    " MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</p>"
+    "<p>See the GNU General Public License for more details."
+    " You should have received a copy of the GNU General Public License"
+    " along with this program. If not, see <a href='http://www.gnu.org/licenses/' target='_blank'>http://www.gnu.org/licenses/</a></p>"
+    "<p><strong>Information:</strong> For program's documentation, source code and updates, please, refer to its repository at: <a href='https://github.com/felsocim/Backy' target='_blank'>https://github.com/felsocim/Backy</a></p>"
+    "<p><strong>Credits:</strong> The <em>Fantasque Sans Mono</em> font was created by <a href='mailto:jany.belluz@hotmail.fr' target='_blank'>"
+    "Jany Belluz</a> and is licensed under the terms of <a href='http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL'>"
+    "SIL Open Font License</a>. The <em>Abstract Materials Patterns</em> were freely acquired from <a href='https://www.brusheezy.com' target='_blank'>Brusheezy!</a>"
+  );
 }
 
 void Interface::onAbort(bool clicked) {
