@@ -6,17 +6,41 @@ add_compile_options(-std=c++11 -Wall -g -lm)
 
 set(CMAKE_PREFIX_PATH /home/marek/Qt/5.10.0/gcc_64/lib/cmake)
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5LinguistTools REQUIRED)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
-
-file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*")
-file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*")
-
 set(CMAKE_AUTORCC ON)
-file(GLOB RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../res/*.qrc")
 
-add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${RESOURCES})
+file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/../include/*.h")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*.cpp")
+file(GLOB INTERFACES "${CMAKE_CURRENT_SOURCE_DIR}/../src/*.ui")
+file(GLOB RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/../res/*.qrc")
+file(GLOB TRANSLATIONS "${CMAKE_CURRENT_SOURCE_DIR}/../translate/*.ts")
+
+set(TRANSLATABLE ${HEADERS} ${SOURCES} ${INTERFACES})
+
+foreach(translation en fr sk cs uk)
+  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
+    execute_process(COMMAND /home/marek/Qt/5.10.0/gcc_64/bin/lupdate -silent ${TRANSLATABLE} -ts "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
+  endif()
+endforeach(translation)
+
+option(UPDATE_TRANSLATIONS "Update translation files" ON)
+
+if(UPDATE_TRANSLATIONS)
+  message("Creating translations")
+  qt5_create_translation(BINARY_TRANSLATIONS ${TRANSLATABLE} ${TRANSLATIONS})
+else()
+  message("Updating translations")
+  qt5_add_translation(BINARY_TRANSLATIONS ${TRANSLATIONS})
+endif()
+
+add_custom_target(translate DEPENDS ${BINARY_TRANSLATIONS})
+
+add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES} ${INTERFACES} ${RESOURCES})
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} "${CMAKE_CURRENT_SOURCE_DIR}/../include")
 target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+
+set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM true)
