@@ -60,14 +60,17 @@ QString Preferences::getLogsLocation() const {
 
 void Preferences::setItemBufferSize(qint64 itemBufferSize) {
   this->itemBufferSize = itemBufferSize;
+  this->ui->spinItemBufferSize->setValue((int) itemBufferSize);
 }
 
 void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = copyBufferSize;
+  this->ui->spinCopyBufferSize->setValue((int) copyBufferSize);
 }
 
 void Preferences::setLogsLocation(QString eventLogLocation) {
   this->logsLocation = eventLogLocation;
+  this->ui->editLogsLocationValue->setText(eventLogLocation);
 }
 
 void Preferences::setDefaults() {
