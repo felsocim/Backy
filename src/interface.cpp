@@ -251,39 +251,26 @@ void Interface::onChooseSource(QString selected) {
   this->consumer->setDetectedSize(this->producer->getSize());
 
   size_t bytesDiscovered = this->producer->getSize();
+  double converted = 0.0;
 
   if(bytesDiscovered >= TERABYTE) {
-    this->ui->labelDiscoveredTotalSizeValue->setText(
-      QString::number(
-        ((float) bytesDiscovered / (float) TERABYTE)
-      )
-    );
+    converted = (double) bytesDiscovered / (double) TERABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText("TB");
   } else if(bytesDiscovered >= GIGABYTE) {
-    this->ui->labelDiscoveredTotalSizeValue->setText(
-      QString::number(
-        ((float) bytesDiscovered / (float) GIGABYTE)
-      )
-    );
+    converted = (double) bytesDiscovered / (double) GIGABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText("GB");
   } else if(bytesDiscovered >= MEGABYTE) {
-    this->ui->labelDiscoveredTotalSizeValue->setText(
-      QString::number(
-        ((float) bytesDiscovered / (float) MEGABYTE)
-      )
-    );
+    converted = (double) bytesDiscovered / (double) MEGABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText("MB");
   } else if(bytesDiscovered >= KILOBYTE) {
-    this->ui->labelDiscoveredTotalSizeValue->setText(
-      QString::number(
-        ((float) bytesDiscovered / (float) KILOBYTE)
-      )
-    );
+    converted = (double) bytesDiscovered / (double) KILOBYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText("kB");
   } else {
-    this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(bytesDiscovered));
+    converted = (double) bytesDiscovered;
     this->ui->labelDiscoveredTotalSizeUnits->setText("B");
   }
+
+  this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'g', 2));
 }
 
 void Interface::onChooseTarget(QString selected) {
