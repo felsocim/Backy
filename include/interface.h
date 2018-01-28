@@ -58,6 +58,7 @@ class Interface : public QMainWindow {
     void onBeginBackup(bool clicked);
     void onChooseSource(QString selected);
     void onChooseTarget(QString selected);
+    void onStatusCurrentOperation(QString operation);
     void onStatusCurrentItem(QString item);
     void onStatusCurrentProgress(int current);
     void onStatusOverallProgress(int overall);

@@ -58,6 +58,7 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort(bool)));
   QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup(bool)));
 
+  QObject::connect(this->consumer, SIGNAL(triggerCurrentOperation(QString)), this, SLOT(onStatusCurrentOperation(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
   QObject::connect(this->consumer, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
@@ -344,6 +345,10 @@ void Interface::onChooseTarget(QString selected) {
   this->consumer->setTarget(selected);
 }
 
+void Interface::onStatusCurrentOperation(QString operation) {
+  this->ui->labelStatusCurrentOperation->setText(operation);
+}
+
 void Interface::onStatusCurrentItem(QString item) {
   this->ui->labelStatusCurrentName->setText(item);
 }
@@ -370,6 +375,7 @@ void Interface::onProducerFinished() {
 
 void Interface::onConsumerFinished() {
   this->consumerInProgress = false;
+  this->ui->labelStatusCurrentOperation->setText("");
   this->ui->labelStatusCurrentName->setText("");
   this->ui->progressStatusCurrentProgress->setValue(0);
   this->ui->progressStatusOverallProgress->setValue(0);

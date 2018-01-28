@@ -155,6 +155,7 @@ void Consumer::work() {
       if(this->currentItem->getType() == TYPE_FILE) {
         if(this->currentFile->exists()) {
           if(this->currentItem->isSuperiorThan(existing, this->criterion)) {
+            emit this->triggerCurrentOperation(tr("Removing previous version of file"));
             if(this->currentFile->remove())
               this->log->logEvent("Successfully removed previous version of file: " + existing);
             else
@@ -162,6 +163,7 @@ void Consumer::work() {
             goto copying;
           } else {
             this->log->logEvent("Skipping item: " + this->currentItem->getName());
+            emit this->triggerCurrentOperation(tr("Skipping item"));
             goto done;
           }
         } else {
@@ -171,6 +173,7 @@ void Consumer::work() {
         goto cloning;
       } else {
         this->log->logEvent("Skipping item: " + this->currentItem->getName());
+        emit this->triggerCurrentOperation(tr("Skipping item"));
         goto done;
       }
     } else {
@@ -180,6 +183,7 @@ void Consumer::work() {
         goto cloning;
       } else {
         this->log->logEvent("Skipping item: " + this->currentItem->getName());
+        emit this->triggerCurrentOperation(tr("Skipping item"));
         goto done;
       }
     }
@@ -189,6 +193,7 @@ void Consumer::work() {
         this->log->logEvent("Successfully copied file: " + left + " to " + existing);
       else
         this->log->logError("Failed to copy file: " + left + " to " + existing);
+    emit this->triggerCurrentOperation(tr("Copying file"));
     goto done;
 
     cloning:
@@ -196,6 +201,7 @@ void Consumer::work() {
         this->log->logEvent("Successfully cloned directory: " + left + " to " + existing);
       else
         this->log->logError("Failed to clone directory: " + left + " to " + existing);
+    emit this->triggerCurrentOperation(tr("Creating directory"));
 
     done:
     this->processedCount++;
@@ -233,6 +239,8 @@ void Consumer::work() {
           this->log->logEvent("Successfully removed obsolete file: " + current);
         else
           this->log->logError("Failed to remove obsolete file: " + current);
+          emit this->triggerCurrentOperation(tr("Removing folder"));
+          emit this->triggerCurrentOperation(tr("Removing file"));
       }
     }
   }

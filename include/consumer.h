@@ -39,6 +39,7 @@ class Consumer : public Worker {
     void work();
 
   signals:
+    void triggerCurrentOperation(QString operation);
     void triggerCurrentItem(QString item);
     void triggerCurrentProgress(int currentItem);
     void triggerOverallProgress(int overall);
