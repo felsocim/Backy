@@ -1,19 +1,13 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef __INTERFACE_H
+#define __INTERFACE_H
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include <QString>
 #include <QStringList>
-#include <QDir>
 #include <QThread>
-#include <QMutex>
-#include <QWaitCondition>
 #include <QMessageBox>
 #include <QSettings>
 #include <QDesktopServices>
-#include <queue>
-#include "item.h"
 #include "producer.h"
 #include "consumer.h"
 #include "preferences.h"
@@ -27,6 +21,7 @@ class Interface : public QMainWindow {
   public:
     explicit Interface(QWidget * parent = 0);
     ~Interface();
+
   private:
     Ui::Interface * ui;
     Preferences * preferences;
@@ -43,11 +38,12 @@ class Interface : public QMainWindow {
     bool producerInProgress,
       consumerInProgress,
       aborted;
-    void abort();
     bool inProgress();
     QStringList ready();
+    void abort();
     void loadSettings();
     void saveSettings();
+
   private slots:
     void onBrowseSource(bool clicked);
     void onBrowseTarget(bool clicked);
@@ -71,9 +67,10 @@ class Interface : public QMainWindow {
     void onConsumerFinished();
     void onSavePreferences();
     void onDocumentationSolicitation(bool clicked);
+
   signals:
     void signalStart();
     void signalProgress(bool state);
 };
 
-#endif // INTERFACE_H
+#endif // __INTERFACE_H

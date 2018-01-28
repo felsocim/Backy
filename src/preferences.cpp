@@ -6,14 +6,19 @@ Preferences::Preferences(QWidget * parent) :
   ui(new Ui::Preferences),
   browseLogsLocation(new QFileDialog(this)) {
   this->ui->setupUi(this);
+
   this->browseLogsLocation->setFileMode(QFileDialog::Directory);
+
   this->logsLocationChanged = false;
+
   this->setDefaults();
 
 #if defined Q_OS_LINUX
   QProcess lookForMemInfo;
+
   lookForMemInfo.start("grep", QStringList() << "MemTotal:" << "/proc/meminfo");
   lookForMemInfo.waitForFinished();
+
   QString result = lookForMemInfo.readAllStandardOutput();
   QRegExp filter("(\\d+)");
 
@@ -30,9 +35,10 @@ Preferences::Preferences(QWidget * parent) :
 #endif
 
   QObject::connect(this->ui->buttonLogsLocationBrowse, SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
-  QObject::connect(this->browseLogsLocation, SIGNAL(fileSelected(QString)), this, SLOT(onChooseLogsLocation(QString)));
   QObject::connect(this->ui->buttonApply, SIGNAL(clicked(bool)), this, SLOT(onSave()));
   QObject::connect(this->ui->buttonDiscard, SIGNAL(clicked(bool)), this, SLOT(onDiscard()));
+
+  QObject::connect(this->browseLogsLocation, SIGNAL(fileSelected(QString)), this, SLOT(onChooseLogsLocation(QString)));
 }
 
 Preferences::~Preferences() {
@@ -77,6 +83,7 @@ void Preferences::setDefaults() {
   this->itemBufferSize = DEFAULT_ITEM_BUFFER_SIZE;
   this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
   this->logsLocation = DEFAULT_LOGS_LOCATION;
+
   this->setCurrents();
 }
 
@@ -98,6 +105,7 @@ void Preferences::onSave() {
   this->itemBufferSize = (qint64) this->ui->spinItemBufferSize->value();
   this->copyBufferSize = (qint64) this->ui->spinCopyBufferSize->value();
   this->logsLocation = this->ui->editLogsLocationValue->text();
+
   if(this->logsLocationChanged) {
     if(
       QMessageBox::information(
@@ -112,6 +120,7 @@ void Preferences::onSave() {
       return;
     }
   }
+
   trigger:
   emit triggerSave();
   this->close();

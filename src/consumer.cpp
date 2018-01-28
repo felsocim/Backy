@@ -9,7 +9,7 @@ Consumer::Consumer() : Worker() {
   this->processedCount = 0;
   this->processedSize = 0;
   this->copyBufferSize = MEGABYTE * DEFAULT_COPY_BUFFER_SIZE;
-  this->current = nullptr;
+  this->currentItem = nullptr;
   this->currentFile = nullptr;
   this->currentDirectory = nullptr;
 }
@@ -33,35 +33,48 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
       if(toBeWritten < 0) {
         goto error;
       }
+
       if((actuallyWritten = destination->write(bytes, toBeWritten)) != toBeWritten) {
         goto error;
       }
+
       totalWritten += actuallyWritten;
       this->processedSize += actuallyWritten;
-      emit this->currentProgress((int) ceil(totalWritten * 100 / size));
-      emit this->overallProgress((int) ceil(this->processedSize * 100 / this->detectedSize));
+
+      emit this->triggerCurrentProgress((int) ceil(totalWritten * 100 / size));
+      emit this->triggerOverallProgress((int) ceil(this->processedSize * 100 / this->detectedSize));
+
       memset(bytes, 0, this->copyBufferSize);
     }
+
     delete[] bytes;
+
     source->close();
     destination->close();
+
     if(!(code = destination->setPermissions(source->permissions()))) {
       this->log->logError("File copy failed (could not transfer file permissions)");
       return false;
     }
+
     QFileInfo s(*source);
     struct utimbuf time;
+
     time.actime = s.lastRead().toSecsSinceEpoch();
     time.modtime = s.lastModified().toSecsSinceEpoch();
+
     if((code = utime(destination->fileName().toStdString().c_str(), &time)) < 0){
       this->log->logError("File copy failed (could not transfer file dates)");
       return false;
     }
+
     return true;
   }
+
   error:
   delete[] bytes;
   this->log->logError("File copy failed (error code: " + QString::number(code) + ")");
+
   return false;
 }
 
@@ -101,30 +114,36 @@ void Consumer::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = MEGABYTE * copyBufferSize;
 }
 
-void Consumer::createLogsAt(QString path) {
+void Consumer::createLogsAt(const QString &path) {
   this->log = new Logger(path, CONSUMER_EVENT_LOG_FILE_NAME, CONSUMER_ERROR_LOG_FILE_NAME);
 }
 
 void Consumer::work() {
   emit this->started();
+
   this->processedCount = 0;
   this->processedSize = 0;
+
   this->log->logEvent("Consumer has started");
+
   do {
     this->lock->lock();
+
     while(this->buffer->empty()) {
       this->notFull->wait(this->lock);
     }
+
     Item item = this->buffer->front();
-    this->current = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
+    this->currentItem = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
 
-    emit this->currentItem(this->current->getPath());
+    emit this->triggerCurrentItem(this->currentItem->getPath());
 
-    QString left(this->source + "/" + this->current->getPath());
-    QString existing(this->target + "/" + this->current->getPath());
+    QString left(this->source + "/" + this->currentItem->getPath());
+    QString existing(this->target + "/" + this->currentItem->getPath());
     QFile * before;
     QDir * beforeDirectory;
-    if(this->current->getType() == TYPE_FILE) {
+
+    if(this->currentItem->getType() == TYPE_FILE) {
       before = new QFile(left);
       this->currentFile = new QFile(existing);
     } else {
@@ -133,16 +152,16 @@ void Consumer::work() {
     }
 
     if(this->synchronize) {
-      if(this->current->getType() == TYPE_FILE) {
+      if(this->currentItem->getType() == TYPE_FILE) {
         if(this->currentFile->exists()) {
-          if(this->current->isSuperiorThan(existing, this->criterion)) {
+          if(this->currentItem->isSuperiorThan(existing, this->criterion)) {
             if(this->currentFile->remove())
               this->log->logEvent("Successfully removed previous version of file: " + existing);
             else
               this->log->logError("Failed to remove previous version of file: " + existing);
             goto copying;
           } else {
-            this->log->logEvent("Skipping item: " + this->current->getName());
+            this->log->logEvent("Skipping item: " + this->currentItem->getName());
             goto done;
           }
         } else {
@@ -151,36 +170,38 @@ void Consumer::work() {
       } else if(!this->currentDirectory->exists()) {
         goto cloning;
       } else {
-        this->log->logEvent("Skipping item: " + this->current->getName());
+        this->log->logEvent("Skipping item: " + this->currentItem->getName());
         goto done;
       }
     } else {
-      if(this->current->getType() == TYPE_FILE) {
+      if(this->currentItem->getType() == TYPE_FILE) {
         goto copying;
-      } else if(this->current->getType() == TYPE_DIRECTORY) {
+      } else if(this->currentItem->getType() == TYPE_DIRECTORY) {
         goto cloning;
       } else {
-        this->log->logEvent("Skipping item: " + this->current->getName());
+        this->log->logEvent("Skipping item: " + this->currentItem->getName());
         goto done;
       }
     }
 
     copying:
-      if(this->copyFile(before, this->currentFile, this->current->getSize()))
+      if(this->copyFile(before, this->currentFile, this->currentItem->getSize()))
         this->log->logEvent("Successfully copied file: " + left + " to " + existing);
       else
         this->log->logError("Failed to copy file: " + left + " to " + existing);
     goto done;
+
     cloning:
       if(beforeDirectory->mkdir(existing))
         this->log->logEvent("Successfully cloned directory: " + left + " to " + existing);
       else
         this->log->logError("Failed to clone directory: " + left + " to " + existing);
+
     done:
     this->processedCount++;
     this->buffer->pop();
 
-    if(this->current->getType() == TYPE_FILE) {
+    if(this->currentItem->getType() == TYPE_FILE) {
       delete before;
       delete this->currentFile;
     } else {
@@ -188,7 +209,7 @@ void Consumer::work() {
       delete this->currentDirectory;
     }
 
-    delete this->current;
+    delete this->currentItem;
 
     this->notEmpty->wakeOne();
     this->lock->unlock();
@@ -197,11 +218,16 @@ void Consumer::work() {
   if(!this->progress) goto finish;
 
   if(!this->keepObsolete) {
-    QDirIterator i(this->target, QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    QDirIterator i(
+      this->target,
+      QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories
+    );
     QDir t(this->target);
+
     while(i.hasNext()) {
       QString current(i.next());
       QString corresponding(this->source + "/" + t.relativeFilePath(current));
+
       if(!QFile::exists(corresponding)) {
         if(QFile::remove(current))
           this->log->logEvent("Successfully removed obsolete file: " + current);

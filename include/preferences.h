@@ -1,38 +1,13 @@
-#ifndef PREFERENCES_H
-#define PREFERENCES_H
+#ifndef __PREFERENCES_H
+#define __PREFERENCES_H
 
 #include <QDialog>
 #include <QFileDialog>
 #include <QStringList>
 #include <QMessageBox>
-#include <QDebug>
 #include <QRegExp>
 #include <QProcess>
-
-#if defined Q_OS_WIN
-#define DEFAULT_LOG_LOCATION "C:/"
-#elif defined Q_OS_LINUX
-#define DEFAULT_LOGS_LOCATION QDir::homePath() + "/.Backy"
-#else
-#error "Unsupported operating system!"
-#endif
-
-#define KILOBYTE (qint64) 1024
-#define MEGABYTE (KILOBYTE * 1024)
-#define GIGABYTE (MEGABYTE * 1024)
-#define TERABYTE (GIGABYTE * 1024)
-
-#define PRODUCER_EVENT_LOG_FILE_NAME "produder_event.log"
-#define PRODUCER_ERROR_LOG_FILE_NAME "producer_error.log"
-#define CONSUMER_EVENT_LOG_FILE_NAME "consumer_event.log"
-#define CONSUMER_ERROR_LOG_FILE_NAME "consumer_error.log"
-#define MAIN_EVENT_LOG_FILE_NAME "main_event.log"
-#define MAIN_ERROR_LOG_FILE_NAME "main_error.log"
-#define DEFAULT_COPY_BUFFER_SIZE 1
-#define DEFAULT_ITEM_BUFFER_SIZE 5
-#define DEFAULT_SYNCHRONIZE false
-#define DEFAULT_KEEP_OBSOLETE false
-#define DEFAULT_COMPARISON_CRITERION CRITERION_MORE_RECENT
+#include "common.h"
 
 namespace Ui {
   class Preferences;
@@ -49,6 +24,7 @@ class Preferences : public QDialog
     QString logsLocation;
     bool logsLocationChanged;
     void setCurrents();
+
   public:
     explicit Preferences(QWidget * parent = 0);
     ~Preferences();
@@ -59,13 +35,15 @@ class Preferences : public QDialog
     void setCopyBufferSize(qint64 copyBufferSize);
     void setLogsLocation(QString logsLocation);
     void setDefaults();
+
   private slots:
     void onBrowseLogsLocation();
     void onChooseLogsLocation(QString selected);
     void onDiscard();
     void onSave();
+
   signals:
     void triggerSave();
 };
 
-#endif // PREFERENCES_H
+#endif // __PREFERENCES_H

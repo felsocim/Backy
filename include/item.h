@@ -1,23 +1,10 @@
 #ifndef __ITEM_H
 #define __ITEM_H
 
-#include <QString>
 #include <QDateTime>
 #include <QFileInfo>
 #include <ostream>
-#include "preferences.h"
-
-typedef enum {
-  TYPE_FILE,
-  TYPE_DIRECTORY
-} Type;
-
-typedef enum {
-  CRITERION_MORE_RECENT,
-  CRITERION_BIGGER
-} Criterion;
-
-using namespace std;
+#include "common.h"
 
 class Item {
   private:
@@ -26,21 +13,22 @@ class Item {
       path;
     QDateTime lastModified;
     qint64 size;
+
   public:
     Item();
-    Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size);
-    Type getType();
-    QString getName();
-    QString getPath();
-    QDateTime getLastModified();
-    qint64 getSize();
+    Item(const Type &type, const QString &name, const QString &path, const QDateTime &lastModified, const qint64 &size);
+    Type getType() const;
+    QString getName() const;
+    QString getPath() const;
+    QDateTime getLastModified() const;
+    qint64 getSize() const;
     void setType(Type type);
     void setName(QString name);
     void setPath(QString path);
     void setLastModified(QDateTime lastModified);
     void setSize(qint64 size);
-    bool isSuperiorThan(QString &another, Criterion &criterion);
-    friend ostream& operator<<(ostream &output, Item &source) {
+    bool isSuperiorThan(const QString &another, const Criterion &criterion);
+    friend std::ostream& operator<<(std::ostream &output, Item &source) {
       output << (source.getType() == TYPE_FILE ? "File: " : "Directory: ")
         << source.getName().toStdString()
         << ", in " << source.getPath().toStdString()

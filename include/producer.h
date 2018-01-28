@@ -9,16 +9,17 @@ class Producer : public Worker {
     qint64 filesCount,
       directoriesCount,
       size;
-    size_t bufferMax;
+    size_t itembufferSize;
+
   public:
     Producer();
     ~Producer();
     qint64 getFilesCount() const;
     qint64 getDirectoriesCount() const;
     qint64 getSize() const;
-    void setRoot(QString &root);
-    void setBufferMax(size_t bufferMax);
-    void createLogsAt(QString path);
+    void setRoot(const QString &root);
+    void setItemBufferSize(size_t itembufferSize);
+    void createLogsAt(const QString &path);
     void work();
   public slots:
     void analyze();

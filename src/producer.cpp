@@ -4,7 +4,7 @@ Producer::Producer() : Worker() {
   this->root = nullptr;
   this->filesCount = 0;
   this->directoriesCount = 0;
-  this->bufferMax = DEFAULT_ITEM_BUFFER_SIZE;
+  this->itembufferSize = DEFAULT_ITEM_BUFFER_SIZE;
   this->size = 0;
 }
 
@@ -24,29 +24,35 @@ qint64 Producer::getSize() const {
   return this->size;
 }
 
-void Producer::setRoot(QString &root) {
+void Producer::setRoot(const QString &root) {
   this->root = new QDir(root);
 }
 
-void Producer::setBufferMax(size_t bufferMax) {
-  this->bufferMax = bufferMax;
+void Producer::setItemBufferSize(size_t itembufferSize) {
+  this->itembufferSize = itembufferSize;
 }
 
-void Producer::createLogsAt(QString path) {
+void Producer::createLogsAt(const QString &path) {
   this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }
 
 void Producer::work() {
   emit this->started();
+
   QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+
   this->log->logEvent("Producer has started");
+
   while(i.hasNext() && this->progress) {
     QFileInfo current = QFileInfo(i.next());
+
     this->lock->lock();
-    while(this->buffer->size() == this->bufferMax) {
+
+    while(this->buffer->size() == this->itembufferSize) {
       this->log->logEvent("Producer is waiting");
       this->notEmpty->wait(this->lock);
     }
+
     this->buffer->push(
       Item(
         current.isDir() ? TYPE_DIRECTORY : TYPE_FILE,
@@ -56,20 +62,26 @@ void Producer::work() {
         current.size()
       )
     );
+
     this->log->logEvent("Producer enqueued '" + current.fileName() + "'");
     this->notFull->wakeOne();
     this->lock->unlock();
   }
+
   emit this->finished();
+
   this->log->logEvent("Producer has finished");
 }
 
 void Producer::analyze() {
   emit this->started();
+
   this->directoriesCount = 0;
   this->filesCount = 0;
   this->size = 0;
+
   QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
     if(current.isDir()) {
@@ -79,6 +91,7 @@ void Producer::analyze() {
     }
     this->size += current.size();
   }
+
   this->log->logEvent(
     "Producer analyzed root directory '" + this->root->absolutePath() + "' (" +
     QString::number(this->directoriesCount) +
@@ -88,5 +101,6 @@ void Producer::analyze() {
     QString::number(this->size) +
     " bytes)"
   );
+
   emit this->finished();
 }

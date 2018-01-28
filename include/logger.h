@@ -1,12 +1,10 @@
 #ifndef __LOGGER_H
 #define __LOGGER_H
 
-#include <QString>
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
-#include <QDebug>
-#include "preferences.h"
+#include "common.h"
 
 class Logger {
   private:
@@ -15,11 +13,12 @@ class Logger {
     QTextStream * eventStream,
       * errorStream;
     bool accessible;
+
   public:
-    Logger(QString path, QString eventFile, QString errorFile);
+    Logger(const QString &path, const QString &eventFile, const QString &errorFile);
     ~Logger();
-    void logEvent(QString eventMessage);
-    void logError(QString errorMessage);
+    void logEvent(const QString &eventMessage);
+    void logError(const QString &errorMessage);
 };
 
 #endif // __LOGGER_H

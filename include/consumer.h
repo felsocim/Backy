@@ -1,14 +1,13 @@
 #ifndef __CONSUMER_H
 #define __CONSUMER_H
 
-#include <iostream>
 #include <sys/types.h>
 #include <utime.h>
 #include <math.h>
 #include "worker.h"
 
 class Consumer : public Worker {
-  Q_OBJECT
+  Q_OBJECT    
   private:
     QString source,
       target;
@@ -20,10 +19,11 @@ class Consumer : public Worker {
       processedCount,
       processedSize,
       copyBufferSize;
-    Item * current;
+    Item * currentItem;
     QFile * currentFile;
     QDir * currentDirectory;
     bool copyFile(QFile * source, QFile * destination, qint64 size);
+
   public:
     Consumer();
     qint64 getProcessedCount() const;
@@ -35,12 +35,13 @@ class Consumer : public Worker {
     void setDetectedCount(qint64 detectedCount);
     void setDetectedSize(qint64 detectedSize);
     void setCopyBufferSize(qint64 copyBufferSize);
-    void createLogsAt(QString path);
+    void createLogsAt(const QString &path);
     void work();
+
   signals:
-    void currentItem(QString item);
-    void currentProgress(int current);
-    void overallProgress(int overall);
+    void triggerCurrentItem(QString item);
+    void triggerCurrentProgress(int currentItem);
+    void triggerOverallProgress(int overall);
 };
 
 #endif // __CONSUMER_H

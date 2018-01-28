@@ -14,13 +14,15 @@ Interface::Interface(QWidget *parent) :
   producer(new Producer()),
   consumer(new Consumer()) {
   this->ui->setupUi(this);
-  this->producerInProgress = false;
-  this->consumerInProgress = false;
-  this->aborted = false;
-  this->loadSettings();
 
   this->sourceDialog->setFileMode(QFileDialog::Directory);
   this->targetDialog->setFileMode(QFileDialog::Directory);
+
+  this->producerInProgress = false;
+  this->consumerInProgress = false;
+  this->aborted = false;
+
+  this->loadSettings();
 
   this->producer->setBuffer(this->buffer);
   this->producer->setLock(this->lock);
@@ -56,9 +58,9 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort(bool)));
   QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup(bool)));
 
-  QObject::connect(this->consumer, SIGNAL(currentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
-  QObject::connect(this->consumer, SIGNAL(currentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
-  QObject::connect(this->consumer, SIGNAL(overallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
+  QObject::connect(this->consumer, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
+  QObject::connect(this->consumer, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
+  QObject::connect(this->consumer, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
 
   QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
   QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
@@ -79,9 +81,12 @@ Interface::Interface(QWidget *parent) :
 Interface::~Interface() {
   this->producerWorker.quit();
   this->consumerWorker.quit();
+
   this->producerWorker.wait();
   this->consumerWorker.wait();
+
   this->saveSettings();
+
   delete this->ui;
   delete this->preferences;
   delete this->sourceDialog;
@@ -100,10 +105,12 @@ bool Interface::inProgress() {
 
 QStringList Interface::ready() {
   QStringList result;
+
   if(this->ui->editSourcePath->text().isEmpty())
     result << QString("No source drive or folder provided!");
   else {
     QDir source(this->ui->editSourcePath->text());
+
     if(!source.exists())
       result << QString("Source drive or folder does not exists!");
   }
@@ -112,6 +119,7 @@ QStringList Interface::ready() {
     result << QString("No target drive or folder provided!");
   else {
     QDir target(this->ui->editTargetPath->text());
+
     if(!target.exists())
       result << QString("Target drive or folder does not exists!");
     else if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() < 1)
@@ -129,14 +137,18 @@ void Interface::abort() {
 
 void Interface::loadSettings() {
   QSettings settings;
+
   settings.beginGroup("Backup");
+
   bool synchronize = settings.value("synchronize", DEFAULT_SYNCHRONIZE).toBool();
   bool keepObsolete = settings.value("keepObsolete", DEFAULT_KEEP_OBSOLETE).toBool();
   Criterion comparisonCriterion = (Criterion) settings.value("comparisonCriterion", DEFAULT_COMPARISON_CRITERION).toInt();
+
   this->consumer->setSynchronize(synchronize);
   this->ui->checkSynchronize->setChecked(synchronize);
   this->consumer->setKeepObsolete(keepObsolete);
   this->ui->checkKeepObsolete->setChecked(keepObsolete);
+
   switch(comparisonCriterion) {
     case CRITERION_MORE_RECENT:
     default:
@@ -146,26 +158,32 @@ void Interface::loadSettings() {
       this->onToggleCriterionBiggest(true);
       break;
   }
+
   settings.endGroup();
   settings.beginGroup("Application");
+
   qint64 itemBufferSize = settings.value("itemBufferSize", DEFAULT_ITEM_BUFFER_SIZE).toLongLong();
   qint64 copyBufferSize = settings.value("copyBufferSize", DEFAULT_COPY_BUFFER_SIZE).toLongLong();
   QString logsLocation = settings.value("logsLocation", DEFAULT_LOGS_LOCATION).toString();
-  this->producer->setBufferMax(itemBufferSize);
+
+  this->producer->setItemBufferSize(itemBufferSize);
   this->preferences->setItemBufferSize(itemBufferSize);
   this->consumer->setCopyBufferSize(copyBufferSize);
   this->preferences->setCopyBufferSize(copyBufferSize);
   this->preferences->setLogsLocation(logsLocation);
+
   settings.endGroup();
 }
 
 void Interface::saveSettings() {
   QSettings settings;
+
   settings.beginGroup("Backup");
   settings.setValue("synchronize", this->ui->checkSynchronize->isChecked());
   settings.setValue("keepObsolete", this->ui->checkKeepObsolete->isChecked());
   settings.setValue("comparisonCriterion", (this->ui->radioCriterionMostRecent->isChecked() ? CRITERION_MORE_RECENT : CRITERION_BIGGER));
   settings.endGroup();
+
   settings.beginGroup("Application");
   settings.setValue("itemBufferSize", this->preferences->getItemBufferSize());
   settings.setValue("copyBufferSize", this->preferences->getCopyBufferSize());
@@ -258,6 +276,33 @@ void Interface::onQuit(bool clicked) {
   QApplication::quit();
 }
 
+void Interface::onBeginBackup(bool clicked) {
+  QStringList check = this->ready();
+
+  if(!check.isEmpty()) {
+    QMessageBox::critical(
+      this,
+      tr("Wrong or mismatched parameters"),
+      tr("Some backup parameters are unset or set incorrectly!\nPlease verify them before continuing.\nError report:\n") + check.join('\n'),
+      QMessageBox::Ok
+    );
+    return;
+  }
+
+  if(QMessageBox::question(
+    this,
+    tr("Confirm"),
+    tr("Backup is ready to be performed.\nPlease, verify all backup parameters before you continue.\nAre you sure you want to begin the backup process?"),
+    QMessageBox::Yes | QMessageBox::No
+  ) == QMessageBox::Yes) {
+    this->ui->buttonBackup->setEnabled(false);
+    this->producer->setProgress(true);
+    this->consumer->setProgress(true);
+    this->ui->buttonAbort->setEnabled(true);
+    emit this->signalStart();
+  }
+}
+
 void Interface::onChooseSource(QString selected) {
   this->ui->editSourcePath->setText(selected);
 
@@ -299,32 +344,6 @@ void Interface::onChooseTarget(QString selected) {
   this->consumer->setTarget(selected);
 }
 
-void Interface::onBeginBackup(bool clicked) {
-  QStringList check = this->ready();
-  if(!check.isEmpty()) {
-    QMessageBox::critical(
-      this,
-      tr("Wrong or mismatched parameters"),
-      tr("Some backup parameters are unset or set incorrectly!\nPlease verify them before continuing.\nError report:\n") + check.join('\n'),
-      QMessageBox::Ok
-    );
-    return;
-  }
-
-  if(QMessageBox::question(
-    this,
-    tr("Confirm"),
-    tr("Backup is ready to be performed.\nPlease, verify all backup parameters before you continue.\nAre you sure you want to begin the backup process?"),
-    QMessageBox::Yes | QMessageBox::No
-  ) == QMessageBox::Yes) {
-    this->ui->buttonBackup->setEnabled(false);
-    this->producer->setProgress(true);
-    this->consumer->setProgress(true);
-    this->ui->buttonAbort->setEnabled(true);
-    emit this->signalStart();
-  }
-}
-
 void Interface::onStatusCurrentItem(QString item) {
   this->ui->labelStatusCurrentName->setText(item);
 }
@@ -354,6 +373,7 @@ void Interface::onConsumerFinished() {
   this->ui->labelStatusCurrentName->setText("");
   this->ui->progressStatusCurrentProgress->setValue(0);
   this->ui->progressStatusOverallProgress->setValue(0);
+
   if(this->aborted) {
     this->aborted = false;
     QMessageBox::warning(

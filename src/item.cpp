@@ -2,7 +2,7 @@
 
 Item::Item() {}
 
-Item::Item(Type type, QString name, QString path, QDateTime lastModified, qint64 size) {
+Item::Item(const Type &type, const QString &name, const QString &path, const QDateTime &lastModified, const qint64 &size) {
   this->type = type;
   this->name = name;
   this->path = path;
@@ -10,23 +10,23 @@ Item::Item(Type type, QString name, QString path, QDateTime lastModified, qint64
   this->size = size;
 }
 
-Type Item::getType() {
+Type Item::getType() const {
   return this->type;
 }
 
-QString Item::getName() {
+QString Item::getName() const {
   return this->name;
 }
 
-QString Item::getPath() {
+QString Item::getPath() const {
   return this->path;
 }
 
-QDateTime Item::getLastModified() {
+QDateTime Item::getLastModified() const {
   return this->lastModified;
 }
 
-qint64 Item::getSize() {
+qint64 Item::getSize() const {
   return this->size;
 }
 
@@ -50,8 +50,9 @@ void Item::setSize(qint64 size) {
   this->size = size;
 }
 
-bool Item::isSuperiorThan(QString &another, Criterion &criterion) {
+bool Item::isSuperiorThan(const QString &another, const Criterion &criterion) {
   QFileInfo info(another);
+
   switch(criterion) {
     case CRITERION_MORE_RECENT:
       return this->lastModified.toSecsSinceEpoch() > info.lastModified().toSecsSinceEpoch();
@@ -60,5 +61,6 @@ bool Item::isSuperiorThan(QString &another, Criterion &criterion) {
     default:
       break;
   }
+
   return true;
 }

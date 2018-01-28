@@ -1,6 +1,6 @@
 #include "logger.h"
 
-Logger::Logger(QString path, QString eventFile, QString errorFile) {
+Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile) {
   this->eventFile = new QFile(path + "/" + eventFile);
   this->errorFile = new QFile(path + "/" + errorFile);
 
@@ -41,12 +41,12 @@ Logger::~Logger() {
   delete this->errorFile;
 }
 
-void Logger::logEvent(QString eventMessage) {
+void Logger::logEvent(const QString &eventMessage) {
   if(this->accessible)
     (*this->eventStream) << eventMessage << endl;
 }
 
-void Logger::logError(QString errorMessage) {
+void Logger::logError(const QString &errorMessage) {
   if(this->accessible)
     (*this->errorStream) << errorMessage << endl;
 }

@@ -1,14 +1,13 @@
-#ifndef WORKER_H
-#define WORKER_H
+#ifndef __WORKER_H
+#define __WORKER_H
 
-#include <QString>
 #include <QObject>
 #include <QDir>
 #include <QDirIterator>
-#include <QFileInfo>
 #include <QMutex>
 #include <QWaitCondition>
 #include <queue>
+#include "common.h"
 #include "item.h"
 #include "logger.h"
 
@@ -22,6 +21,7 @@ class Worker : public QObject
       * notFull;
     Logger * log;
     volatile bool progress;
+
   public:
     Worker();
     ~Worker();
@@ -30,14 +30,16 @@ class Worker : public QObject
     void setLock(QMutex * lock);
     void setNotEmpty(QWaitCondition * notEmpty);
     void setNotFull(QWaitCondition * notFull);
-    virtual void createLogsAt(QString path) = 0;
+    virtual void createLogsAt(const QString &path) = 0;
     virtual void work() = 0;
     void setProgress(bool progress);
+
   public slots:
     void doWork();
+
   signals:
     void started();
     void finished();
 };
 
-#endif // WORKER_H
+#endif // __WORKER_H
