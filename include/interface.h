@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QString>
+#include <QStringList>
+#include <QDir>
 #include <QThread>
 #include <QMutex>
 #include <QWaitCondition>
@@ -42,6 +44,7 @@ class Interface : public QMainWindow {
       aborted;
     void abort();
     bool inProgress();
+    QStringList ready();
     void loadSettings();
     void saveSettings();
   private slots:

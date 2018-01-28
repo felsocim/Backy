@@ -97,6 +97,29 @@ bool Interface::inProgress() {
   return this->producerInProgress || this->consumerInProgress;
 }
 
+QStringList Interface::ready() {
+  QStringList result;
+  if(this->ui->editSourcePath->text().isEmpty())
+    result << QString("No source drive or folder provided!");
+  else {
+    QDir source(this->ui->editSourcePath->text());
+    if(!source.exists())
+      result << QString("Source drive or folder does not exists!");
+  }
+
+  if(this->ui->editTargetPath->text().isEmpty())
+    result << QString("No target drive or folder provided!");
+  else {
+    QDir target(this->ui->editTargetPath->text());
+    if(!target.exists())
+      result << QString("Target drive or folder does not exists!");
+    else if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() < 1)
+      result << QString("Source drive or folder does not contain any files or folders!");
+  }
+
+  return result;
+}
+
 void Interface::abort() {
   this->producer->setProgress(false);
   this->consumer->setProgress(false);
@@ -269,7 +292,17 @@ void Interface::onChooseTarget(QString selected) {
 }
 
 void Interface::onBeginBackup(bool clicked) {
-  if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() > 0 && !this->inProgress()) {
+  QStringList check = this->ready();
+  if(!check.isEmpty()) {
+    QMessageBox::critical(
+      this,
+      tr("Wrong or mismatched parameters"),
+      tr("Some backup parameters are unset or set incorrectly!\nPlease verify them before continuing.\nError report:\n") + check.join('\n'),
+      QMessageBox::Ok
+    );
+    return;
+  }
+
   if(QMessageBox::question(
     this,
     tr("Confirm"),
