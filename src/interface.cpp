@@ -302,6 +302,12 @@ void Interface::onProducerFinished() {
 
 void Interface::onConsumerFinished() {
   this->consumerInProgress = false;
+  this->ui->labelStatusCurrentName->setText("");
+  this->ui->progressStatusCurrentProgress->setValue(0);
+  this->ui->progressStatusOverallProgress->setValue(0);
+
+  this->ui->buttonBackup->setEnabled(true);
+  this->ui->buttonAbort->setEnabled(false);
 }
 
 void Interface::onSavePreferences() {
