@@ -21,20 +21,10 @@ file(GLOB TRANSLATIONS "${CMAKE_CURRENT_SOURCE_DIR}/../translate/*.ts")
 set(TRANSLATABLE ${HEADERS} ${SOURCES} ${INTERFACES})
 
 foreach(translation en fr sk cs uk)
-  if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
-    execute_process(COMMAND /home/marek/Qt/5.10.0/gcc_64/bin/lupdate -silent ${TRANSLATABLE} -ts "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
-  endif()
+  execute_process(COMMAND /home/marek/Qt/5.10.0/gcc_64/bin/lupdate -silent ${TRANSLATABLE} -ts "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
 endforeach(translation)
 
-option(UPDATE_TRANSLATIONS "Update translation files" ON)
-
-if(UPDATE_TRANSLATIONS)
-  message("Creating translations")
-  qt5_create_translation(BINARY_TRANSLATIONS ${TRANSLATABLE} ${TRANSLATIONS})
-else()
-  message("Updating translations")
-  qt5_add_translation(BINARY_TRANSLATIONS ${TRANSLATIONS})
-endif()
+qt5_add_translation(BINARY_TRANSLATIONS ${TRANSLATIONS})
 
 add_custom_target(translate DEPENDS ${BINARY_TRANSLATIONS})
 
