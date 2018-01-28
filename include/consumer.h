@@ -30,7 +30,7 @@ class Consumer : public Worker {
     void setSynchronize(bool synchronize);
     void setKeepObsolete(bool keepObsolete);
     void setCriterion(Criterion criterion);
-    void setDetectedCount(int detectedCount);
+    void setDetectedCount(qint64 detectedCount);
     void setCopyBufferSize(qint64 copyBufferSize);
     void createLogsAt(QString path);
     void work();

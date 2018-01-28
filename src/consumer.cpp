@@ -85,7 +85,7 @@ void Consumer::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
-void Consumer::setDetectedCount(int detectedCount) {
+void Consumer::setDetectedCount(qint64 detectedCount) {
   this->detectedCount = detectedCount;
 }
 
