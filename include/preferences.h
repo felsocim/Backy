@@ -3,7 +3,11 @@
 
 #include <QDialog>
 #include <QFileDialog>
+#include <QStringList>
 #include <QMessageBox>
+#include <QDebug>
+#include <QRegExp>
+#include <QProcess>
 
 #if defined Q_OS_WIN
 #define DEFAULT_LOG_LOCATION "C:/"

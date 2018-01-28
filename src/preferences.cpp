@@ -10,6 +10,25 @@ Preferences::Preferences(QWidget * parent) :
   this->logsLocationChanged = false;
   this->setDefaults();
 
+#if defined Q_OS_LINUX
+  QProcess lookForMemInfo;
+  lookForMemInfo.start("grep", QStringList() << "MemTotal:" << "/proc/meminfo");
+  lookForMemInfo.waitForFinished();
+  QString result = lookForMemInfo.readAllStandardOutput();
+  QRegExp filter("(\\d+)");
+
+  if(filter.indexIn(result) < 0) {
+    this->ui->lcdDetectedRAM->display("ERR");
+    this->ui->spinCopyBufferSize->setMaximum(1);
+  } else {
+    int result = (int) (filter.cap(1).toLongLong() / KILOBYTE);
+    this->ui->lcdDetectedRAM->display(result);
+    this->ui->spinCopyBufferSize->setMaximum(result);
+  }
+#else
+#error "Unsupported operating system!"
+#endif
+
   QObject::connect(this->ui->buttonLogsLocationBrowse, SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
   QObject::connect(this->browseLogsLocation, SIGNAL(fileSelected(QString)), this, SLOT(onChooseLogsLocation(QString)));
   QObject::connect(this->ui->buttonApply, SIGNAL(clicked(bool)), this, SLOT(onSave()));
