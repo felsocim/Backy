@@ -4,7 +4,7 @@ Producer::Producer() : Worker() {
   this->root = nullptr;
   this->filesCount = 0;
   this->directoriesCount = 0;
-  this->bufferMax = DEFAULT_BUFFER_MAX;
+  this->bufferMax = DEFAULT_ITEM_BUFFER_SIZE;
   this->size = 0;
 }
 
