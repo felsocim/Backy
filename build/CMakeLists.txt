@@ -20,7 +20,7 @@ file(GLOB TRANSLATIONS "${CMAKE_CURRENT_SOURCE_DIR}/../translate/*.ts")
 
 set(TRANSLATABLE ${HEADERS} ${SOURCES} ${INTERFACES})
 
-foreach(translation en fr sk cs uk)
+foreach(translation fr sk)
   execute_process(COMMAND /home/marek/Qt/5.10.0/gcc_64/bin/lupdate -silent ${TRANSLATABLE} -ts "${CMAKE_CURRENT_SOURCE_DIR}/../translate/${PROJECT_NAME}_${translation}.ts")
 endforeach(translation)
 
