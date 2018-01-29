@@ -144,40 +144,40 @@
     <message>
         <location filename="../src/interface.ui" line="35"/>
         <source>Backy</source>
-        <translation type="unfinished"></translation>
+        <translation>Backy</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="55"/>
         <source>&amp;Source drive or folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement &amp;source</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="70"/>
         <location filename="../src/interface.ui" line="176"/>
         <source> Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation> Parcourir...</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="88"/>
         <source>Browse for the source drive or folder you want to backup the contents of.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez le disque ou le répertoire dont le contenu vous voulez sauvegarder.</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="95"/>
         <source>Directory analysis:</source>
-        <translation type="unfinished"></translation>
+        <translation>Analyse de l&apos;emplacement:</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="102"/>
         <location filename="../src/interface.ui" line="109"/>
         <location filename="../src/interface.ui" line="130"/>
         <source>N/A</source>
-        <translation type="unfinished"></translation>
+        <translation>inconnu</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="116"/>
         <source>folder(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">répertoire(s)</translation>
     </message>
     <message>
         <location filename="../src/interface.ui" line="123"/>
@@ -454,12 +454,12 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     <message>
         <location filename="../src/logger.cpp" line="14"/>
         <source>Warning: Failed to create log directory in &apos;%1&apos;! No logs will be created during this instance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement : Erreur de création du répertoire &amp;laquo; %1 &amp;raquo; de stockage de journaux d&apos;événements ! Aucune trace d&apos;activité ne sera enregistrée durant l&apos;exécution de l&apos;application.</translation>
     </message>
     <message>
         <location filename="../src/logger.cpp" line="27"/>
         <source>Warning: Failed to create or open log files: &apos;%1&apos;, &apos;%2&apos;! No logs will be created for this instance.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avertissement : Erreur de création ou d&apos;ouverture des journaux d&apos;événements &amp;laquo; %1 &amp;raquo; et &amp;laquo; %2 &amp;raquo; ! Aucune trace d&apos;activité ne sera enregistrée durant l&apos;exécution de l&apos;application.</translation>
     </message>
 </context>
 <context>
@@ -467,72 +467,72 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     <message>
         <location filename="../src/preferences.ui" line="14"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Préférences</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="30"/>
         <source>&amp;Language</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Langue</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="42"/>
         <source>Choose the language of the application&apos;s menus, messages and dialogues.</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez la langue de communication avec l&apos;application.</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="69"/>
         <source>&amp;Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Avancés</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="84"/>
         <source>Item buffer size (no. of entries):</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille du tampon d&apos;éléments (nb. él.):</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="91"/>
         <source>Copy buffer size (MB):</source>
-        <translation type="unfinished"></translation>
+        <translation>Taille du tampon de copie (Mo):</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="141"/>
         <source>Detected RAM (MB):</source>
-        <translation type="unfinished"></translation>
+        <translation>RAM détectée (Mo):</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="157"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Overstepping recommended buffers sizes may cause the application to crash and/or harm your system. We strongly discourage you to modify the values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;DANGER !&lt;/span&gt; Le dépassement de la taille recommandée des tampons peut causer l&apos;instabilité de l&apos;application et/ou endommager votre système. Nous vous décourageons fortement de modifier les valeurs ci-dessous si vous n&apos;êtes pas un utilisateur expérimenté conscient des risques encourus. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="179"/>
         <source> Browse...</source>
-        <translation type="unfinished"></translation>
+        <translation> Parcourir...</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="190"/>
         <source>Logs location:</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement des journaux d&apos;événemets:</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="225"/>
         <source> &amp;Discard</source>
-        <translation type="unfinished"></translation>
+        <translation> &amp;Abandon</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="236"/>
         <source> &amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation> &amp;Enregistrer</translation>
     </message>
     <message>
         <location filename="../src/preferences.cpp" line="113"/>
         <source>Restart required</source>
-        <translation type="unfinished"></translation>
+        <translation>Redémarrage nécessaire</translation>
     </message>
     <message>
         <location filename="../src/preferences.cpp" line="114"/>
         <source>Some changes you&apos;ve made won&apos;t take effect until next application launch.</source>
-        <translation type="unfinished"></translation>
+        <translation>Certains changements effectués ne seront pris en compte qu&apos;au prochain démarrage de l&apos;application.</translation>
     </message>
 </context>
 <context>
@@ -540,50 +540,50 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     <message>
         <location filename="../src/producer.cpp" line="44"/>
         <source>Producer process has begun working.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le processus producteur a commencé à travailler.</translation>
     </message>
     <message>
         <location filename="../src/producer.cpp" line="52"/>
         <source>Producer process is waiting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le processus producteur est en attente.</translation>
     </message>
     <message>
         <location filename="../src/producer.cpp" line="66"/>
         <source>Producer process enqueued &apos;%1&apos; in the shared item buffer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le processus producteur a empilé &amp;laquo; %1 &amp;raquo; dans la pile d&apos;éléments partagée.</translation>
     </message>
     <message>
         <location filename="../src/producer.cpp" line="73"/>
         <source>Producer process has finished working.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le processus producteur a fini de travailler.</translation>
     </message>
     <message>
         <location filename="../src/producer.cpp" line="96"/>
         <source>During analysis of the source location &apos;%1&apos; the program has discovered </source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;analyse de l&apos;emplacement source &amp;laquo; %1 &amp;raquo; a révélé </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/producer.cpp" line="97"/>
         <source>%n folder(s), </source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n répertoire, </numerusform>
+            <numerusform>%n répertoires, </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/producer.cpp" line="98"/>
         <source>%n file(s) </source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>%n fichier </numerusform>
+            <numerusform>%n fichiers </numerusform>
         </translation>
     </message>
     <message numerus="yes">
         <location filename="../src/producer.cpp" line="99"/>
         <source>in %n byte(s).</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>dans %n octet.</numerusform>
+            <numerusform>dans %n octets.</numerusform>
         </translation>
     </message>
 </context>
@@ -592,7 +592,7 @@ Otherwise refer to https://github.com/felsocim/Backy for the documentation.</sou
     <message>
         <location filename="../src/worker.cpp" line="40"/>
         <source>Backup process abort has been requested.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;interruption du processus de sauvegarde a été demandée.</translation>
     </message>
 </context>
 </TS>
