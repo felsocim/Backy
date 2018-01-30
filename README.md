@@ -14,7 +14,7 @@ Backy can be launched both from command line as well as the graphical user inter
 
 The right syntax to run Backy correctly from your command line interface is as follows:
 
-``backy <source> <destination> [−s <choice> −c <criterion> −k −m <MBytes> −l <code> −q]``
+```backy <source> <destination> [−s <choice> −c <criterion> −k −m <MBytes> −l <code> −q]```
 
 **Options description:**
 
@@ -39,4 +39,4 @@ Backy was created and is maintained by [Marek Felsoci](marekonline.eu), Master I
 
 ## License
 
-Backy is licensed under the terms of GNU General Public License version 3.0. For more details on license terms see the [LICENSE](LICENSE) file in this repository.
+Backy is licensed under the terms of **GNU General Public License version 3.0**. For more details on license terms see the [LICENSE](LICENSE) file in this repository.
