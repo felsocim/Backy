@@ -14,17 +14,17 @@ Backy can be launched both from command line as well as the graphical user inter
 
 The right syntax to run Backy correctly from your command line interface is as follows:
 
-```backy <source> <destination> [−s <choice> −c <criterion> −k −m <MBytes> −l <code> −q]```
+`backy <source> <destination> [−s <choice> −c <criterion> −k −m <MBytes> −l <code> −q]`
 
 **Options description:**
 
-- **-s** <choice> : if the destination folder or drive is not empty this option will tell the program whether it
+- **-s** \<choice\> : if the destination folder or drive is not empty this option will tell the program whether it
 should keep existing files and use them in backup process to synchronize with source (*choice* value **keep**) or overwrite all of them and perform a fresh backup (*choice* value **overwrite**)
-- **-c** <criterion> : decides whether the files between source and an existing previous backup are compared by date of last modification (*criterion* value **date**) or by size (*criterion* value **size**)
+- **-c** \<criterion\> : decides whether the files between source and an existing previous backup are compared by date of last modification (*criterion* value **date**) or by size (*criterion* value **size**)
 - **-k** : if an existing previous backup contains files which are no longer present in the source location this option forces the program to keep these files in the backup (the files are deleted if this option is not set)
 - **-b** <no. of items> : defines the size of item buffer used by the program to read source location entries
-- **-B** <MBytes> : defines the size of copy buffer used by the program to copy files from source location to destination
-- **-l** <code> : chooses the language of the program for the current execution
+- **-B** \<MBytes\> : defines the size of copy buffer used by the program to copy files from source location to destination
+- **-l** \<code\> : chooses the language of the program for the current execution
 - **-q** : quiet mode (no output except errors)
 
 ### GUI
