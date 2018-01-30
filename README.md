@@ -29,9 +29,15 @@ should keep existing files and use them in backup process to synchronize with so
 
 ### GUI
 
-Backy's graphical user interface is much more intuitive notable for beginner users as you can observe on the screenshots below:
+Backy's graphical user interface is much more intuitive notable for beginner users as you can observe on the screenshot below:
+
+![Backy's GUI screenshot](doc/gui.png)
 
 Forther documentation on how to use Backy via its GUI can be found in program's documentation online.
+
+## Localization
+
+Backy is currently localized in English, French and Slovak. There will be likely more translations availale in the future. If you wish to contribute to localize Backy you can contact the author for more information on how to do it.
 
 ## Author
 
@@ -39,4 +45,4 @@ Backy was created and is maintained by [Marek Felsoci](marekonline.eu), Master I
 
 ## License
 
-Backy is licensed under the terms of **GNU General Public License version 3.0**. For more details on license terms see the [LICENSE](LICENSE) file in this repository.
+Backy is licensed under the terms of **GNU General Public License version 3.0**. For more details on license terms see the [LICENSE](LICENSE) file.
