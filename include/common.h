@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QDebug>
+#include <QtGlobal>
+#include <QStandardPaths>
 
 typedef enum {
   TYPE_FILE,
@@ -15,7 +17,9 @@ typedef enum {
 } Criterion;
 
 #if defined Q_OS_LINUX
-#define DEFAULT_LOGS_LOCATION QDir::homePath() + "/.Backy"
+#define DEFAULT_LOGS_LOCATION QDir::homePath() + "/.backy"
+#elif defined Q_OS_WIN
+#define DEFAULT_LOGS_LOCATION QStandardPaths::writableLocation(QStandardPaths::ConfigLocation)
 #else
 #error "Unsupported operating system!"
 #endif
