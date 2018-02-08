@@ -39,7 +39,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>&amp;Language</string>
+    <string>&amp;Language (change needs the application to restart to take effect)</string>
    </property>
    <widget class="QLabel" name="labelLanguageDescription">
     <property name="geometry">
@@ -85,7 +85,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>431</width>
+      <width>433</width>
       <height>231</height>
      </rect>
     </property>
@@ -196,10 +196,10 @@ color: rgb(138, 226, 52);</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="labelLogsLocationDescription">
          <property name="text">
-          <string>Logs location:</string>
+          <string>Logs location (change needs the application to restart to take effect):</string>
          </property>
         </widget>
        </item>

@@ -35,7 +35,6 @@ class Preferences : public QDialog
       copyBufferSize;
     QString logsLocation;
     QVariant locale;
-    bool logsLocationChanged;
     void setCurrents();
 
   public:
