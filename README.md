@@ -31,7 +31,7 @@ should keep existing files and use them in backup process to synchronize with so
 
 Backy's graphical user interface is much more intuitive notable for beginner users as you can observe on the screenshot below:
 
-![Backy's GUI screenshot](doc/gui.png)
+![Backy's GUI screenshot](doc/img/gui.png)
 
 Forther documentation on how to use Backy via its GUI can be found in program's documentation online.
 
