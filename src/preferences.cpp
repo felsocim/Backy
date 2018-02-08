@@ -7,6 +7,20 @@ Preferences::Preferences(QWidget * parent) :
   browseLogsLocation(new QFileDialog(this)) {
   this->ui->setupUi(this);
 
+  QDirIterator i(LOCALE_RELATIVE_PATH, QStringList() << "*.qm");
+
+  this->ui->comboLanguages->addItem(QIcon(":Backy/img/enu.png"), "English (United States)", QVariant("enu"));
+
+  while(i.hasNext()) {
+    QString current = i.next();
+    QRegExp filter(QCoreApplication::applicationName() + "_([a-z]{2,3})");
+    if(filter.indexIn(current) > 0) {
+      QString code = filter.cap(1);
+      QLocale locale(code);
+      this->ui->comboLanguages->addItem(QIcon(":Backy/img/" + code + ".png"), locale.nativeLanguageName() + " (" + locale.nativeCountryName() + ")", QVariant(code));
+    }
+  }
+
   this->browseLogsLocation->setFileMode(QFileDialog::Directory);
 
   this->logsLocationChanged = false;
@@ -88,6 +102,10 @@ QString Preferences::getLogsLocation() const {
   return this->logsLocation;
 }
 
+QVariant Preferences::getLocale() const {
+  return this->locale;
+}
+
 void Preferences::setItemBufferSize(qint64 itemBufferSize) {
   this->itemBufferSize = itemBufferSize;
   this->ui->spinItemBufferSize->setValue((int) itemBufferSize);
@@ -101,6 +119,16 @@ void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
 void Preferences::setLogsLocation(QString eventLogLocation) {
   this->logsLocation = eventLogLocation;
   this->ui->editLogsLocationValue->setText(eventLogLocation);
+}
+
+void Preferences::setLocale(QVariant locale) {
+  this->locale = locale;
+  int index = this->ui->comboLanguages->findData(locale);
+  if(index > -1) {
+    this->ui->comboLanguages->setCurrentIndex(index);
+  } else {
+    this->ui->comboLanguages->setCurrentIndex(0);
+  }
 }
 
 void Preferences::setDefaults() {
@@ -129,6 +157,7 @@ void Preferences::onSave() {
   this->itemBufferSize = (qint64) this->ui->spinItemBufferSize->value();
   this->copyBufferSize = (qint64) this->ui->spinCopyBufferSize->value();
   this->logsLocation = this->ui->editLogsLocationValue->text();
+  this->locale = this->ui->comboLanguages->currentData();
 
   if(this->logsLocationChanged) {
     if(

@@ -9,5 +9,8 @@
         <file>img/preferences-system.png</file>
         <file>img/process-stop.png</file>
         <file>img/system-log-out.png</file>
+        <file>img/enu.png</file>
+        <file>img/fr.png</file>
+        <file>img/sk.png</file>
     </qresource>
 </RCC>

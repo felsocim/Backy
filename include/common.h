@@ -41,5 +41,6 @@ typedef enum {
 #define DEFAULT_KEEP_OBSOLETE false
 #define DEFAULT_COMPARISON_CRITERION CRITERION_MORE_RECENT
 #define DEFAULT_LOCALE_CODE "sk"
+#define LOCALE_RELATIVE_PATH "lang"
 
 #endif // __COMMON_H

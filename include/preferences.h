@@ -3,7 +3,12 @@
 
 #include <QDialog>
 #include <QFileDialog>
+#include <QDirIterator>
+#include <QLocale>
 #include <QStringList>
+#include <QCoreApplication>
+#include <QIcon>
+#include <QVariant>
 #include <QMessageBox>
 #include "common.h"
 
@@ -29,6 +34,7 @@ class Preferences : public QDialog
     qint64 itemBufferSize,
       copyBufferSize;
     QString logsLocation;
+    QVariant locale;
     bool logsLocationChanged;
     void setCurrents();
 
@@ -38,9 +44,11 @@ class Preferences : public QDialog
     qint64 getItemBufferSize() const;
     qint64 getCopyBufferSize() const;
     QString getLogsLocation() const;
+    QVariant getLocale() const;
     void setItemBufferSize(qint64 itemBufferSize);
     void setCopyBufferSize(qint64 copyBufferSize);
     void setLogsLocation(QString logsLocation);
+    void setLocale(QVariant locale);
     void setDefaults();
 
   private slots:

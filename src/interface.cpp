@@ -170,12 +170,14 @@ void Interface::loadSettings() {
   qint64 itemBufferSize = settings.value("itemBufferSize", DEFAULT_ITEM_BUFFER_SIZE).toLongLong();
   qint64 copyBufferSize = settings.value("copyBufferSize", DEFAULT_COPY_BUFFER_SIZE).toLongLong();
   QString logsLocation = settings.value("logsLocation", DEFAULT_LOGS_LOCATION).toString();
+  QVariant locale = settings.value("locale", DEFAULT_LOCALE_CODE);
 
   this->producer->setItemBufferSize(itemBufferSize);
   this->preferences->setItemBufferSize(itemBufferSize);
   this->consumer->setCopyBufferSize(copyBufferSize);
   this->preferences->setCopyBufferSize(copyBufferSize);
   this->preferences->setLogsLocation(logsLocation);
+  this->preferences->setLocale(locale);
 
   settings.endGroup();
 }
@@ -193,6 +195,7 @@ void Interface::saveSettings() {
   settings.setValue("itemBufferSize", this->preferences->getItemBufferSize());
   settings.setValue("copyBufferSize", this->preferences->getCopyBufferSize());
   settings.setValue("logsLocation", this->preferences->getLogsLocation());
+  settings.setValue("locale", this->preferences->getLocale());
   settings.endGroup();
 }
 

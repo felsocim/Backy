@@ -18,13 +18,16 @@ int main(int argc, char *argv[])
     QSettings settings;
 
     settings.beginGroup("Application");
+
     QString locale = settings.value("locale", DEFAULT_LOCALE_CODE).toString();
+
     settings.endGroup();
 
     QTranslator translator;
 
-    translator.load("Backy_" + locale + ".qm");
+    translator.load(QString(LOCALE_RELATIVE_PATH) + "/Backy_" + locale + ".qm");
     a.installTranslator(&translator);
+
     Interface w;
     w.show();
 
