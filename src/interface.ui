@@ -36,7 +36,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../res/backy.qrc">
-    <normaloff>:/Backy/Backy.png</normaloff>:/Backy/Backy.png</iconset>
+    <normaloff>:/Backy/img/Backy.png</normaloff>:/Backy/img/Backy.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -71,7 +71,7 @@
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
-          <normaloff>:/Backy/folder-open.png</normaloff>:/Backy/folder-open.png</iconset>
+          <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
         </property>
        </widget>
       </item>
@@ -177,7 +177,7 @@
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
-          <normaloff>:/Backy/folder-open.png</normaloff>:/Backy/folder-open.png</iconset>
+          <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
         </property>
        </widget>
       </item>
@@ -330,7 +330,7 @@
      </property>
      <property name="icon">
       <iconset resource="../res/backy.qrc">
-       <normaloff>:/Backy/process-stop.png</normaloff>:/Backy/process-stop.png</iconset>
+       <normaloff>:/Backy/img/process-stop.png</normaloff>:/Backy/img/process-stop.png</iconset>
      </property>
     </widget>
    </widget>
@@ -364,7 +364,7 @@
        </property>
        <property name="icon">
         <iconset resource="../res/backy.qrc">
-         <normaloff>:/Backy/system-log-out.png</normaloff>:/Backy/system-log-out.png</iconset>
+         <normaloff>:/Backy/img/system-log-out.png</normaloff>:/Backy/img/system-log-out.png</iconset>
        </property>
       </widget>
      </item>
@@ -378,7 +378,7 @@
        </property>
        <property name="icon">
         <iconset resource="../res/backy.qrc">
-         <normaloff>:/Backy/document-save.png</normaloff>:/Backy/document-save.png</iconset>
+         <normaloff>:/Backy/img/document-save.png</normaloff>:/Backy/img/document-save.png</iconset>
        </property>
       </widget>
      </item>
@@ -404,7 +404,7 @@
      <x>0</x>
      <y>0</y>
      <width>620</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -428,7 +428,7 @@
   <action name="actionQuit">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/system-log-out.png</normaloff>:/Backy/system-log-out.png</iconset>
+     <normaloff>:/Backy/img/system-log-out.png</normaloff>:/Backy/img/system-log-out.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -440,7 +440,7 @@
   <action name="actionDocumentation">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/internet-web-browser.png</normaloff>:/Backy/internet-web-browser.png</iconset>
+     <normaloff>:/Backy/img/internet-web-browser.png</normaloff>:/Backy/img/internet-web-browser.png</iconset>
    </property>
    <property name="text">
     <string>Online &amp;documentation</string>
@@ -452,7 +452,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/help-browser.png</normaloff>:/Backy/help-browser.png</iconset>
+     <normaloff>:/Backy/img/help-browser.png</normaloff>:/Backy/img/help-browser.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About Backy</string>
@@ -461,7 +461,7 @@
   <action name="actionPreferences">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/preferences-system.png</normaloff>:/Backy/preferences-system.png</iconset>
+     <normaloff>:/Backy/img/preferences-system.png</normaloff>:/Backy/img/preferences-system.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences</string>

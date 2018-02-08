@@ -14,7 +14,7 @@
    <string>Preferences</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/backy.qrc">
+   <iconset>
     <normaloff>:/Backy/preferences-system.png</normaloff>:/Backy/preferences-system.png</iconset>
   </property>
   <widget class="QGroupBox" name="groupLanguage">
@@ -180,7 +180,7 @@ color: rgb(138, 226, 52);</string>
          </property>
          <property name="icon">
           <iconset resource="../res/backy.qrc">
-           <normaloff>:/Backy/folder-open.png</normaloff>:/Backy/folder-open.png</iconset>
+           <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
          </property>
         </widget>
        </item>
@@ -226,7 +226,7 @@ color: rgb(138, 226, 52);</string>
       </property>
       <property name="icon">
        <iconset resource="../res/backy.qrc">
-        <normaloff>:/Backy/edit-undo.png</normaloff>:/Backy/edit-undo.png</iconset>
+        <normaloff>:/Backy/img/edit-undo.png</normaloff>:/Backy/img/edit-undo.png</iconset>
       </property>
      </widget>
     </item>
@@ -237,7 +237,7 @@ color: rgb(138, 226, 52);</string>
       </property>
       <property name="icon">
        <iconset resource="../res/backy.qrc">
-        <normaloff>:/Backy/document-save.png</normaloff>:/Backy/document-save.png</iconset>
+        <normaloff>:/Backy/img/document-save.png</normaloff>:/Backy/img/document-save.png</iconset>
       </property>
      </widget>
     </item>
