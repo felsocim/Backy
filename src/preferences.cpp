@@ -1,5 +1,5 @@
 #include "../include/preferences.h"
-#include "../build/ui_preferences.h"
+#include "ui_preferences.h"
 
 Preferences::Preferences(QWidget * parent) :
   QDialog(parent),
