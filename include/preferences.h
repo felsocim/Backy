@@ -5,9 +5,16 @@
 #include <QFileDialog>
 #include <QStringList>
 #include <QMessageBox>
-#include <QRegExp>
-#include <QProcess>
 #include "common.h"
+
+#if defined Q_OS_LINUX
+#include <QProcess>
+#include <QRegExp>
+#elif defined Q_OS_WIN
+#include <Windows.h>
+#else
+#error "Unsupported operating system!"
+#endif
 
 namespace Ui {
   class Preferences;

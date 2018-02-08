@@ -13,27 +13,51 @@ Preferences::Preferences(QWidget * parent) :
 
   this->setDefaults();
 
+  QString result;
+  int dwResult = 0;
+
 #if defined Q_OS_LINUX
   QProcess lookForMemInfo;
 
   lookForMemInfo.start("grep", QStringList() << "MemTotal:" << "/proc/meminfo");
   lookForMemInfo.waitForFinished();
 
-  QString result = lookForMemInfo.readAllStandardOutput();
+  result = lookForMemInfo.readAllStandardOutput();
   QRegExp filter("(\\d+)");
 
   if(filter.indexIn(result) < 0) {
-    this->ui->lcdDetectedRAM->display("ERR");
-    this->ui->spinCopyBufferSize->setMaximum(1);
+    goto error;
   } else {
-    int result = (int) (filter.cap(1).toLongLong() / KILOBYTE);
-    this->ui->lcdDetectedRAM->display(result);
-    this->ui->spinCopyBufferSize->setMaximum(result);
+    result = filter.cap(1);
+    dwResult = (int) (result.toLongLong() / KILOBYTE);
+    goto success;
+  }
+#elif defined Q_OS_WIN
+  MEMORYSTATUSEX memStatus;
+
+  memStatus.dwLength = sizeof(memStatus);
+
+  if(GlobalMemoryStatusEx(&memStatus) == FALSE) {
+    goto error;
+  } else {
+    dwResult = (int) (memStatus.ullTotalPhys / MEGABYTE);
+    result = QString::number(dwResult);
+    goto success;
   }
 #else
 #error "Unsupported operating system!"
 #endif
 
+  error:
+  this->ui->lcdDetectedRAM->display("ERR");
+  this->ui->spinCopyBufferSize->setMaximum(1);
+  goto following;
+
+  success:
+  this->ui->lcdDetectedRAM->display(result);
+  this->ui->spinCopyBufferSize->setMaximum(dwResult);
+
+  following:
   QObject::connect(this->ui->buttonLogsLocationBrowse, SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
   QObject::connect(this->ui->buttonApply, SIGNAL(clicked(bool)), this, SLOT(onSave()));
   QObject::connect(this->ui->buttonDiscard, SIGNAL(clicked(bool)), this, SLOT(onDiscard()));
