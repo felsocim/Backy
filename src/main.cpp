@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QCoreApplication::setApplicationName("Backy");
-    QCoreApplication::setOrganizationName("Marek Felsoci");
+    QCoreApplication::setOrganizationName("Feldev");
     QCoreApplication::setOrganizationDomain("marekonline.eu");
     QCoreApplication::setApplicationVersion("1.0");
 
