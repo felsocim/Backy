@@ -2,10 +2,8 @@
 *.pro.user
 *.pro.user.*
 
-# CMake
-CMakeLists.txt.user*
+# Build
 build/*
-!build/CMakeLists.txt
 
 # LaTeX
 doc/*.aux
