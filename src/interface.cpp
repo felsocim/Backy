@@ -284,6 +284,16 @@ void Interface::onQuit(bool clicked) {
 }
 
 void Interface::onBeginBackup(bool clicked) {
+  if(this->inProgress()) {
+    QMessageBox::critical(
+      this,
+      tr("Already in progress"),
+      tr("Another action is already in progress!\nPlease wait until it's finished."),
+      QMessageBox::Ok
+    );
+    return;
+  }
+
   QStringList check = this->ready();
 
   if(!check.isEmpty()) {
