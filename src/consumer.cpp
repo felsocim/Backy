@@ -14,6 +14,75 @@ Consumer::Consumer() : Worker() {
   this->currentDirectory = nullptr;
 }
 
+bool Consumer::transferFileAttributes(const QString &sourcePath, const QString &destinationPath) {
+  QFileInfo s(sourcePath);
+  QFile * source = new QFile(sourcePath),
+      * destination = new QFile(destinationPath);
+  bool succeeded = true;
+
+  if(!s.isDir()) {
+#if defined Q_OS_LINUX
+    struct utimbuf time;
+#elif defined Q_OS_WIN
+    struct _utimbuf time;
+#else
+#error "Unsupported operating system!"
+#endif
+
+    int rtValue = -1;
+
+    time.actime = s.lastRead().toSecsSinceEpoch();
+    time.modtime = s.lastModified().toSecsSinceEpoch();
+
+#if defined Q_OS_LINUX
+    rtValue = utime(destination->fileName().toStdString().c_str(), &time);
+#elif defined Q_OS_WIN
+    rtValue = _utime(destination->fileName().toLocal8Bit().toStdString().c_str(), &time);
+#else
+#error "Unsupported operating system!"
+#endif
+
+    if(rtValue < 0) {
+      this->log->logError(tr("Failed to transfer datetime to the destination file '%1'.").arg(destination->fileName()));
+      succeeded = false;
+      goto clean;
+    } else {
+      this->log->logEvent(tr("Datetime transferred successfully to the destination file '%1'.").arg(destination->fileName()));
+    }
+  }
+
+#if defined Q_OS_WIN
+  DWORD attributes = GetFileAttributesA(source->fileName().toLocal8Bit().toStdString().c_str());
+  if(attributes != INVALID_FILE_ATTRIBUTES) {
+    this->log->logEvent(tr("Attributes read successfully from the source file '%1'.").arg(source->fileName()));
+    if(!SetFileAttributesA(destination->fileName().toLocal8Bit().toStdString().c_str(), attributes)) {
+      this->log->logError(tr("Failed to set attributes to the destination file '%1'.").arg(destination->fileName()));
+      succeeded = false;
+      goto clean;
+    } else {
+      this->log->logEvent(tr("Attributes set successfully to the destination file '%1'.").arg(destination->fileName()));
+    }
+  } else {
+    this->log->logError(tr("Failed to read attributes from the source file '%1'.").arg(source->fileName()));
+    succeeded = false;
+    goto clean;
+  }
+#endif
+
+  if(destination->setPermissions(source->permissions())) {
+    this->log->logEvent(tr("Permissions set successfully to the destination file '%1'.").arg(destination->fileName()));
+  } else {
+    this->log->logError(tr("Failed to set permissions to the destination file '%1'.").arg(destination->fileName()));
+    succeeded = false;
+    goto clean;
+  }
+
+  clean:
+  delete source;
+  delete destination;
+  return succeeded;
+}
+
 bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   char * bytes = new char[this->copyBufferSize];
   qint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
@@ -26,7 +95,7 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
   if(destination->open(QIODevice::WriteOnly))
     this->log->logEvent(tr("Successfully opened destination file '%1' for copying.").arg(destination->fileName()));
   else
-    this->log->logError(tr("Failed to open destination file '%1' for copying.").arg(destination->fileName()));
+    this->log->logError(tr("Failed to open destination file '%1' for copying (%2).").arg(destination->fileName()).arg(destination->errorString()));
 
   if(source->isReadable() && destination->isWritable()) {
     while((toBeWritten = source->read(bytes, this->copyBufferSize)) != 0) {
@@ -52,24 +121,10 @@ bool Consumer::copyFile(QFile * source, QFile * destination, qint64 size) {
     source->close();
     destination->close();
 
-    if(destination->setPermissions(source->permissions())) {
-      this->log->logEvent(tr("Permissions set successfully to the destination file '%1'.").arg(destination->fileName()));
+    if(this->transferFileAttributes(source->fileName(), destination->fileName())) {
+      this->log->logEvent(tr("Successfully transfered source file attributes to the destination file (%1)").arg(destination->fileName()));
     } else {
-      this->log->logError(tr("Failed to set permissions to the destination file '%1'.").arg(destination->fileName()));
-      return false;
-    }
-
-    QFileInfo s(*source);
-    struct utimbuf time;
-
-    time.actime = s.lastRead().toSecsSinceEpoch();
-    time.modtime = s.lastModified().toSecsSinceEpoch();
-
-    if(utime(destination->fileName().toStdString().c_str(), &time) < 0){
-      this->log->logEvent(tr("Failed to transfer datetime to the destination file '%1'.").arg(destination->fileName()));
-      return false;
-    } else {
-      this->log->logEvent(tr("Datetime transferred successfully to the destination file '%1'.").arg(destination->fileName()));
+      this->log->logError(tr("Failed to transfer source file attributes to the destination file (%1)").arg(destination->fileName()));
     }
 
     this->log->logEvent(tr("Successfully copied file '%1' to '%2'.").arg(destination->fileName()).arg(source->fileName()));
@@ -205,7 +260,7 @@ void Consumer::work() {
     cloning:
     emit this->triggerCurrentOperation(tr("Creating directory"));
 
-    if(beforeDirectory->mkdir(existing)) {
+    if(beforeDirectory->mkdir(existing) && this->transferFileAttributes(left, existing)) {
       this->log->logEvent(tr("Successfully recreated directory '%1' as '%2'.").arg(left).arg(existing));
     } else {
       this->errorOccurred = true;

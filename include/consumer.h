@@ -1,8 +1,18 @@
 #ifndef __CONSUMER_H
 #define __CONSUMER_H
 
-#include <sys/types.h>
+#include "common.h"
+
+#if defined Q_OS_LINUX
 #include <utime.h>
+#elif defined Q_OS_WIN
+#include <Windows.h>
+#include <sys/utime.h>
+#else
+#error "Unsupported operating system!"
+#endif
+
+#include <sys/types.h>
 #include <math.h>
 #include "worker.h"
 
@@ -23,6 +33,7 @@ class Consumer : public Worker {
     Item * currentItem;
     QFile * currentFile;
     QDir * currentDirectory;
+    bool transferFileAttributes(const QString &source, const QString &destination);
     bool copyFile(QFile * source, QFile * destination, qint64 size);
 
   public:
