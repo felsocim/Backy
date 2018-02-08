@@ -22,8 +22,12 @@ class Producer : public Worker {
     void setItemBufferSize(size_t itembufferSize);
     void createLogsAt(const QString &path);
     void work();
+
   public slots:
     void analyze();
+
+  signals:
+    void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size);
 };
 
 #endif // __PRODUCER_H

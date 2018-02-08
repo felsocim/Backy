@@ -57,6 +57,7 @@ class Interface : public QMainWindow {
     void onQuit(bool clicked);
     void onBeginBackup(bool clicked);
     void onChooseSource(QString selected);
+    void onAnalysisProgress(qint64 files, qint64 directories, qint64 size);
     void onChooseTarget(QString selected);
     void onStatusCurrentOperation(QString operation);
     void onStatusCurrentItem(QString item);
@@ -72,6 +73,7 @@ class Interface : public QMainWindow {
   signals:
     void signalStart();
     void signalProgress(bool state);
+    void triggerAnalysis();
 };
 
 #endif // __INTERFACE_H

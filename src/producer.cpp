@@ -90,6 +90,7 @@ void Producer::analyze() {
       this->filesCount++;
     }
     this->size += current.size();
+    emit this->triggerAnalysisProgress(this->filesCount, this->directoriesCount, this->size);
   }
 
   this->log->logEvent(

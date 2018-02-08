@@ -15,6 +15,8 @@ Interface::Interface(QWidget *parent) :
   consumer(new Consumer()) {
   this->ui->setupUi(this);
 
+  this->ui->progressSourceAnalysis->hide();
+
   this->sourceDialog->setFileMode(QFileDialog::Directory);
   this->targetDialog->setFileMode(QFileDialog::Directory);
 
@@ -44,6 +46,8 @@ Interface::Interface(QWidget *parent) :
 
   QObject::connect(this->producer, SIGNAL(started()), this, SLOT(onProducerStarted()));
   QObject::connect(this->producer, SIGNAL(finished()), this, SLOT(onProducerFinished()));
+  QObject::connect(this, SIGNAL(triggerAnalysis()), this->producer, SLOT(analyze()));
+  QObject::connect(this->producer, SIGNAL(triggerAnalysisProgress(qint64,qint64,qint64)), this, SLOT(onAnalysisProgress(qint64,qint64,qint64)));
   QObject::connect(this->consumer, SIGNAL(started()), this, SLOT(onConsumerStarted()));
   QObject::connect(this->consumer, SIGNAL(finished()), this, SLOT(onConsumerFinished()));
 
@@ -307,35 +311,34 @@ void Interface::onBeginBackup(bool clicked) {
 }
 
 void Interface::onChooseSource(QString selected) {
+  this->ui->progressSourceAnalysis->setMaximum(0);
+  this->ui->progressSourceAnalysis->show();
   this->ui->editSourcePath->setText(selected);
-
   this->producer->setRoot(selected);
   this->consumer->setSource(selected);
-  this->producer->analyze();
+  emit this->triggerAnalysis();
+}
 
-  this->ui->labelDiscoveredDirectoriesValue->setText(QString::number(this->producer->getDirectoriesCount()));
-  this->ui->labelDiscoveredFilesValue->setText(QString::number(this->producer->getFilesCount()));
+void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size) {
+  this->ui->labelDiscoveredDirectoriesValue->setText(QString::number(directories));
+  this->ui->labelDiscoveredFilesValue->setText(QString::number(files));
 
-  this->consumer->setDetectedCount(this->producer->getDirectoriesCount() + this->producer->getFilesCount());
-  this->consumer->setDetectedSize(this->producer->getSize());
-
-  size_t bytesDiscovered = this->producer->getSize();
   double converted = 0.0;
 
-  if(bytesDiscovered >= TERABYTE) {
-    converted = (double) bytesDiscovered / (double) TERABYTE;
+  if(size >= TERABYTE) {
+    converted = (double) size / (double) TERABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("TB"));
-  } else if(bytesDiscovered >= GIGABYTE) {
-    converted = (double) bytesDiscovered / (double) GIGABYTE;
+  } else if(size >= GIGABYTE) {
+    converted = (double) size / (double) GIGABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("GB"));
-  } else if(bytesDiscovered >= MEGABYTE) {
-    converted = (double) bytesDiscovered / (double) MEGABYTE;
+  } else if(size >= MEGABYTE) {
+    converted = (double) size / (double) MEGABYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("MB"));
-  } else if(bytesDiscovered >= KILOBYTE) {
-    converted = (double) bytesDiscovered / (double) KILOBYTE;
+  } else if(size >= KILOBYTE) {
+    converted = (double) size / (double) KILOBYTE;
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("kB"));
   } else {
-    converted = (double) bytesDiscovered;
+    converted = (double) size;
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("B"));
   }
 
@@ -372,6 +375,10 @@ void Interface::onConsumerStarted() {
 }
 
 void Interface::onProducerFinished() {
+  this->consumer->setDetectedCount(this->producer->getDirectoriesCount() + this->producer->getFilesCount());
+  this->consumer->setDetectedSize(this->producer->getSize());
+  this->ui->progressSourceAnalysis->setMaximum(1);
+  this->ui->progressSourceAnalysis->hide();
   this->producerInProgress = false;
 }
 
