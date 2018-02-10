@@ -1,10 +1,10 @@
-#include "../include/interface.h"
 #include "../include/producer.h"
 #include "../include/consumer.h"
-#include <iostream>
 #include <QApplication>
 #include <QCoreApplication>
+#include <QSettings>
 #include <QTranslator>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -25,11 +25,10 @@ int main(int argc, char *argv[])
 
     QTranslator translator;
 
-    translator.load(QString(LOCALE_RELATIVE_PATH) + "/Backy_" + locale + ".qm");
+    translator.load(QString(LOCALE_RELATIVE_PATH) + "/" + QCoreApplication::applicationName() + "_" + locale + ".qm");
     a.installTranslator(&translator);
 
-    Interface w;
-    w.show();
+    std::cout << "Hello world" << std::endl;
 
     return a.exec();
 }
