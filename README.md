@@ -10,7 +10,7 @@ This project uses the CMake build system. Firstable you need to run CMake in the
 
 Backy can be launched both from command line as well as the graphical user interface.
 
-### CLI
+### CLI (not implemented yet)
 
 The right syntax to run Backy correctly from your command line interface is as follows:
 
