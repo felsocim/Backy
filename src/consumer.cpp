@@ -296,7 +296,7 @@ void Consumer::work() {
   if(!this->keepObsolete) {
     QDirIterator i(
       this->target,
-      QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories
+      QDir::AllEntries | QDir::Hidden | QDir::NoDotAndDotDot, QDirIterator::Subdirectories
     );
     QDir t(this->target);
 

@@ -39,7 +39,7 @@ void Producer::createLogsAt(const QString &path) {
 void Producer::work() {
   emit this->started();
 
-  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
 
   this->log->logEvent(tr("Producer process has begun working."));
 
@@ -80,7 +80,7 @@ void Producer::analyze() {
   this->filesCount = 0;
   this->size = 0;
 
-  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
 
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
