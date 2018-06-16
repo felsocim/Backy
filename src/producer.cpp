@@ -32,6 +32,11 @@ void Producer::setItemBufferSize(size_t itembufferSize) {
   this->itembufferSize = itembufferSize;
 }
 
+void Producer::reinitializeCounters() {
+  this->directoriesCount = 0;
+  this->filesCount = 0;
+}
+
 void Producer::createLogsAt(const QString &path) {
   this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }

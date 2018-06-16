@@ -20,6 +20,7 @@ class Producer : public Worker {
     qint64 getSize() const;
     void setRoot(const QString &root);
     void setItemBufferSize(size_t itembufferSize);
+    void reinitializeCounters();
     void createLogsAt(const QString &path);
     void work();
 

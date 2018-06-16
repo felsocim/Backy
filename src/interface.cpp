@@ -325,7 +325,10 @@ void Interface::onChooseSource(QString selected) {
   this->ui->progressSourceAnalysis->setMaximum(0);
   this->ui->progressSourceAnalysis->show();
   this->ui->editSourcePath->setText(selected);
+  this->producer->reinitializeCounters();
   this->producer->setRoot(selected);
+  this->consumer->setDetectedCount(0);
+  this->consumer->setDetectedSize(0);
   this->consumer->setSource(selected);
   emit this->triggerAnalysis();
 }
