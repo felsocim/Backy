@@ -54,7 +54,7 @@ void Producer::work() {
 
     this->lock->lock();
 
-    while(this->buffer->size() == this->itembufferSize) {
+    while(this->buffer->size() == this->itembufferSize && processedCount < this->directoriesCount + this->filesCount) {
       this->log->logEvent(tr("Producer process is waiting."));
       this->notEmpty->wait(this->lock);
     }
@@ -70,6 +70,7 @@ void Producer::work() {
     );
 
     this->log->logEvent(tr("Producer process enqueued '%1' in the shared item buffer.").arg(current.fileName()));
+    processedCount++;
     this->notFull->wakeOne();
     this->lock->unlock();
   }

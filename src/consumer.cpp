@@ -194,7 +194,7 @@ void Consumer::work() {
   do {
     this->lock->lock();
 
-    while(this->buffer->empty()) {
+    while(this->buffer->empty() && this->processedCount < this->detectedCount) {
       this->notFull->wait(this->lock);
     }
 
