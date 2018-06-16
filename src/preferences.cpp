@@ -42,6 +42,7 @@ Preferences::Preferences(QWidget * parent) :
   } else {
     result = filter.cap(1);
     dwResult = (int) (result.toLongLong() / KILOBYTE);
+    result = QString::number(dwResult);
     goto success;
   }
 #elif defined Q_OS_WIN
