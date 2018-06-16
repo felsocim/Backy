@@ -32,6 +32,11 @@ void Producer::setItemBufferSize(size_t itembufferSize) {
   this->itembufferSize = itembufferSize;
 }
 
+void Producer::reinitializeCounters() {
+  this->directoriesCount = 0;
+  this->filesCount = 0;
+}
+
 void Producer::createLogsAt(const QString &path) {
   this->log = new Logger(path, PRODUCER_EVENT_LOG_FILE_NAME, PRODUCER_ERROR_LOG_FILE_NAME);
 }
@@ -39,7 +44,8 @@ void Producer::createLogsAt(const QString &path) {
 void Producer::work() {
   emit this->started();
 
-  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
+  qint64 processedCount = 0;
 
   this->log->logEvent(tr("Producer process has begun working."));
 
@@ -48,12 +54,12 @@ void Producer::work() {
 
     this->lock->lock();
 
-    while(this->buffer->size() == this->itembufferSize && this->progress) {
+    while(this->buffer->size() == this->itembufferSize && this->progress && processedCount < this->directoriesCount + this->filesCount) {
       this->log->logEvent(tr("Producer process is waiting."));
       this->notEmpty->wait(this->lock);
     }
 
-    if(!this->progress) {
+    if(!this->progress || processedCount >= this->directoriesCount + this->filesCount) {
       goto done;
     }
 
@@ -70,6 +76,7 @@ void Producer::work() {
     this->log->logEvent(tr("Producer process enqueued '%1' in the shared item buffer.").arg(current.fileName()));
 
     done:
+    processedCount++;
     this->notFull->wakeOne();
     this->lock->unlock();
   }
@@ -86,7 +93,7 @@ void Producer::analyze() {
   this->filesCount = 0;
   this->size = 0;
 
-  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
 
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());

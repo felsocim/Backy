@@ -51,28 +51,28 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->consumer, SIGNAL(started()), this, SLOT(onConsumerStarted()));
   QObject::connect(this->consumer, SIGNAL(finished()), this, SLOT(onConsumerFinished()));
 
-  QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
-  QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));
+  QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource()));
+  QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget()));
 
   QObject::connect(this->ui->checkSynchronize, SIGNAL(toggled(bool)), this, SLOT(onToggleSynchronize(bool)));
   QObject::connect(this->ui->checkKeepObsolete, SIGNAL(toggled(bool)), this, SLOT(onToggleKeepObsolete(bool)));
   QObject::connect(this->ui->radioCriterionMostRecent, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionMostRecent(bool)));
   QObject::connect(this->ui->radioCriterionBiggest, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionBiggest(bool)));
 
-  QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort(bool)));
-  QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup(bool)));
+  QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort()));
+  QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup()));
 
   QObject::connect(this->consumer, SIGNAL(triggerCurrentOperation(QString)), this, SLOT(onStatusCurrentOperation(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
   QObject::connect(this->consumer, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
 
-  QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
-  QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
-  QObject::connect(this->ui->actionDocumentation, SIGNAL(triggered(bool)), this, SLOT(onDocumentationSolicitation(bool)));
+  QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences()));
+  QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox()));
+  QObject::connect(this->ui->actionDocumentation, SIGNAL(triggered(bool)), this, SLOT(onDocumentationSolicitation()));
 
-  QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit(bool)));
-  QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit(bool)));
+  QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit()));
+  QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit()));
 
   QObject::connect(this->sourceDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseSource(QString)));
   QObject::connect(this->targetDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseTarget(QString)));
@@ -201,11 +201,11 @@ void Interface::saveSettings() {
   settings.endGroup();
 }
 
-void Interface::onBrowseSource(bool clicked) {
+void Interface::onBrowseSource() {
   this->sourceDialog->show();
 }
 
-void Interface::onBrowseTarget(bool clicked) {
+void Interface::onBrowseTarget() {
   this->targetDialog->show();
 }
 
@@ -229,11 +229,11 @@ void Interface::onToggleCriterionBiggest(bool checked) {
   this->consumer->setCriterion(CRITERION_BIGGER);
 }
 
-void Interface::onEditPreferences(bool clicked) {
+void Interface::onEditPreferences() {
   this->preferences->show();
 }
 
-void Interface::onShowAboutBox(bool clicked) {
+void Interface::onShowAboutBox() {
   QMessageBox::about(
     this,
     tr("About Backy"),
@@ -252,14 +252,12 @@ void Interface::onShowAboutBox(bool clicked) {
       " You should have received a copy of the GNU General Public License"
       " along with this program. If not, see <a href='http://www.gnu.org/licenses/' target='_blank'>http://www.gnu.org/licenses/</a></p>"
       "<p><strong>Information:</strong> For program's documentation, source code and updates, please, refer to its repository at: <a href='https://github.com/felsocim/Backy' target='_blank'>https://github.com/felsocim/Backy</a></p>"
-      "<p><strong>Credits:</strong> The <em>Fantasque Sans Mono</em> font was created by <a href='mailto:jany.belluz@hotmail.fr' target='_blank'>"
-      "Jany Belluz</a> and is licensed under the terms of <a href='http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL'>"
-      "SIL Open Font License</a>. The <em>Abstract Materials Patterns</em> were freely acquired from <a href='https://www.brusheezy.com' target='_blank'>Brusheezy!</a>"
+      "<p><strong>Credits:</strong> The <em>Tango</em> icon theme used in this application was acquired from <a href='http://tango.freedesktop.org/Tango_Desktop_Project' target='_blank'>Tango Desktop Project</a>."
     )
   );
 }
 
-void Interface::onAbort(bool clicked) {
+void Interface::onAbort() {
   if(QMessageBox::question(
     this,
     tr("Abort requested"),
@@ -271,7 +269,7 @@ void Interface::onAbort(bool clicked) {
   }
 }
 
-void Interface::onQuit(bool clicked) {
+void Interface::onQuit() {
   if(this->inProgress()) {
     if(QMessageBox::question(
       this,
@@ -289,7 +287,7 @@ void Interface::onQuit(bool clicked) {
   QApplication::quit();
 }
 
-void Interface::onBeginBackup(bool clicked) {
+void Interface::onBeginBackup() {
   if(this->inProgress()) {
     QMessageBox::critical(
       this,
@@ -330,7 +328,10 @@ void Interface::onChooseSource(QString selected) {
   this->ui->progressSourceAnalysis->setMaximum(0);
   this->ui->progressSourceAnalysis->show();
   this->ui->editSourcePath->setText(selected);
+  this->producer->reinitializeCounters();
   this->producer->setRoot(selected);
+  this->consumer->setDetectedCount(0);
+  this->consumer->setDetectedSize(0);
   this->consumer->setSource(selected);
   emit this->triggerAnalysis();
 }
@@ -358,7 +359,7 @@ void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("B"));
   }
 
-  this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'g', 2));
+  this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'f', 2));
 }
 
 void Interface::onChooseTarget(QString selected) {
@@ -446,7 +447,7 @@ void Interface::onSavePreferences() {
   }
 }
 
-void Interface::onDocumentationSolicitation(bool clicked) {
+void Interface::onDocumentationSolicitation() {
   if(!QDesktopServices::openUrl(QUrl("https://github.com/felsocim/Backy"))) {
     QMessageBox::critical(
       this,

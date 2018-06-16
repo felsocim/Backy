@@ -6,268 +6,202 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>410</height>
+    <width>500</width>
+    <height>372</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>470</width>
-    <height>410</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>470</width>
-    <height>410</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Preferences</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../res/backy.qrc">
-    <normaloff>:/Backy/img/preferences-system.png</normaloff>:/Backy/img/preferences-system.png</iconset>
+   <iconset theme="preferences-system">
+    <normaloff>.</normaloff>.</iconset>
   </property>
-  <widget class="QGroupBox" name="groupLanguage">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>451</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>&amp;Language (change needs the application to restart to take effect)</string>
-   </property>
-   <widget class="QLabel" name="labelLanguageDescription">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>431</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Choose the language of the application's menus, messages and dialogues.</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboLanguages">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>40</y>
-      <width>431</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupAdvanced">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>90</y>
-     <width>451</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>&amp;Advanced</string>
-   </property>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>433</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="layoutAdvanced">
-     <item row="2" column="0">
-      <widget class="QLabel" name="labelItemBufferSize">
-       <property name="text">
-        <string>Item buffer size (no. of entries):</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="labelCopyBufferSize">
-       <property name="text">
-        <string>Copy buffer size (MB):</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QSpinBox" name="spinItemBufferSize">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QSpinBox" name="spinCopyBufferSize">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>1024</number>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLCDNumber" name="lcdDetectedRAM">
-       <property name="styleSheet">
-        <string notr="true">background-color: #000000;
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupLanguage">
+     <property name="title">
+      <string>&amp;Language</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="labelLanguageDescription">
+        <property name="text">
+         <string>Choose the display language of the application.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="comboLanguages"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupLogsLocation">
+     <property name="title">
+      <string>Lo&amp;gs location</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="editLogsLocationValue">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="buttonLogsLocationBrowse">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <property name="text">
+           <string> Browse...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupAdvanced">
+     <property name="styleSheet">
+      <string notr="true">color: red;</string>
+     </property>
+     <property name="title">
+      <string>&amp;Advanced settings (dangerous)</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QGridLayout" name="layoutAdvanced">
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="spinItemBufferSize">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="spinCopyBufferSize">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1024</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLCDNumber" name="lcdDetectedRAM">
+          <property name="styleSheet">
+           <string notr="true">background-color: #000000;
 color: rgb(138, 226, 52);</string>
-       </property>
-       <property name="frameShape">
-        <enum>QFrame::NoFrame</enum>
-       </property>
-       <property name="frameShadow">
-        <enum>QFrame::Raised</enum>
-       </property>
-       <property name="lineWidth">
-        <number>1</number>
-       </property>
-       <property name="digitCount">
-        <number>16</number>
-       </property>
-       <property name="segmentStyle">
-        <enum>QLCDNumber::Flat</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="labelDetectedRAMDescription">
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+          <property name="digitCount">
+           <number>16</number>
+          </property>
+          <property name="segmentStyle">
+           <enum>QLCDNumber::Flat</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelDetectedRAMDescription">
+          <property name="text">
+           <string>Detected RAM (MiB):</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelItemBufferSize">
+          <property name="text">
+           <string>Item buffer size (no. of entries):</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="labelCopyBufferSize">
+          <property name="text">
+           <string>Copy buffer size (MiB):</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutBottom">
+     <item>
+      <widget class="QPushButton" name="buttonDiscard">
        <property name="text">
-        <string>Detected RAM (MB):</string>
+        <string> &amp;Discard</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../res/backy.qrc">
+         <normaloff>:/icons/edit-undo.png</normaloff>:/icons/edit-undo.png</iconset>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QLabel" name="labelAdvancedSettingsWarning">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item>
+      <spacer name="spacerBottom">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-       <property name="styleSheet">
-        <string notr="true">color: red;</string>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
        </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="buttonApply">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Overstepping recommended buffers sizes may cause the application to crash and/or harm your system. We strongly discourage you to modify the values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string> &amp;Save and apply</string>
        </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="wordWrap">
-        <bool>true</bool>
+       <property name="icon">
+        <iconset resource="../res/backy.qrc">
+         <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
        </property>
       </widget>
-     </item>
-     <item row="4" column="0" colspan="2">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0">
-        <widget class="QLineEdit" name="editLogsLocationValue">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="buttonLogsLocationBrowse">
-         <property name="text">
-          <string> Browse...</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../res/backy.qrc">
-           <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="labelLogsLocationDescription">
-         <property name="text">
-          <string>Logs location (change needs the application to restart to take effect):</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </item>
     </layout>
-   </widget>
-  </widget>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>9</x>
-     <y>360</y>
-     <width>451</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="layoutBottom">
-    <item>
-     <spacer name="spacerBottomLeft">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="buttonDiscard">
-      <property name="text">
-       <string> &amp;Discard</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res/backy.qrc">
-        <normaloff>:/Backy/img/edit-undo.png</normaloff>:/Backy/img/edit-undo.png</iconset>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="buttonApply">
-      <property name="text">
-       <string> &amp;Save</string>
-      </property>
-      <property name="icon">
-       <iconset resource="../res/backy.qrc">
-        <normaloff>:/Backy/img/document-save.png</normaloff>:/Backy/img/document-save.png</iconset>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <spacer name="spacerBottomRight">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-   </layout>
-  </widget>
+   </item>
+  </layout>
  </widget>
  <resources>
   <include location="../res/backy.qrc"/>

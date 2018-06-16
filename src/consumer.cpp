@@ -194,12 +194,11 @@ void Consumer::work() {
   do {
     this->lock->lock();
 
-    while(this->buffer->empty() && this->progress) {
-      this->log->logEvent(tr("Consumer process is waiting..."));
+    while(this->buffer->empty() && this->progress && this->processedCount < this->detectedCount) {
       this->notFull->wait(this->lock);
     }
 
-    if(!this->progress) {
+    if(!this->progress || this->processedCount >= this->detectedCount) {
       this->notEmpty->wakeOne();
       this->lock->unlock();
       break;
@@ -305,7 +304,8 @@ void Consumer::work() {
   if(!this->keepObsolete) {
     QDirIterator i(
       this->target,
-      QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories
+      WORKER_ITEM_FILTERS,
+      QDirIterator::Subdirectories
     );
     QDir t(this->target);
 

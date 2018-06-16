@@ -10,441 +10,354 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>650</height>
+    <height>658</height>
    </rect>
-  </property>
-  <property name="minimumSize">
-   <size>
-    <width>600</width>
-    <height>650</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>600</width>
-    <height>650</height>
-   </size>
-  </property>
-  <property name="baseSize">
-   <size>
-    <width>620</width>
-    <height>680</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Backy</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../res/backy.qrc">
-    <normaloff>:/Backy/img/Backy.png</normaloff>:/Backy/img/Backy.png</iconset>
+    <normaloff>:/icons/application-logo.png</normaloff>:/icons/application-logo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
   </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="groupSource">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>581</width>
-      <height>191</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>&amp;Source drive or folder</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>561</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="layoutSource">
-      <item row="2" column="0">
-       <widget class="QLabel" name="labelDiscoveredDescription">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupSource">
+      <property name="title">
+       <string>&amp;Source drive or folder</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="layoutSource">
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelDiscoveredDescription">
+           <property name="text">
+            <string>Directory analysis:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="3">
+          <widget class="QLabel" name="labelSourceDescription">
+           <property name="text">
+            <string>Browse for the source drive or folder you want to backup the contents of.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLineEdit" name="editSourcePath">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="buttonBrowseSource">
+           <property name="text">
+            <string> Browse...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="labelDiscoveredDirectoriesValue">
+           <property name="text">
+            <string>N/A</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="labelDiscoveredTotalSizeUnits">
+           <property name="text">
+            <string>B</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
+          <widget class="QLabel" name="labelDiscoveredTotalSizeValue">
+           <property name="text">
+            <string>N/A</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QLabel" name="labelDiscoveredFilesDescription">
+           <property name="text">
+            <string>file(s)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="labelDiscoveredDirectoriesDescription">
+           <property name="text">
+            <string>folder(s)</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QLabel" name="labelDiscoveredFilesValue">
+           <property name="text">
+            <string>N/A</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="0" colspan="3">
+          <widget class="QProgressBar" name="progressSourceAnalysis">
+           <property name="maximum">
+            <number>1</number>
+           </property>
+           <property name="value">
+            <number>0</number>
+           </property>
+           <property name="textVisible">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupTarget">
+      <property name="title">
+       <string>&amp;Backup location</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QGridLayout" name="layoutTarget">
+         <item row="0" column="0" colspan="3">
+          <widget class="QLabel" name="labelTargetDescription">
+           <property name="text">
+            <string>Browse file system for the backup destination drive or folder.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QPushButton" name="buttonBrowseTarget">
+           <property name="text">
+            <string> Browse...</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLineEdit" name="editTargetPath">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutBackupOptions">
+         <item>
+          <widget class="QCheckBox" name="checkSynchronize">
+           <property name="text">
+            <string>Use to synchronize</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkKeepObsolete">
+           <property name="text">
+            <string>Keep obsolete item(s)</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="layoutComparisonCriterion">
+         <item>
+          <widget class="QLabel" name="labelCriterionDescription">
+           <property name="text">
+            <string>Comparison criterion:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioCriterionMostRecent">
+           <property name="text">
+            <string>Prefer more recent</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radioCriterionBiggest">
+           <property name="text">
+            <string>Prefer bigger</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupStatus">
+      <property name="title">
+       <string>Backup &amp;progress</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QVBoxLayout" name="layoutStatus">
+         <item>
+          <widget class="QLabel" name="labelStatusCurrentOperation">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelStatusCurrentName">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QProgressBar" name="progressStatusCurrentProgress">
+           <property name="value">
+            <number>0</number>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+           <property name="textVisible">
+            <bool>true</bool>
+           </property>
+           <property name="textDirection">
+            <enum>QProgressBar::TopToBottom</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelStatusOverallDescription">
+           <property name="text">
+            <string>Overall progress</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QProgressBar" name="progressStatusOverallProgress">
+           <property name="value">
+            <number>0</number>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonAbort">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string> &amp;Abort</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../res/backy.qrc">
+           <normaloff>:/icons/process-stop.png</normaloff>:/icons/process-stop.png</iconset>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="layoutBottomButtons">
+      <item>
+       <widget class="QPushButton" name="buttonQuit">
         <property name="text">
-         <string>Directory analysis:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="labelSourceDescription">
-        <property name="text">
-         <string>Browse for the source drive or folder you want to backup the contents of.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="editSourcePath">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="buttonBrowseSource">
-        <property name="text">
-         <string> Browse...</string>
+         <string> &amp;Quit</string>
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
-          <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
+          <normaloff>:/icons/application-exit.png</normaloff>:/icons/application-exit.png</iconset>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="labelDiscoveredDirectoriesValue">
+      <item>
+       <spacer name="spacerBottom">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonBackup">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="text">
-         <string>N/A</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QLabel" name="labelDiscoveredTotalSizeUnits">
-        <property name="text">
-         <string>B</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="labelDiscoveredTotalSizeValue">
-        <property name="text">
-         <string>N/A</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="labelDiscoveredFilesDescription">
-        <property name="text">
-         <string>file(s)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="labelDiscoveredDirectoriesDescription">
-        <property name="text">
-         <string>folder(s)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="labelDiscoveredFilesValue">
-        <property name="text">
-         <string>N/A</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0" colspan="3">
-       <widget class="QProgressBar" name="progressSourceAnalysis">
-        <property name="maximum">
-         <number>1</number>
-        </property>
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="textVisible">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupTarget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>210</y>
-      <width>581</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>&amp;Backup location</string>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>561</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="layoutTarget">
-      <item row="0" column="0" colspan="3">
-       <widget class="QLabel" name="labelTargetDescription">
-        <property name="text">
-         <string>Browse for the backup destination drive or folder.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="buttonBrowseTarget">
-        <property name="text">
-         <string> Browse...</string>
+         <string> &amp;Backup</string>
         </property>
         <property name="icon">
          <iconset resource="../res/backy.qrc">
-          <normaloff>:/Backy/img/folder-open.png</normaloff>:/Backy/img/folder-open.png</iconset>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLineEdit" name="editTargetPath">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QCheckBox" name="checkSynchronize">
-          <property name="text">
-           <string>Use to synchronize</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="checkKeepObsolete">
-          <property name="text">
-           <string>Keep obsolete item(s)</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="horizontalLayoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>110</y>
-       <width>561</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="labelCriterionDescription">
-        <property name="text">
-         <string>Comparison criterion:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="radioCriterionMostRecent">
-        <property name="text">
-         <string>Prefer more recent</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QRadioButton" name="radioCriterionBiggest">
-        <property name="text">
-         <string>Prefer bigger</string>
+          <normaloff>:/icons/document-save-as.png</normaloff>:/icons/document-save-as.png</iconset>
         </property>
        </widget>
       </item>
      </layout>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupStatus">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>370</y>
-      <width>581</width>
-      <height>201</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Backup &amp;progress</string>
-    </property>
-    <widget class="QWidget" name="verticalLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>20</y>
-       <width>561</width>
-       <height>131</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="layoutStatus">
-      <item>
-       <widget class="QLabel" name="labelStatusCurrentOperation">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelStatusCurrentName">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="progressStatusCurrentProgress">
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-        <property name="textVisible">
-         <bool>true</bool>
-        </property>
-        <property name="textDirection">
-         <enum>QProgressBar::TopToBottom</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="labelStatusOverallDescription">
-        <property name="text">
-         <string>Overall progress</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QProgressBar" name="progressStatusOverallProgress">
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="buttonAbort">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>480</x>
-       <y>160</y>
-       <width>91</width>
-       <height>26</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string> &amp;Abort</string>
-     </property>
-     <property name="icon">
-      <iconset resource="../res/backy.qrc">
-       <normaloff>:/Backy/img/process-stop.png</normaloff>:/Backy/img/process-stop.png</iconset>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>580</y>
-      <width>581</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <spacer name="spacerBottomLeft">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonQuit">
-       <property name="text">
-        <string> &amp;Quit</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/backy.qrc">
-         <normaloff>:/Backy/img/system-log-out.png</normaloff>:/Backy/img/system-log-out.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="buttonBackup">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string> &amp;Backup</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../res/backy.qrc">
-         <normaloff>:/Backy/img/document-save.png</normaloff>:/Backy/img/document-save.png</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="spacerBottomRight">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-    </layout>
-   </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>600</width>
-     <height>21</height>
-    </rect>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>&amp;File</string>
-    </property>
-    <addaction name="actionPreferences"/>
-    <addaction name="separator"/>
-    <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>&amp;Help</string>
-    </property>
-    <addaction name="actionDocumentation"/>
-    <addaction name="actionAbout"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuHelp"/>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <property name="floatable">
+    <bool>true</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionPreferences"/>
+   <addaction name="separator"/>
+   <addaction name="actionAbout"/>
+   <addaction name="actionDocumentation"/>
+   <addaction name="separator"/>
+   <addaction name="actionQuit"/>
   </widget>
   <action name="actionQuit">
    <property name="icon">
-    <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/img/system-log-out.png</normaloff>:/Backy/img/system-log-out.png</iconset>
+    <iconset theme="application-exit" resource="../res/backy.qrc">
+     <normaloff>:/icons/application-exit.png</normaloff>:/icons/application-exit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="toolTip">
+    <string>Quit the application</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -453,10 +366,13 @@
   <action name="actionDocumentation">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/img/internet-web-browser.png</normaloff>:/Backy/img/internet-web-browser.png</iconset>
+     <normaloff>:/icons/help-browser.png</normaloff>:/icons/help-browser.png</iconset>
    </property>
    <property name="text">
     <string>Online &amp;documentation</string>
+   </property>
+   <property name="toolTip">
+    <string>Browse online documentation</string>
    </property>
    <property name="shortcut">
     <string>F1</string>
@@ -465,7 +381,7 @@
   <action name="actionAbout">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/img/help-browser.png</normaloff>:/Backy/img/help-browser.png</iconset>
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About Backy</string>
@@ -474,10 +390,13 @@
   <action name="actionPreferences">
    <property name="icon">
     <iconset resource="../res/backy.qrc">
-     <normaloff>:/Backy/img/preferences-system.png</normaloff>:/Backy/img/preferences-system.png</iconset>
+     <normaloff>:/icons/preferences-system.png</normaloff>:/icons/preferences-system.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences</string>
+   </property>
+   <property name="toolTip">
+    <string>View or edit application's preferences</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+P</string>

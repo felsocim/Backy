@@ -7,7 +7,7 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
   QDir logs(path);
 
   if(!logs.exists()) {
-    if(logs.mkpath(path) && logs.mkdir(path)) {
+    if(logs.mkpath(path)) {
       this->accessible = true;
     } else {
       this->accessible = false;

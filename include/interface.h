@@ -45,17 +45,17 @@ class Interface : public QMainWindow {
     void saveSettings();
 
   private slots:
-    void onBrowseSource(bool clicked);
-    void onBrowseTarget(bool clicked);
+    void onBrowseSource();
+    void onBrowseTarget();
     void onToggleSynchronize(bool checked);
     void onToggleKeepObsolete(bool checked);
     void onToggleCriterionMostRecent(bool checked);
     void onToggleCriterionBiggest(bool checked);
-    void onEditPreferences(bool clicked);
-    void onShowAboutBox(bool clicked);
-    void onAbort(bool clicked);
-    void onQuit(bool clicked);
-    void onBeginBackup(bool clicked);
+    void onEditPreferences();
+    void onShowAboutBox();
+    void onAbort();
+    void onQuit();
+    void onBeginBackup();
     void onChooseSource(QString selected);
     void onAnalysisProgress(qint64 files, qint64 directories, qint64 size);
     void onChooseTarget(QString selected);
@@ -68,7 +68,7 @@ class Interface : public QMainWindow {
     void onProducerFinished();
     void onConsumerFinished();
     void onSavePreferences();
-    void onDocumentationSolicitation(bool clicked);
+    void onDocumentationSolicitation();
 
   signals:
     void signalStart();
