@@ -356,7 +356,7 @@ void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size
     this->ui->labelDiscoveredTotalSizeUnits->setText(tr("B"));
   }
 
-  this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'g', 2));
+  this->ui->labelDiscoveredTotalSizeValue->setText(QString::number(converted, 'f', 2));
 }
 
 void Interface::onChooseTarget(QString selected) {
