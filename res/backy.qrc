@@ -1,15 +1,15 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>img/Backy.png</file>
-        <file>img/document-save.png</file>
-        <file>img/undo.png</file>
-        <file>img/info.png</file>
-        <file>img/help-browser.png</file>
-        <file>img/preferences-system.png</file>
-        <file>img/process-stop.png</file>
-        <file>img/application-exit.png</file>
-        <file>img/enu.png</file>
-        <file>img/fr.png</file>
-        <file>img/sk.png</file>
+        <file>Backy.png</file>
+        <file>document-save.png</file>
+        <file>undo.png</file>
+        <file>info.png</file>
+        <file>help-browser.png</file>
+        <file>preferences-system.png</file>
+        <file>process-stop.png</file>
+        <file>application-exit.png</file>
+        <file>enu.png</file>
+        <file>fr.png</file>
+        <file>sk.png</file>
     </qresource>
 </RCC>
