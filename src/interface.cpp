@@ -51,28 +51,28 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->consumer, SIGNAL(started()), this, SLOT(onConsumerStarted()));
   QObject::connect(this->consumer, SIGNAL(finished()), this, SLOT(onConsumerFinished()));
 
-  QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource(bool)));
-  QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget(bool)));
+  QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource()));
+  QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget()));
 
   QObject::connect(this->ui->checkSynchronize, SIGNAL(toggled(bool)), this, SLOT(onToggleSynchronize(bool)));
   QObject::connect(this->ui->checkKeepObsolete, SIGNAL(toggled(bool)), this, SLOT(onToggleKeepObsolete(bool)));
   QObject::connect(this->ui->radioCriterionMostRecent, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionMostRecent(bool)));
   QObject::connect(this->ui->radioCriterionBiggest, SIGNAL(toggled(bool)), this, SLOT(onToggleCriterionBiggest(bool)));
 
-  QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort(bool)));
-  QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup(bool)));
+  QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort()));
+  QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup()));
 
   QObject::connect(this->consumer, SIGNAL(triggerCurrentOperation(QString)), this, SLOT(onStatusCurrentOperation(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
   QObject::connect(this->consumer, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
   QObject::connect(this->consumer, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
 
-  QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences(bool)));
-  QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox(bool)));
-  QObject::connect(this->ui->actionDocumentation, SIGNAL(triggered(bool)), this, SLOT(onDocumentationSolicitation(bool)));
+  QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences()));
+  QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox()));
+  QObject::connect(this->ui->actionDocumentation, SIGNAL(triggered(bool)), this, SLOT(onDocumentationSolicitation()));
 
-  QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit(bool)));
-  QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit(bool)));
+  QObject::connect(this->ui->actionQuit, SIGNAL(triggered(bool)), this, SLOT(onQuit()));
+  QObject::connect(this->ui->buttonQuit, SIGNAL(clicked(bool)), this, SLOT(onQuit()));
 
   QObject::connect(this->sourceDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseSource(QString)));
   QObject::connect(this->targetDialog, SIGNAL(fileSelected(QString)), this, SLOT(onChooseTarget(QString)));
@@ -199,11 +199,11 @@ void Interface::saveSettings() {
   settings.endGroup();
 }
 
-void Interface::onBrowseSource(bool clicked) {
+void Interface::onBrowseSource() {
   this->sourceDialog->show();
 }
 
-void Interface::onBrowseTarget(bool clicked) {
+void Interface::onBrowseTarget() {
   this->targetDialog->show();
 }
 
@@ -227,11 +227,11 @@ void Interface::onToggleCriterionBiggest(bool checked) {
   this->consumer->setCriterion(CRITERION_BIGGER);
 }
 
-void Interface::onEditPreferences(bool clicked) {
+void Interface::onEditPreferences() {
   this->preferences->show();
 }
 
-void Interface::onShowAboutBox(bool clicked) {
+void Interface::onShowAboutBox() {
   QMessageBox::about(
     this,
     tr("About Backy"),
@@ -255,7 +255,7 @@ void Interface::onShowAboutBox(bool clicked) {
   );
 }
 
-void Interface::onAbort(bool clicked) {
+void Interface::onAbort() {
   if(QMessageBox::question(
     this,
     tr("Abort requested"),
@@ -266,7 +266,7 @@ void Interface::onAbort(bool clicked) {
   }
 }
 
-void Interface::onQuit(bool clicked) {
+void Interface::onQuit() {
   if(this->inProgress()) {
     if(QMessageBox::question(
       this,
@@ -284,7 +284,7 @@ void Interface::onQuit(bool clicked) {
   QApplication::quit();
 }
 
-void Interface::onBeginBackup(bool clicked) {
+void Interface::onBeginBackup() {
   if(this->inProgress()) {
     QMessageBox::critical(
       this,
@@ -441,7 +441,7 @@ void Interface::onSavePreferences() {
   }
 }
 
-void Interface::onDocumentationSolicitation(bool clicked) {
+void Interface::onDocumentationSolicitation() {
   if(!QDesktopServices::openUrl(QUrl("https://github.com/felsocim/Backy"))) {
     QMessageBox::critical(
       this,
