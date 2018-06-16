@@ -11,6 +11,8 @@
 #include "item.h"
 #include "logger.h"
 
+#define WORKER_ITEM_FILTERS (QDir::AllEntries | QDir::NoDotAndDotDot)
+
 class Worker : public QObject
 {
   Q_OBJECT
