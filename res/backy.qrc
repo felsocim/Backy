@@ -11,5 +11,6 @@
         <file>enu.png</file>
         <file>fr.png</file>
         <file>sk.png</file>
+        <file>document-save-as.png</file>
     </qresource>
 </RCC>

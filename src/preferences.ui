@@ -14,7 +14,8 @@
    <string>Preferences</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="preferences-system"/>
+   <iconset theme="preferences-system">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -169,8 +170,8 @@ color: rgb(138, 226, 52);</string>
         <string> &amp;Discard</string>
        </property>
        <property name="icon">
-        <iconset theme="undo">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset resource="../res/backy.qrc">
+         <normaloff>:/icons/edit-undo.png</normaloff>:/icons/edit-undo.png</iconset>
        </property>
       </widget>
      </item>
@@ -193,8 +194,8 @@ color: rgb(138, 226, 52);</string>
         <string> &amp;Save and apply</string>
        </property>
        <property name="icon">
-        <iconset theme="document-save">
-         <normaloff>.</normaloff>.</iconset>
+        <iconset resource="../res/backy.qrc">
+         <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
        </property>
       </widget>
      </item>
@@ -202,6 +203,8 @@ color: rgb(138, 226, 52);</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../res/backy.qrc"/>
+ </resources>
  <connections/>
 </ui>

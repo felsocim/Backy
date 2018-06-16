@@ -267,8 +267,8 @@
           <string> &amp;Abort</string>
          </property>
          <property name="icon">
-          <iconset theme="process-stop">
-           <normaloff>.</normaloff>.</iconset>
+          <iconset resource="../res/backy.qrc">
+           <normaloff>:/icons/process-stop.png</normaloff>:/icons/process-stop.png</iconset>
          </property>
         </widget>
        </item>
@@ -283,8 +283,8 @@
          <string> &amp;Quit</string>
         </property>
         <property name="icon">
-         <iconset theme="application-exit">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="../res/backy.qrc">
+          <normaloff>:/icons/application-exit.png</normaloff>:/icons/application-exit.png</iconset>
         </property>
        </widget>
       </item>
@@ -310,8 +310,8 @@
          <string> &amp;Backup</string>
         </property>
         <property name="icon">
-         <iconset theme="document-save-as">
-          <normaloff>.</normaloff>.</iconset>
+         <iconset resource="../res/backy.qrc">
+          <normaloff>:/icons/document-save-as.png</normaloff>:/icons/document-save-as.png</iconset>
         </property>
        </widget>
       </item>
@@ -350,8 +350,8 @@
   </widget>
   <action name="actionQuit">
    <property name="icon">
-    <iconset theme="application-exit">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset theme="application-exit" resource="../res/backy.qrc">
+     <normaloff>:/icons/application-exit.png</normaloff>:/icons/application-exit.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Quit</string>
@@ -365,8 +365,8 @@
   </action>
   <action name="actionDocumentation">
    <property name="icon">
-    <iconset theme="help-browser">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/icons/help-browser.png</normaloff>:/icons/help-browser.png</iconset>
    </property>
    <property name="text">
     <string>Online &amp;documentation</string>
@@ -380,8 +380,8 @@
   </action>
   <action name="actionAbout">
    <property name="icon">
-    <iconset theme="info">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/icons/info.png</normaloff>:/icons/info.png</iconset>
    </property>
    <property name="text">
     <string>&amp;About Backy</string>
@@ -389,8 +389,8 @@
   </action>
   <action name="actionPreferences">
    <property name="icon">
-    <iconset theme="preferences-system">
-     <normaloff>.</normaloff>.</iconset>
+    <iconset resource="../res/backy.qrc">
+     <normaloff>:/icons/preferences-system.png</normaloff>:/icons/preferences-system.png</iconset>
    </property>
    <property name="text">
     <string>&amp;Preferences</string>
