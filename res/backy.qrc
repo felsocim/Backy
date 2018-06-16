@@ -1,14 +1,13 @@
 <RCC>
-    <qresource prefix="/Backy">
+    <qresource prefix="/icons">
         <file>img/Backy.png</file>
         <file>img/document-save.png</file>
-        <file>img/edit-undo.png</file>
-        <file>img/folder-open.png</file>
+        <file>img/undo.png</file>
+        <file>img/info.png</file>
         <file>img/help-browser.png</file>
-        <file>img/internet-web-browser.png</file>
         <file>img/preferences-system.png</file>
         <file>img/process-stop.png</file>
-        <file>img/system-log-out.png</file>
+        <file>img/application-exit.png</file>
         <file>img/enu.png</file>
         <file>img/fr.png</file>
         <file>img/sk.png</file>
