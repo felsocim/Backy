@@ -18,7 +18,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../res/backy.qrc">
-    <normaloff>:/Backy/img/Backy.png</normaloff>:/Backy/img/Backy.png</iconset>
+    <normaloff>:/icons/application-logo.png</normaloff>:/icons/application-logo.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true"/>

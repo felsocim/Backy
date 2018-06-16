@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>Backy.png</file>
+        <file>application-logo.png</file>
         <file>document-save.png</file>
-        <file>undo.png</file>
+        <file>edit-undo.png</file>
         <file>info.png</file>
         <file>help-browser.png</file>
         <file>preferences-system.png</file>

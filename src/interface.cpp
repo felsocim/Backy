@@ -250,9 +250,7 @@ void Interface::onShowAboutBox(bool clicked) {
       " You should have received a copy of the GNU General Public License"
       " along with this program. If not, see <a href='http://www.gnu.org/licenses/' target='_blank'>http://www.gnu.org/licenses/</a></p>"
       "<p><strong>Information:</strong> For program's documentation, source code and updates, please, refer to its repository at: <a href='https://github.com/felsocim/Backy' target='_blank'>https://github.com/felsocim/Backy</a></p>"
-      "<p><strong>Credits:</strong> The <em>Fantasque Sans Mono</em> font was created by <a href='mailto:jany.belluz@hotmail.fr' target='_blank'>"
-      "Jany Belluz</a> and is licensed under the terms of <a href='http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL'>"
-      "SIL Open Font License</a>. The <em>Abstract Materials Patterns</em> were freely acquired from <a href='https://www.brusheezy.com' target='_blank'>Brusheezy!</a>"
+      "<p><strong>Credits:</strong> The <em>Tango</em> icon theme used as fallback icon theme in this application was acquired from <a href='http://tango.freedesktop.org/Tango_Desktop_Project' target='_blank'>Tango Desktop Project</a>."
     )
   );
 }

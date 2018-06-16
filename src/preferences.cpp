@@ -9,7 +9,7 @@ Preferences::Preferences(QWidget * parent) :
 
   QDirIterator i(LOCALE_RELATIVE_PATH, QStringList() << "*.qm");
 
-  this->ui->comboLanguages->addItem(QIcon(":Backy/img/enu.png"), "English (United States)", QVariant("enu"));
+  this->ui->comboLanguages->addItem(QIcon(":icons/enu.png"), "English (United States)", QVariant("enu"));
 
   while(i.hasNext()) {
     QString current = i.next();
@@ -17,7 +17,7 @@ Preferences::Preferences(QWidget * parent) :
     if(filter.indexIn(current) > 0) {
       QString code = filter.cap(1);
       QLocale locale(code);
-      this->ui->comboLanguages->addItem(QIcon(":Backy/img/" + code + ".png"), locale.nativeLanguageName() + " (" + locale.nativeCountryName() + ")", QVariant(code));
+      this->ui->comboLanguages->addItem(QIcon(":icons/" + code + ".png"), locale.nativeLanguageName() + " (" + locale.nativeCountryName() + ")", QVariant(code));
     }
   }
 
