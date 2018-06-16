@@ -194,12 +194,25 @@ void Consumer::work() {
   do {
     this->lock->lock();
 
-    while(this->buffer->empty()) {
+    while(this->buffer->empty() && this->progress) {
+      this->log->logEvent(tr("Consumer process is waiting..."));
       this->notFull->wait(this->lock);
     }
 
+    if(!this->progress) {
+      this->notEmpty->wakeOne();
+      this->lock->unlock();
+      break;
+    }
+
     Item item = this->buffer->front();
+
     this->currentItem = new Item(item.getType(), item.getName(), item.getPath(), item.getLastModified(), item.getSize());
+
+    this->buffer->pop();
+
+    this->notEmpty->wakeOne();
+    this->lock->unlock();
 
     emit this->triggerCurrentItem(this->currentItem->getPath());
 
@@ -275,7 +288,6 @@ void Consumer::work() {
 
     done:
     this->processedCount++;
-    this->buffer->pop();
 
     if(this->currentItem->getType() == TYPE_FILE) {
       delete before;
@@ -286,9 +298,6 @@ void Consumer::work() {
     }
 
     delete this->currentItem;
-
-    this->notEmpty->wakeOne();
-    this->lock->unlock();
   } while(this->processedCount < this->detectedCount && this->progress);
 
   if(!this->progress) goto finish;

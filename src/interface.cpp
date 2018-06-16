@@ -137,6 +137,8 @@ QStringList Interface::ready() {
 void Interface::abort() {
   this->producer->setProgress(false);
   this->consumer->setProgress(false);
+  this->notEmpty->wakeOne();
+  this->notFull->wakeOne();
   this->aborted = true;
 }
 
@@ -264,6 +266,7 @@ void Interface::onAbort(bool clicked) {
     tr("Backup is still in progress!\nNote that on confirmation the backup process will be aborted once the backup of the current item will be finished.\nAre you sure you want to abort the backup process?"),
     QMessageBox::Yes | QMessageBox::No
   ) == QMessageBox::Yes) {
+    this->ui->buttonAbort->setEnabled(false);
     this->abort();
   }
 }
@@ -388,11 +391,11 @@ void Interface::onConsumerStarted() {
 }
 
 void Interface::onProducerFinished() {
+  this->producerInProgress = false;
   this->consumer->setDetectedCount(this->producer->getDirectoriesCount() + this->producer->getFilesCount());
   this->consumer->setDetectedSize(this->producer->getSize());
   this->ui->progressSourceAnalysis->setMaximum(1);
   this->ui->progressSourceAnalysis->hide();
-  this->producerInProgress = false;
 }
 
 void Interface::onConsumerFinished() {
@@ -421,7 +424,7 @@ void Interface::onConsumerFinished() {
     QMessageBox::information(
       this,
       tr("Backup complete"),
-      tr("Backup completed succefully!"),
+      tr("Backup completed succefully! ") + QString::number(this->consumer->getProcessedCount()),
       QMessageBox::Ok
     );
   }

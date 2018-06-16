@@ -48,9 +48,13 @@ void Producer::work() {
 
     this->lock->lock();
 
-    while(this->buffer->size() == this->itembufferSize) {
+    while(this->buffer->size() == this->itembufferSize && this->progress) {
       this->log->logEvent(tr("Producer process is waiting."));
       this->notEmpty->wait(this->lock);
+    }
+
+    if(!this->progress) {
+      goto done;
     }
 
     this->buffer->push(
@@ -64,6 +68,8 @@ void Producer::work() {
     );
 
     this->log->logEvent(tr("Producer process enqueued '%1' in the shared item buffer.").arg(current.fileName()));
+
+    done:
     this->notFull->wakeOne();
     this->lock->unlock();
   }
@@ -80,7 +86,7 @@ void Producer::analyze() {
   this->filesCount = 0;
   this->size = 0;
 
-  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::Hidden | QDir::System | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+  QDirIterator i(this->root->absolutePath(), QDir::AllEntries | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
 
   while(i.hasNext()) {
     QFileInfo current = QFileInfo(i.next());
