@@ -8,8 +8,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDesktopServices>
-#include "producer.h"
-#include "consumer.h"
+#include "worker.h"
 #include "preferences.h"
 
 namespace Ui {
@@ -27,16 +26,9 @@ class Interface : public QMainWindow {
     Preferences * preferences;
     QFileDialog * sourceDialog,
       * targetDialog;
-    std::queue<Item> * buffer;
-    QMutex * lock;
-    QWaitCondition * notEmpty,
-      * notFull;
-    QThread producerWorker,
-      consumerWorker;
-    Producer * producer;
-    Consumer * consumer;
-    bool producerInProgress,
-      consumerInProgress,
+    QThread workerThread;
+    Worker * worker;
+    bool workerInProgress,
       aborted;
     bool inProgress();
     QStringList ready();
@@ -57,16 +49,14 @@ class Interface : public QMainWindow {
     void onQuit();
     void onBeginBackup();
     void onChooseSource(QString selected);
-    void onAnalysisProgress(qint64 files, qint64 directories, qint64 size);
+    void onAnalysisProgress(quint64 files, quint64 directories, quint64 size);
     void onChooseTarget(QString selected);
     void onStatusCurrentOperation(QString operation);
     void onStatusCurrentItem(QString item);
     void onStatusCurrentProgress(int current);
     void onStatusOverallProgress(int overall);
-    void onProducerStarted();
-    void onConsumerStarted();
-    void onProducerFinished();
-    void onConsumerFinished();
+    void onWorkerStarted();
+    void onWorkerFinished();
     void onSavePreferences();
     void onDocumentationSolicitation();
 

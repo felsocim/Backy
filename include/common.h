@@ -6,16 +6,6 @@
 #include <QtGlobal>
 #include <QStandardPaths>
 
-typedef enum {
-  TYPE_FILE,
-  TYPE_DIRECTORY
-} Type;
-
-typedef enum {
-  CRITERION_MORE_RECENT,
-  CRITERION_BIGGER
-} Criterion;
-
 #if defined Q_OS_LINUX
 #define DEFAULT_LOGS_LOCATION QDir::homePath() + "/.backy"
 #elif defined Q_OS_WIN
@@ -29,14 +19,11 @@ typedef enum {
 #define GIGABYTE (MEGABYTE * 1024)
 #define TERABYTE (GIGABYTE * 1024)
 
-#define PRODUCER_EVENT_LOG_FILE_NAME "producer_event.log"
-#define PRODUCER_ERROR_LOG_FILE_NAME "producer_error.log"
-#define CONSUMER_EVENT_LOG_FILE_NAME "consumer_event.log"
-#define CONSUMER_ERROR_LOG_FILE_NAME "consumer_error.log"
-#define MAIN_EVENT_LOG_FILE_NAME "main_event.log"
-#define MAIN_ERROR_LOG_FILE_NAME "main_error.log"
+#define WORKER_EVENT_LOG_FILE_NAME "backup_events.log"
+#define WORKER_ERROR_LOG_FILE_NAME "backup_errors.log"
+#define MAIN_EVENT_LOG_FILE_NAME "main_events.log"
+#define MAIN_ERROR_LOG_FILE_NAME "main_errors.log"
 #define DEFAULT_COPY_BUFFER_SIZE 1
-#define DEFAULT_ITEM_BUFFER_SIZE 5
 #define DEFAULT_SYNCHRONIZE false
 #define DEFAULT_KEEP_OBSOLETE false
 #define DEFAULT_COMPARISON_CRITERION CRITERION_MORE_RECENT

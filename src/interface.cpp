@@ -7,12 +7,7 @@ Interface::Interface(QWidget *parent) :
   preferences(new Preferences(this)),
   sourceDialog(new QFileDialog(this)),
   targetDialog(new QFileDialog(this)),
-  buffer(new std::queue<Item>()),
-  lock(new QMutex()),
-  notEmpty(new QWaitCondition()),
-  notFull(new QWaitCondition()),
-  producer(new Producer()),
-  consumer(new Consumer()) {
+  worker(new Worker()) {
   this->ui->setupUi(this);
 
   this->ui->progressSourceAnalysis->hide();
@@ -20,36 +15,21 @@ Interface::Interface(QWidget *parent) :
   this->sourceDialog->setFileMode(QFileDialog::Directory);
   this->targetDialog->setFileMode(QFileDialog::Directory);
 
-  this->producerInProgress = false;
-  this->consumerInProgress = false;
+  this->workerInProgress = false;
   this->aborted = false;
 
   this->loadSettings();
 
-  this->producer->setBuffer(this->buffer);
-  this->producer->setLock(this->lock);
-  this->producer->setNotEmpty(this->notEmpty);
-  this->producer->setNotFull(this->notFull);
-  this->producer->createLogsAt(this->preferences->getLogsLocation());
+  this->worker->createLogsAt(this->preferences->getLogsLocation());
 
-  this->consumer->setBuffer(this->buffer);
-  this->consumer->setLock(this->lock);
-  this->consumer->setNotEmpty(this->notEmpty);
-  this->consumer->setNotFull(this->notFull);
-  this->consumer->createLogsAt(this->preferences->getLogsLocation());
+  this->worker->moveToThread(&this->workerThread);
 
-  this->producer->moveToThread(&this->producerWorker);
-  this->consumer->moveToThread(&this->consumerWorker);
+  QObject::connect(this, SIGNAL(signalStart()), this->worker, SLOT(doWork()));
 
-  QObject::connect(this, SIGNAL(signalStart()), this->producer, SLOT(doWork()));
-  QObject::connect(this, SIGNAL(signalStart()), this->consumer, SLOT(doWork()));
-
-  QObject::connect(this->producer, SIGNAL(started()), this, SLOT(onProducerStarted()));
-  QObject::connect(this->producer, SIGNAL(finished()), this, SLOT(onProducerFinished()));
-  QObject::connect(this, SIGNAL(triggerAnalysis()), this->producer, SLOT(analyze()));
-  QObject::connect(this->producer, SIGNAL(triggerAnalysisProgress(qint64,qint64,qint64)), this, SLOT(onAnalysisProgress(qint64,qint64,qint64)));
-  QObject::connect(this->consumer, SIGNAL(started()), this, SLOT(onConsumerStarted()));
-  QObject::connect(this->consumer, SIGNAL(finished()), this, SLOT(onConsumerFinished()));
+  QObject::connect(this->worker, SIGNAL(started()), this, SLOT(onWorkerStarted()));
+  QObject::connect(this->worker, SIGNAL(finished()), this, SLOT(onWorkerFinished()));
+  QObject::connect(this, SIGNAL(triggerAnalysis()), this->worker, SLOT(analyze()));
+  QObject::connect(this->worker, SIGNAL(triggerAnalysisProgress(quint64, quint64, quint64)), this, SLOT(onAnalysisProgress(quint64,quint64,quint64)));
 
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource()));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget()));
@@ -62,10 +42,10 @@ Interface::Interface(QWidget *parent) :
   QObject::connect(this->ui->buttonAbort, SIGNAL(clicked(bool)), this, SLOT(onAbort()));
   QObject::connect(this->ui->buttonBackup, SIGNAL(clicked(bool)), this, SLOT(onBeginBackup()));
 
-  QObject::connect(this->consumer, SIGNAL(triggerCurrentOperation(QString)), this, SLOT(onStatusCurrentOperation(QString)));
-  QObject::connect(this->consumer, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
-  QObject::connect(this->consumer, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
-  QObject::connect(this->consumer, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
+  QObject::connect(this->worker, SIGNAL(triggerCurrentOperation(QString)), this, SLOT(onStatusCurrentOperation(QString)));
+  QObject::connect(this->worker, SIGNAL(triggerCurrentItem(QString)), this, SLOT(onStatusCurrentItem(QString)));
+  QObject::connect(this->worker, SIGNAL(triggerCurrentProgress(int)), this, SLOT(onStatusCurrentProgress(int)));
+  QObject::connect(this->worker, SIGNAL(triggerOverallProgress(int)), this, SLOT(onStatusOverallProgress(int)));
 
   QObject::connect(this->ui->actionPreferences, SIGNAL(triggered(bool)), this, SLOT(onEditPreferences()));
   QObject::connect(this->ui->actionAbout, SIGNAL(triggered(bool)), this, SLOT(onShowAboutBox()));
@@ -79,16 +59,12 @@ Interface::Interface(QWidget *parent) :
 
   QObject::connect(this->preferences, SIGNAL(triggerSave()), this, SLOT(onSavePreferences()));
 
-  this->producerWorker.start();
-  this->consumerWorker.start();
+  this->workerThread.start();
 }
 
 Interface::~Interface() {
-  this->producerWorker.quit();
-  this->consumerWorker.quit();
-
-  this->producerWorker.wait();
-  this->consumerWorker.wait();
+  this->workerThread.quit();
+  this->workerThread.wait();
 
   this->saveSettings();
 
@@ -96,16 +72,11 @@ Interface::~Interface() {
   delete this->preferences;
   delete this->sourceDialog;
   delete this->targetDialog;
-  delete this->buffer;
-  delete this->lock;
-  delete this->notEmpty;
-  delete this->notFull;
-  delete this->producer;
-  delete this->consumer;
+  delete this->worker;
 }
 
 bool Interface::inProgress() {
-  return this->producerInProgress || this->consumerInProgress;
+  return this->workerInProgress;
 }
 
 QStringList Interface::ready() {
@@ -135,10 +106,7 @@ QStringList Interface::ready() {
 }
 
 void Interface::abort() {
-  this->producer->setProgress(false);
-  this->consumer->setProgress(false);
-  this->notEmpty->wakeOne();
-  this->notFull->wakeOne();
+  this->worker->setProgress(false);
   this->aborted = true;
 }
 
@@ -151,9 +119,9 @@ void Interface::loadSettings() {
   bool keepObsolete = settings.value("keepObsolete", DEFAULT_KEEP_OBSOLETE).toBool();
   Criterion comparisonCriterion = (Criterion) settings.value("comparisonCriterion", DEFAULT_COMPARISON_CRITERION).toInt();
 
-  this->consumer->setSynchronize(synchronize);
+  this->worker->setSynchronize(synchronize);
   this->ui->checkSynchronize->setChecked(synchronize);
-  this->consumer->setKeepObsolete(keepObsolete);
+  this->worker->setKeepObsolete(keepObsolete);
   this->ui->checkKeepObsolete->setChecked(keepObsolete);
 
   switch(comparisonCriterion) {
@@ -174,9 +142,7 @@ void Interface::loadSettings() {
   QString logsLocation = settings.value("logsLocation", DEFAULT_LOGS_LOCATION).toString();
   QVariant locale = settings.value("locale", DEFAULT_LOCALE_CODE);
 
-  this->producer->setItemBufferSize(itemBufferSize);
-  this->preferences->setItemBufferSize(itemBufferSize);
-  this->consumer->setCopyBufferSize(copyBufferSize);
+  this->worker->setCopyBufferSize(copyBufferSize);
   this->preferences->setCopyBufferSize(copyBufferSize);
   this->preferences->setLogsLocation(logsLocation);
   this->preferences->setLocale(locale);
@@ -210,23 +176,23 @@ void Interface::onBrowseTarget() {
 }
 
 void Interface::onToggleSynchronize(bool checked) {
-  this->consumer->setSynchronize(checked);
+  this->worker->setSynchronize(checked);
 }
 
 void Interface::onToggleKeepObsolete(bool checked) {
-  this->consumer->setKeepObsolete(checked);
+  this->worker->setKeepObsolete(checked);
 }
 
 void Interface::onToggleCriterionMostRecent(bool checked) {
   this->ui->radioCriterionMostRecent->setChecked(checked);
   this->ui->radioCriterionBiggest->setChecked(!checked);
-  this->consumer->setCriterion(CRITERION_MORE_RECENT);
+  this->worker->setCriterion(CRITERION_MORE_RECENT);
 }
 
 void Interface::onToggleCriterionBiggest(bool checked) {
   this->ui->radioCriterionBiggest->setChecked(checked);
   this->ui->radioCriterionMostRecent->setChecked(!checked);
-  this->consumer->setCriterion(CRITERION_BIGGER);
+  this->worker->setCriterion(CRITERION_BIGGER);
 }
 
 void Interface::onEditPreferences() {
@@ -317,8 +283,7 @@ void Interface::onBeginBackup() {
     QMessageBox::Yes | QMessageBox::No
   ) == QMessageBox::Yes) {
     this->ui->buttonBackup->setEnabled(false);
-    this->producer->setProgress(true);
-    this->consumer->setProgress(true);
+    this->worker->setProgress(true);
     this->ui->buttonAbort->setEnabled(true);
     emit this->signalStart();
   }
@@ -328,15 +293,12 @@ void Interface::onChooseSource(QString selected) {
   this->ui->progressSourceAnalysis->setMaximum(0);
   this->ui->progressSourceAnalysis->show();
   this->ui->editSourcePath->setText(selected);
-  this->producer->reinitializeCounters();
-  this->producer->setRoot(selected);
-  this->consumer->setDetectedCount(0);
-  this->consumer->setDetectedSize(0);
-  this->consumer->setSource(selected);
+  this->worker->reinitializeCounters();
+  this->worker->setSource(selected);
   emit this->triggerAnalysis();
 }
 
-void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size) {
+void Interface::onAnalysisProgress(quint64 files, quint64 directories, quint64 size) {
   this->ui->labelDiscoveredDirectoriesValue->setText(QString::number(directories));
   this->ui->labelDiscoveredFilesValue->setText(QString::number(files));
 
@@ -364,7 +326,7 @@ void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size
 
 void Interface::onChooseTarget(QString selected) {
   this->ui->editTargetPath->setText(selected);
-  this->consumer->setTarget(selected);
+  this->worker->setTarget(selected);
 }
 
 void Interface::onStatusCurrentOperation(QString operation) {
@@ -383,24 +345,14 @@ void Interface::onStatusOverallProgress(int overall) {
   this->ui->progressStatusOverallProgress->setValue(overall);
 }
 
-void Interface::onProducerStarted() {
-  this->producerInProgress = true;
+void Interface::onWorkerStarted() {
+  this->workerInProgress = true;
 }
 
-void Interface::onConsumerStarted() {
-  this->consumerInProgress = true;
-}
-
-void Interface::onProducerFinished() {
-  this->producerInProgress = false;
-  this->consumer->setDetectedCount(this->producer->getDirectoriesCount() + this->producer->getFilesCount());
-  this->consumer->setDetectedSize(this->producer->getSize());
+void Interface::onWorkerFinished() {
+  this->workerInProgress = false;
   this->ui->progressSourceAnalysis->setMaximum(1);
   this->ui->progressSourceAnalysis->hide();
-}
-
-void Interface::onConsumerFinished() {
-  this->consumerInProgress = false;
   this->ui->labelStatusCurrentOperation->setText("");
   this->ui->labelStatusCurrentName->setText("");
   this->ui->progressStatusCurrentProgress->setValue(0);
@@ -414,7 +366,7 @@ void Interface::onConsumerFinished() {
       tr("Backup process has been aborted by the user!"),
       QMessageBox::Ok
     );
-  } else if(this->consumer->didErrorOccurred()) {
+  } else if(this->worker->didErrorOccurred()) {
     QMessageBox::warning(
       this,
       tr("Backup complete with errors"),
@@ -425,7 +377,7 @@ void Interface::onConsumerFinished() {
     QMessageBox::information(
       this,
       tr("Backup complete"),
-      tr("Backup completed succefully! ") + QString::number(this->consumer->getProcessedCount()),
+      tr("Backup completed succefully! ") + QString::number(this->worker->getProcessedCount()),
       QMessageBox::Ok
     );
   }

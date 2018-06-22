@@ -1,6 +1,4 @@
 #include "../include/interface.h"
-#include "../include/producer.h"
-#include "../include/consumer.h"
 #include <QApplication>
 #include <QCoreApplication>
 #include <QTranslator>
