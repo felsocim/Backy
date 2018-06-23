@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>372</height>
+    <width>317</width>
+    <height>275</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,13 +20,13 @@
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="layoutPreferencesDialog">
    <item>
     <widget class="QGroupBox" name="groupLanguage">
      <property name="title">
       <string>&amp;Language</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
+     <layout class="QVBoxLayout" name="layoutLanguage">
       <item>
        <widget class="QLabel" name="labelLanguageDescription">
         <property name="text">
@@ -48,7 +48,7 @@
      <property name="title">
       <string>Lo&amp;gs location</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <layout class="QVBoxLayout" name="layoutLogsLocation">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -88,9 +88,9 @@
       <string notr="true">color: red;</string>
      </property>
      <property name="title">
-      <string>&amp;Advanced settings (dangerous)</string>
+      <string>Copy &amp;buffer (for advanced users only)</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="layoutCopyBuffer">
       <item>
        <layout class="QGridLayout" name="layoutAdvanced">
         <item row="1" column="1">
@@ -129,14 +129,14 @@ color: rgb(138, 226, 52);</string>
         <item row="0" column="0">
          <widget class="QLabel" name="labelDetectedRAMDescription">
           <property name="text">
-           <string>Detected RAM (MiB):</string>
+           <string>Detected RAM (MB):</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="labelCopyBufferSize">
           <property name="text">
-           <string>Copy buffer size (MiB):</string>
+           <string>Copy buffer size (MB):</string>
           </property>
          </widget>
         </item>
@@ -174,7 +174,7 @@ color: rgb(138, 226, 52);</string>
      <item>
       <widget class="QPushButton" name="buttonApply">
        <property name="text">
-        <string> &amp;Save and apply</string>
+        <string> &amp;Save</string>
        </property>
        <property name="icon">
         <iconset resource="../res/backy.qrc">

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>658</height>
+    <width>396</width>
+    <height>541</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,13 +27,13 @@
    <locale language="English" country="UnitedStates"/>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="layoutMainWindow">
     <item>
      <widget class="QGroupBox" name="groupSource">
       <property name="title">
        <string>&amp;Source drive or folder</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <layout class="QVBoxLayout" name="layoutSourceDriveOrFolder">
        <item>
         <layout class="QGridLayout" name="layoutSource">
          <item row="2" column="0">
@@ -129,7 +129,7 @@
       <property name="title">
        <string>&amp;Backup location</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="layoutBackupLocation">
        <item>
         <layout class="QGridLayout" name="layoutTarget">
          <item row="0" column="0" colspan="3">
@@ -206,7 +206,7 @@
       <property name="title">
        <string>Backup &amp;progress</string>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="layoutBackupProgress">
        <item>
         <layout class="QVBoxLayout" name="layoutStatus">
          <item>
@@ -319,34 +319,33 @@
     </item>
    </layout>
   </widget>
-  <widget class="QToolBar" name="toolBar">
-   <property name="windowTitle">
-    <string>toolBar</string>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>396</width>
+     <height>21</height>
+    </rect>
    </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>32</width>
-     <height>32</height>
-    </size>
-   </property>
-   <property name="floatable">
-    <bool>true</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionPreferences"/>
-   <addaction name="separator"/>
-   <addaction name="actionAbout"/>
-   <addaction name="actionDocumentation"/>
-   <addaction name="separator"/>
-   <addaction name="actionQuit"/>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="actionPreferences"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionDocumentation"/>
+    <addaction name="separator"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Help"/>
   </widget>
   <action name="actionQuit">
    <property name="icon">
