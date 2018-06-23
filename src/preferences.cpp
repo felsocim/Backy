@@ -84,13 +84,8 @@ Preferences::~Preferences() {
 }
 
 void Preferences::setCurrents() {
-  this->ui->spinItemBufferSize->setValue(this->itemBufferSize);
   this->ui->spinCopyBufferSize->setValue(this->copyBufferSize);
   this->ui->editLogsLocationValue->setText(this->logsLocation);
-}
-
-qint64 Preferences::getItemBufferSize() const {
-  return this->itemBufferSize;
 }
 
 qint64 Preferences::getCopyBufferSize() const {
@@ -103,11 +98,6 @@ QString Preferences::getLogsLocation() const {
 
 QVariant Preferences::getLocale() const {
   return this->locale;
-}
-
-void Preferences::setItemBufferSize(qint64 itemBufferSize) {
-  this->itemBufferSize = itemBufferSize;
-  this->ui->spinItemBufferSize->setValue((int) itemBufferSize);
 }
 
 void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
@@ -131,7 +121,6 @@ void Preferences::setLocale(QVariant locale) {
 }
 
 void Preferences::setDefaults() {
-  this->itemBufferSize = DEFAULT_ITEM_BUFFER_SIZE;
   this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
   this->logsLocation = DEFAULT_LOGS_LOCATION;
 
@@ -152,7 +141,6 @@ void Preferences::onDiscard() {
 }
 
 void Preferences::onSave() {
-  this->itemBufferSize = (qint64) this->ui->spinItemBufferSize->value();
   this->copyBufferSize = (qint64) this->ui->spinCopyBufferSize->value();
   this->logsLocation = this->ui->editLogsLocationValue->text();
   this->locale = this->ui->comboLanguages->currentData();

@@ -1,8 +1,8 @@
 #include "../include/worker.h"
 
 Worker::Worker() {
-  this->source = nullptr;
-  this->target = nullptr;
+  this->source = "";
+  this->target = "";
   this->filesCount = 0;
   this->directoriesCount = 0;
   this->totalCount = 0;
@@ -18,79 +18,122 @@ Worker::Worker() {
   this->progress = true;
 }
 
-#if defined Q_OS_WIN
-qint8 Worker::compareItems(WIN32_FIND_DATA first, WIN32_FIND_DATA second) const {
-  if(this->criterion == CRITERION_MORE_RECENT) {
-    ULONGLONG firstLastWriteTime = (ULONGLONG) first.ftLastWriteTime.dwHighDateTime << 32 | first.ftLastWriteTime.dwLowDateTime,
-              secondLastWriteTime = (ULONGLONG) second.ftLastWriteTime.dwHighDateTime << 32 | second.ftLastWriteTime.dwLowDateTime;
-    if(firstLastWriteTime > secondLastWriteTime) {
-      return 1;
-    } else if(firstLastWriteTime < secondLastWriteTime) {
-      return -1;
-    }
+bool Worker::isCurrentSuperiorThanBackedUp(const QString &currentPath, const QString &backedUpPath) const {
+  QFileInfo current(currentPath),
+            backedUp(backedUpPath);
 
-    return 0;
-  } else if(this->criterion == CRITERION_BIGGER) {
-    if((ULONGLONG) first.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) first.nFileSizeLow > (ULONGLONG) second.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) second.nFileSizeLow) {
-      return 1;
-    } else if((ULONGLONG) first.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) first.nFileSizeLow < (ULONGLONG) second.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) second.nFileSizeLow) {
-      return -1;
-    }
-
-    return 0;
+  if(this->criterion == CRITERION_BIGGER) {
+    return (current.size() > backedUp.size());
   }
 
-  return ERROR_UNKNOWN_COMPARISON_CRITERION;
+  return (current.lastModified() > backedUp.lastModified());
 }
 
-bool Worker::transferFileAttributes(const LPCSTR sourceFileName, const LPCSTR destinationFileName) {
-  HANDLE source = CreateFileA(sourceFileName, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL),
-         destination = CreateFileA(destinationFileName, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+bool Worker::transferFileAttributes(const QString &sourcePath, const QString &destinationPath) {
+  QFileInfo s(sourcePath);
+  QFile source(sourcePath),
+        destination(destinationPath);
   bool succeeded = true;
-  LPBY_HANDLE_FILE_INFORMATION attributes;
 
-  if(!GetFileInformationByHandle(source, attributes)) {
-    this->log->logError(tr("Failed to read attributes from the source file (Error code: 0x%1)!").arg(QString::number(GetLastError(), 16)));
-    succeeded = false;
-  } else if(!SetFileInformationByHandle(destination, FileBasicInfo, attributes, sizeof(attributes))) {
-    this->log->logError(tr("Failed to read attributes from the source file (Error code: 0x%1)!").arg(QString::number(GetLastError(), 16)));
-    succeeded = false;
+  if(!s.isDir()) {
+#if defined Q_OS_LINUX
+    struct utimbuf time;
+
+    time.actime = s.lastRead().toSecsSinceEpoch();
+    time.modtime = s.lastModified().toSecsSinceEpoch();
+
+    if(utime(destination.fileName().toStdString().c_str(), &time) == -1) {
+      this->log->logError(tr("Failed to transfer time information from '%1' to '%2'!").arg(sourcePath, destinationPath));
+      succeeded = false;
+    } else {
+      this->log->logEvent(tr("Successfully transferred time information from '%1' to '%2'!").arg(sourcePath, destinationPath));
+    }
+#elif defined Q_OS_WIN
+    HANDLE hSource = CreateFileW(sourcePath.toStdWString().c_str(), GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+    if(hSource == INVALID_HANDLE_VALUE) {
+      this->log->logError(tr("Failed to open '%1' for reading! (error code: 0x%2)").arg(sourcePath, QString::number(GetLastError(), 16)));
+      succeeded = false;
+    }
+
+    HANDLE hDestination = CreateFileW(destinationPath.toStdWString().c_str(), GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+    if(hDestination == INVALID_HANDLE_VALUE) {
+      this->log->logError(tr("Failed to open '%1' for reading! (error code: 0x%2)").arg(destinationPath, QString::number(GetLastError(), 16)));
+      succeeded = false;
+    }
+
+    FILETIME creationTime, lastAccessTime, lastModificationTime;
+
+    if(!GetFileTime(hSource, &creationTime, &lastAccessTime, &lastModificationTime)) {
+      this->log->logError(tr("Failed to read time information from file '%1' (error code: 0x%2)!").arg(sourcePath, QString::number(GetLastError(), 16)));
+      succeeded = false;
+    } else if(!SetFileTime(hDestination, &creationTime, &lastAccessTime, &lastModificationTime)) {
+      this->log->logError(tr("Failed to transfer time information to file '%1' (error code: 0x%2)!").arg(destinationPath, QString::number(GetLastError(), 16)));
+      succeeded = false;
+    } else {
+      this->log->logEvent(tr("Successfully transferred time information from '%1' to '%2'!").arg(sourcePath, destinationPath));
+    }
+
+    CloseHandle(hSource);
+    CloseHandle(hDestination);
+#else
+#error "Unsupported operating system!"
+#endif
   }
 
-  CloseHandle(source);
-  CloseHandle(destination);
+#if defined Q_OS_WIN
+  DWORD attributes = GetFileAttributesW(source.fileName().toStdWString().c_str());
+
+  if(attributes != INVALID_FILE_ATTRIBUTES) {
+    this->log->logEvent(tr("Attributes read successfully from file '%1'.").arg(sourcePath));
+    if(!SetFileAttributesW(destination.fileName().toStdWString().c_str(), attributes)) {
+      this->log->logError(tr("Failed to set attributes for file '%1'!").arg(destinationPath));
+      succeeded = false;
+    } else {
+      this->log->logEvent(tr("Attributes set successfully for file '%1'.").arg(destinationPath));
+    }
+  } else {
+    this->log->logError(tr("Failed to read attributes from file '%1'!").arg(sourcePath));
+    succeeded = false;
+  }
+#endif
+
+  if(destination.setPermissions(source.permissions())) {
+    this->log->logEvent(tr("Permissions set successfully for file '%1'.").arg(destinationPath));
+  } else {
+    this->log->logError(tr("Failed to set permissions for file '%1'!").arg(destinationPath));
+    succeeded = false;
+  }
 
   return succeeded;
 }
-#elif defined Q_OS_LINUX
-// TODO: For Linux
-#else
-#error Unsupported operating system!
-#endif
 
-bool Worker::copyFile(const QString &sourceFileName, const QString &destinationFileName, quint64 size) {
-  QFile * source = new QFile(sourceFileName),
-        * destination = new QFile(destinationFileName);
+bool Worker::copyFile(const QString &sourcePath, const QString &destinationPath, qint64 size) {
+  QFile source(sourcePath),
+        destination(destinationPath);
   char * bytes = new char[this->copyBufferSize];
   quint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
+  bool succeeded = true;
 
-  if(source->open(QIODevice::ReadOnly))
-    this->log->logEvent(tr("Successfully opened source file '%1' for copying.").arg(source->fileName()));
+  if(source.open(QIODevice::ReadOnly)) {
+    this->log->logEvent(tr("Successfully opened file '%1' for copying.").arg(sourcePath));
+  } else {
+    this->log->logError(tr("Failed to open file '%1' for copying: %2!").arg(sourcePath, source.errorString()));
+  }
+
+  if(destination.open(QIODevice::WriteOnly))
+    this->log->logEvent(tr("Successfully opened file '%1' for copying.").arg(destinationPath));
   else
-    this->log->logError(tr("Failed to open source file '%1' for copying.").arg(source->fileName()));
+    this->log->logError(tr("Failed to open file '%1' for copying: %2!").arg(destinationPath).arg(destination.errorString()));
 
-  if(destination->open(QIODevice::WriteOnly))
-    this->log->logEvent(tr("Successfully opened destination file '%1' for copying.").arg(destination->fileName()));
-  else
-    this->log->logError(tr("Failed to open destination file '%1' for copying (%2).").arg(destination->fileName()).arg(destination->errorString()));
-
-  if(source->isReadable() && destination->isWritable()) {
-    while((toBeWritten = source->read(bytes, this->copyBufferSize)) != 0) {
+  if(source.isReadable() && destination.isWritable()) {
+    while((toBeWritten = source.read(bytes, this->copyBufferSize)) != 0) {
       if(toBeWritten < 0) {
         goto error;
       }
 
-      if((actuallyWritten = destination->write(bytes, toBeWritten)) != toBeWritten) {
+      if((actuallyWritten = destination.write(bytes, toBeWritten)) != toBeWritten) {
         goto error;
       }
 
@@ -103,50 +146,46 @@ bool Worker::copyFile(const QString &sourceFileName, const QString &destinationF
       memset(bytes, 0, this->copyBufferSize);
     }
 
-    delete[] bytes;
-
-    source->close();
-    destination->close();
-
-    if(this->transferFileAttributes(source->fileName().toLocal8Bit().toStdString().c_str(), destination->fileName().toLocal8Bit().toStdString().c_str())) {
-      this->log->logEvent(tr("Successfully transfered source file attributes to the destination file (%1)").arg(destination->fileName()));
+    if(this->transferFileAttributes(sourcePath, destinationPath)) {
+      this->log->logEvent(tr("Successfully transfered file attributes to '%1'.").arg(destinationPath));
     } else {
-      this->log->logError(tr("Failed to transfer source file attributes to the destination file (%1)").arg(destination->fileName()));
+      this->log->logError(tr("Failed to transfer file attributes to '%1'!").arg(sourcePath));
     }
 
-    this->log->logEvent(tr("Successfully copied file '%1' to '%2'.").arg(destination->fileName()).arg(source->fileName()));
-    return true;
+    this->log->logEvent(tr("Successfully copied file '%1' to '%2'.").arg(sourcePath, destinationPath));
+
+    goto clean;
   }
 
   error:
+  succeeded = false;
+  this->log->logError(tr("Failed to copy file '%1' to '%2'.").arg(sourcePath).arg(destinationPath));
+
+  clean:
   delete[] bytes;
-  this->log->logError(tr("Failed to copy file '%1' to '%2'.").arg(destination->fileName()).arg(source->fileName()));
+  source.close();
+  destination.close();
 
-  source->close();
-  destination->close();
-
-  return false;
+  return succeeded;
 }
 
 Worker::~Worker() {
-  delete this->source;
-  delete this->target;
   delete this->log;
 }
 
-quint64 Worker::getFilesCount() const {
+qint64 Worker::getFilesCount() const {
   return this->filesCount;
 }
 
-quint64 Worker::getDirectoriesCount() const {
+qint64 Worker::getDirectoriesCount() const {
   return this->directoriesCount;
 }
 
-quint64 Worker::getSize() const {
+qint64 Worker::getSize() const {
   return this->size;
 }
 
-quint64 Worker::getProcessedCount() const {
+qint64 Worker::getProcessedCount() const {
   return this->processedCount;
 }
 
@@ -159,11 +198,11 @@ bool Worker::getProgress() const {
 }
 
 void Worker::setSource(const QString &source) {
-  this->source = new QString(source);
+  this->source = QString(source);
 }
 
 void Worker::setTarget(const QString &target) {
-  this->target = new QString(target);
+  this->target = QString(target);
 }
 
 void Worker::setSynchronize(bool synchronize) {
@@ -178,15 +217,15 @@ void Worker::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
-void Worker::setCopyBufferSize(quint64 copyBufferSize) {
-  this->copyBufferSize = copyBufferSize;
+void Worker::setCopyBufferSize(qint64 copyBufferSize) {
+  this->copyBufferSize = MEGABYTE * copyBufferSize;
 }
 
 void Worker::setProgress(bool progress) {
   this->progress = progress;
 
   if(!this->progress) {
-    emit this->triggerEvent(tr("Backup process cancellation has been requested."));
+    this->log->logEvent("Backup process cancellation has been requested.");
   }
 }
 
@@ -206,167 +245,135 @@ void Worker::createLogsAt(const QString &path) {
 void Worker::work() {
   emit this->started();
 
+  this->reinitializeCounters();
+
+  QDirIterator i(this->source, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
+  QDir root(this->source);
+
+  while(i.hasNext() && this->progress) {
+    QString sourcePath = i.next();
+    bool isSystem = false;
+
 #if defined Q_OS_WIN
-  HANDLE currentHandle;
-  WIN32_FIND_DATA currentData;
-  QString * source = new QString("\\\\?\\" + (*this->source) + "\\*"),
-          * destination = new QString("\\\\?\\" + (*this->target) + "\\"),
-          temporary = nullptr;
-  LPCSTR sourceUtf8 = source->toUtf8().toStdString().c_str();
-  DWORD error;
+    DWORD attributes = GetFileAttributesW(sourcePath.toStdWString().c_str());
 
-  if((currentHandle = FindFirstFileW(sourceUtf8, currentData)) != INVALID_HANDLE_VALUE) {
-    do {
-      if((currentData.dwFileAttributes & FILE_ATTRIBUTE_NORMAL) || (currentData.dwFileAttributes & WORKER_ITEM_FILTERS)) {
-        WIN32_FIND_DATA existingData;
-        temporary = destination + QString(currentData.cFileName);
-        LPCSTR temporaryUtf8 = temporary.toUtf8().toStdString().c_str();
-        HANDLE existingHandle = FindFirstFileW(temporaryUtf8, existingData);
+    if(attributes == INVALID_FILE_ATTRIBUTES) {
+      this->log->logError(tr("Unable to get attributes of file or directory '%1'!").arg(sourcePath));
+    }
 
-        if(this->synchronize) {
-          if(existingHandle == INVALID_HANDLE_VALUE) {
-            error = GetLastError();
-            if(error != ERROR_FILE_NOT_FOUND) {
-              this->log->logError(tr("Unable to gather information about file '%1'! (Error code: 0x%2)").arg(temporary, QString::number(error, 16)));
-              this->errorOccurred = true;
-            } else {
-              if(currentData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-                goto cloning;
+    isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
+    isSystem |= sourcePath.startsWith(this->source + "$RECYCLE.BIN");
+#endif
+
+    if(!isSystem) {
+      QString destinationPath = this->target + '/' + root.relativeFilePath(sourcePath);
+
+      QFileInfo sourceFileInfo(sourcePath);
+
+      emit this->triggerCurrentItem(sourceFileInfo.baseName());
+
+      if(this->synchronize) {
+        if(!sourceFileInfo.isDir()) {
+          if(sourceFileInfo.exists()) {
+            if(this->isCurrentSuperiorThanBackedUp(sourcePath, destinationPath)) {
+              emit this->triggerCurrentOperation(tr("Removing older version of file"));
+
+              if(QFile::remove(destinationPath)) {
+                this->log->logEvent(tr("Successfully removed older version of a file at '%1'.").arg(destinationPath));
               } else {
-                goto copying;
+                this->errorOccurred = true;
+                this->log->logError(tr("Failed to remove older version of a file at '%1'.").arg(destinationPath));
               }
-            }
-          } else {
-            if(!(currentData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-              if(this->compareItems(currentData, existingData) == 1) {
-                this->triggerCurrentOperation(tr("Removing older version of file"));
 
-                if(!DeleteFileW(temporaryUtf8)) {
-                  this->log->logError(tr("Failed to remove older version of file '%1'! (Error code 0x%2)").arg(temporary, QString::number(error, 16)));
-                  this->errorOccurred = true;
-                } else {
-                  this->log->logEvent(tr("Successfully removed older version of file '%1'.").arg(temporary));
-                }
-
-                goto copying;
-              }
+              goto copying;
             } else {
               goto skipping;
             }
-          }
-        } else {
-          if(currentData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
-            goto cloning;
           } else {
             goto copying;
           }
-        }
-
-        copying:
-        emit this->triggerCurrentOperation(tr("Copying file"));
-
-        if(!this->copyFile(
-             this->source + '/' + QString(currentData.cFileName),
-             this->target + '/' + QString(currentData.cFileName),
-             (quint64) ((ULONGLONG) currentData.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) currentData.nFileSizeLow))
-           ) {
-          this->errorOccurred = true;
-        }
-
-        goto done;
-
-        cloning:
-        emit this->triggerCurrentOperation(tr("Creating directory"));
-
-        if(CreateDirectoryW(temporaryUtf8, NULL) && this->transferFileAttributes(sourceUtf8, temporaryUtf8)) {
-          this->log->logEvent(tr("Successfully recreated directory '%1' as '%2'.").arg(source + QString(currentData.cFileName)).arg(temporary));
+        } else if(!sourceFileInfo.exists()) {
+          goto cloning;
         } else {
-          this->errorOccurred = true;
-          this->log->logError(tr("Failed to recreate directory '%1' as '%2'.").arg(source + QString(currentData.cFileName)).arg(temporary));
+          goto skipping;
         }
-
-        goto done;
-
-        skipping:
-        this->log->logEvent(tr("Skipping item '%1'. The most recent version already exists in backup destination.").arg(QString(currentData.cFileName)));
-        emit this->triggerCurrentOperation(tr("Skipping item"));
-
-        done:
-        FindClose(existingHandle);
+      } else {
+        if(!sourceFileInfo.isDir()) {
+          goto copying;
+        } else {
+          goto cloning;
+        }
       }
-    } while(FindNextFileW(currentHandle, currentData) && this->progress);
 
-    if(!this->progress) {
-      error = GetLastError();
-      if(error != ERROR_NO_MORE_FILES) {
-        emit this->triggerError(tr("Browsing contents of the source location failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
+      copying:
+      emit this->triggerCurrentOperation(tr("Copying file"));
+
+      if(!this->copyFile(sourcePath, destinationPath, sourceFileInfo.size())) {
+        this->errorOccurred = true;
       }
-    }
-  } else {
-    error = GetLastError();
-    if(error != ERROR_FILE_NOT_FOUND) {
-      emit this->triggerError(tr("Browsing contents of the source location failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
+
+      goto done;
+
+      cloning:
+      emit this->triggerCurrentOperation(tr("Creating directory"));
+
+      if(root.mkdir(destinationPath) && this->transferFileAttributes(sourcePath, destinationPath)) {
+        this->log->logEvent(tr("Successfully recreated directory '%1' as '%2'.").arg(sourcePath, destinationPath));
+      } else {
+        this->errorOccurred = true;
+        this->log->logError(tr("Failed to recreate directory '%1' as '%2'!").arg(sourcePath, destinationPath));
+      }
+
+      goto done;
+
+      skipping:
+      this->log->logEvent(tr("Skipping file or directory '%1'.").arg(sourcePath));
+      emit this->triggerCurrentOperation(tr("Skipping item"));
+
+      done:
+      this->processedCount++;
+      this->processedSize += sourceFileInfo.size();
     }
   }
 
-  FindClose(currentHandle);
+  if(this->progress) {
+    if(!this->keepObsolete) {
+      QDirIterator i(this->target, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
+      root = QDir(this->target);
 
-  if(!this->progress) {
-    goto finish;
-  }
+      while(i.hasNext()) {
+        QString currentFile(i.next());
+        QFile correspondingFile(this->source + "/" + root.relativeFilePath(currentFile));
+        QFileInfo currentFileInfo(currentFile);
 
-  if(!this->keepObsolete) {
-    LPCSTR targetUtf8 = target->toUtf8().toStdString().c_str();
-    QString toBeDeleted;
+        if(!correspondingFile.exists() && currentFileInfo.exists()) {
+          if(currentFileInfo.isDir()) {
+            emit this->triggerCurrentOperation(tr("Removing folder"));
 
-    if((currentHandle = FindFirstFileW(targetUtf8, currentData)) != INVALID_HANDLE_VALUE) {
-      do {
-        if((currentData.dwFileAttributes & FILE_ATTRIBUTE_NORMAL) || (currentData.dwFileAttributes & WORKER_ITEM_FILTERS)) {
-          temporary = source + QString(currentData.cFileName);
-          toBeDeleted = destination + QString(currentData.cFileName);
-          LPCSTR temporaryUtf8 = temporary.toUtf8().toStdString().c_str();
+            QDir temp(currentFile);
 
-          if(FindFirstFileW(temporaryUtf8, existingData) == INVALID_HANDLE_VALUE) {
-            error = GetLastError();
-            if(error != ERROR_FILE_NOT_FOUND) {
-              emit this->triggerError(tr("Source directory analysis failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
+            if(temp.removeRecursively()) {
+              this->log->logEvent(tr("Successfully removed obsolete folder '%1'.").arg(currentFile));
             } else {
-              emit this->triggerCurrentOperation(tr("Removing item"));
+              this->errorOccurred = true;
+              this->log->logError(tr("Failed to remove obsolete folder '%1'!").arg(currentFile));
+            }
+          } else {
+            emit this->triggerCurrentOperation(tr("Removing file"));
 
-              if(DeleteFileW(toBeDeleted.toUtf8().toStdString().c_str())) {
-                this->log->logEvent(tr("Successfully removed obsolete item '%1'.").arg(temporary));
-              } else {
-                this->errorOccurred = true;
-                this->log->logError(tr("Failed to remove obsolete item '%1'.").arg(temporary));
-              }
+            if(QFile::remove(currentFile)) {
+              this->log->logEvent(tr("Successfully removed obsolete file '%1'.").arg(currentFile));
+            } else {
+              this->errorOccurred = true;
+              this->log->logError(tr("Failed to remove obsolete file '%1'.").arg(currentFile));
             }
           }
         }
-      } while(FindNextFileW(currentHandle, currentData));
-
-      error = GetLastError();
-      if(error != ERROR_NO_MORE_FILES) {
-        emit this->triggerError(tr("Source directory analysis failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
-      }
-    } else {
-      error = GetLastError();
-      if(error != ERROR_FILE_NOT_FOUND) {
-        emit this->triggerError(tr("Source directory analysis failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
       }
     }
   }
 
-  finish:
-  FindClose(currentHandle);
-  delete source;
-  delete destination;
-#elif defined Q_OS_LINUX
-  // TODO: Linux version
-#else
-#error Unsupported operating system!
-#endif
-
-  emit this->finished();
+  emit this->finished((int) ACTION_BACKUP);
 }
 
 void Worker::analyze() {
@@ -374,46 +381,38 @@ void Worker::analyze() {
 
   this->reinitializeCounters();
 
-#if defined Q_OS_WIN
-  HANDLE currentHandle;
-  WIN32_FIND_DATA currentData;
-  QString * source = new QString("\\\\?\\" + this->source + "\\*");
-  LPCSTR sourceUtf8 = source->toUtf8().toStdString().c_str();
-  DWORD error;
+  QDirIterator i(this->source, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
 
-  if((currentHandle = FindFirstFileW(sourceUtf8, currentData)) != INVALID_HANDLE_VALUE) {
-    do {
-      if((currentData.dwFileAttributes & FILE_ATTRIBUTE_NORMAL) || (currentData.dwFileAttributes & WORKER_ITEM_FILTERS)) {
-        if(currentData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+    while(i.hasNext()) {
+      QString currentPath(i.next());
+      QFileInfo current(currentPath);
+      bool isSystem = false;
+
+#if defined Q_OS_WIN
+      DWORD attributes = GetFileAttributesW(currentPath.toStdWString().c_str());
+
+      if(attributes == INVALID_FILE_ATTRIBUTES) {
+        this->log->logError(tr("Unable to get attributes of file or directory '%1'!").arg(currentPath));
+      }
+
+      isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
+      isSystem |= currentPath.startsWith(this->source + "$RECYCLE.BIN");
+#endif
+
+      if(!isSystem) {
+        if(current.isDir()) {
           this->directoriesCount++;
         } else {
           this->filesCount++;
         }
+
         this->totalCount++;
-        this->size += (quint64) ((ULONGLONG) currentData.nFileSizeHigh * ((ULONGLONG) MAXDWORD + (ULONGLONG) 1) + (ULONGLONG) currentData.nFileSizeLow);
+        this->size += current.size();
         emit this->triggerAnalysisProgress(this->filesCount, this->directoriesCount, this->size);
       }
-    } while(FindNextFileW(currentHandle, currentData));
-
-    error = GetLastError();
-    if(error != ERROR_NO_MORE_FILES) {
-      emit this->triggerError(tr("Source directory analysis failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
-    }
-  } else {
-    error = GetLastError();
-    if(error != ERROR_FILE_NOT_FOUND) {
-      emit this->triggerError(tr("Source directory analysis failed! (Error code: 0x%1)").arg(QString::number(error, 16)));
-    }
   }
 
-  delete source;
-#elif defined Q_OS_LINUX
-  // TODO: Linux version
-#else
-#error Unsupported operating system!
-#endif
-
-  emit this->finished();
+  emit this->finished((int) ACTION_ANALYSIS);
 }
 
 void Worker::doWork() {

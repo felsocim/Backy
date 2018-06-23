@@ -25,11 +25,12 @@ Interface::Interface(QWidget *parent) :
   this->worker->moveToThread(&this->workerThread);
 
   QObject::connect(this, SIGNAL(signalStart()), this->worker, SLOT(doWork()));
+  QObject::connect(this, SIGNAL(triggerAnalysis()), this->worker, SLOT(analyze()));
 
   QObject::connect(this->worker, SIGNAL(started()), this, SLOT(onWorkerStarted()));
-  QObject::connect(this->worker, SIGNAL(finished()), this, SLOT(onWorkerFinished()));
+  QObject::connect(this->worker, SIGNAL(finished(int)), this, SLOT(onWorkerFinished(int)));
   QObject::connect(this, SIGNAL(triggerAnalysis()), this->worker, SLOT(analyze()));
-  QObject::connect(this->worker, SIGNAL(triggerAnalysisProgress(quint64, quint64, quint64)), this, SLOT(onAnalysisProgress(quint64,quint64,quint64)));
+  QObject::connect(this->worker, SIGNAL(triggerAnalysisProgress(qint64, qint64, qint64)), this, SLOT(onAnalysisProgress(qint64,qint64,qint64)));
 
   QObject::connect(this->ui->buttonBrowseSource, SIGNAL(clicked(bool)), this, SLOT(onBrowseSource()));
   QObject::connect(this->ui->buttonBrowseTarget, SIGNAL(clicked(bool)), this, SLOT(onBrowseTarget()));
@@ -98,7 +99,7 @@ QStringList Interface::ready() {
 
     if(!target.exists())
       result << QString(tr("- Target drive or folder does not exists!"));
-    else if(this->producer->getDirectoriesCount() + this->producer->getFilesCount() < 1)
+    else if(this->worker->getDirectoriesCount() + this->worker->getFilesCount() < 1)
       result << QString(tr("- Source drive or folder does not contain any files or folders!"));
   }
 
@@ -137,8 +138,7 @@ void Interface::loadSettings() {
   settings.endGroup();
   settings.beginGroup("Application");
 
-  qint64 itemBufferSize = settings.value("itemBufferSize", DEFAULT_ITEM_BUFFER_SIZE).toLongLong();
-  qint64 copyBufferSize = settings.value("copyBufferSize", DEFAULT_COPY_BUFFER_SIZE).toLongLong();
+  quint64 copyBufferSize = settings.value("copyBufferSize", DEFAULT_COPY_BUFFER_SIZE).toLongLong();
   QString logsLocation = settings.value("logsLocation", DEFAULT_LOGS_LOCATION).toString();
   QVariant locale = settings.value("locale", DEFAULT_LOCALE_CODE);
 
@@ -160,7 +160,6 @@ void Interface::saveSettings() {
   settings.endGroup();
 
   settings.beginGroup("Application");
-  settings.setValue("itemBufferSize", this->preferences->getItemBufferSize());
   settings.setValue("copyBufferSize", this->preferences->getCopyBufferSize());
   settings.setValue("logsLocation", this->preferences->getLogsLocation());
   settings.setValue("locale", this->preferences->getLocale());
@@ -298,7 +297,7 @@ void Interface::onChooseSource(QString selected) {
   emit this->triggerAnalysis();
 }
 
-void Interface::onAnalysisProgress(quint64 files, quint64 directories, quint64 size) {
+void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size) {
   this->ui->labelDiscoveredDirectoriesValue->setText(QString::number(directories));
   this->ui->labelDiscoveredFilesValue->setText(QString::number(files));
 
@@ -349,41 +348,47 @@ void Interface::onWorkerStarted() {
   this->workerInProgress = true;
 }
 
-void Interface::onWorkerFinished() {
+void Interface::onWorkerFinished(int action) {
   this->workerInProgress = false;
-  this->ui->progressSourceAnalysis->setMaximum(1);
-  this->ui->progressSourceAnalysis->hide();
-  this->ui->labelStatusCurrentOperation->setText("");
-  this->ui->labelStatusCurrentName->setText("");
-  this->ui->progressStatusCurrentProgress->setValue(0);
-  this->ui->progressStatusOverallProgress->setValue(0);
 
-  if(this->aborted) {
-    this->aborted = false;
-    QMessageBox::warning(
-      this,
-      tr("Backup aborted"),
-      tr("Backup process has been aborted by the user!"),
-      QMessageBox::Ok
-    );
-  } else if(this->worker->didErrorOccurred()) {
-    QMessageBox::warning(
-      this,
-      tr("Backup complete with errors"),
-      tr("Backup completed but errors occurred during the process! Check the log file in '%1' for more details.\n").arg(this->preferences->getLogsLocation()),
-      QMessageBox::Ok
-    );
-  } else {
-    QMessageBox::information(
-      this,
-      tr("Backup complete"),
-      tr("Backup completed succefully! ") + QString::number(this->worker->getProcessedCount()),
-      QMessageBox::Ok
-    );
+  if((Action) action == ACTION_ANALYSIS) {
+    this->ui->progressSourceAnalysis->setMaximum(1);
+    this->ui->progressSourceAnalysis->hide();
   }
 
-  this->ui->buttonBackup->setEnabled(true);
-  this->ui->buttonAbort->setEnabled(false);
+  if((Action) action == ACTION_BACKUP) {
+    this->ui->labelStatusCurrentOperation->setText("");
+    this->ui->labelStatusCurrentName->setText("");
+    this->ui->progressStatusCurrentProgress->setValue(0);
+    this->ui->progressStatusOverallProgress->setValue(0);
+
+    if(this->aborted) {
+      this->aborted = false;
+      QMessageBox::warning(
+        this,
+        tr("Backup aborted"),
+        tr("Backup process has been aborted by the user!"),
+        QMessageBox::Ok
+      );
+    } else if(this->worker->getErrorOccurred()) {
+      QMessageBox::warning(
+        this,
+        tr("Backup complete with errors"),
+        tr("Backup completed but errors occurred during the process! Check the log file in '%1' for more details.\n").arg(this->preferences->getLogsLocation()),
+        QMessageBox::Ok
+      );
+    } else {
+      QMessageBox::information(
+        this,
+        tr("Backup complete"),
+        tr("Backup completed succefully! "),
+        QMessageBox::Ok
+      );
+    }
+
+    this->ui->buttonBackup->setEnabled(true);
+    this->ui->buttonAbort->setEnabled(false);
+  }
 }
 
 void Interface::onSavePreferences() {

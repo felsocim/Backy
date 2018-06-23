@@ -49,14 +49,14 @@ class Interface : public QMainWindow {
     void onQuit();
     void onBeginBackup();
     void onChooseSource(QString selected);
-    void onAnalysisProgress(quint64 files, quint64 directories, quint64 size);
+    void onAnalysisProgress(qint64 files, qint64 directories, qint64 size);
     void onChooseTarget(QString selected);
     void onStatusCurrentOperation(QString operation);
     void onStatusCurrentItem(QString item);
     void onStatusCurrentProgress(int current);
     void onStatusOverallProgress(int overall);
     void onWorkerStarted();
-    void onWorkerFinished();
+    void onWorkerFinished(int action);
     void onSavePreferences();
     void onDocumentationSolicitation();
 

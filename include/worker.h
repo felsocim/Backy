@@ -4,15 +4,12 @@
 #include <QObject>
 #include <QDir>
 #include <QDirIterator>
-#include <QMutex>
-#include <QWaitCondition>
-#include <queue>
+#include <QDateTime>
 
 #if defined Q_OS_LINUX
 #include <utime.h>
 #elif defined Q_OS_WIN
 #include <Windows.h>
-#include <sys/utime.h>
 #else
 #error Unsupported operating system!
 #endif
@@ -22,19 +19,12 @@
 #include "common.h"
 #include "logger.h"
 
-#define WORKER_ITEM_FILTERS (FILE_ATTRIBUTE_ARCHIVE | \\
-                            FILE_ATTRIBUTE_COMPRESSED | \\
-                            FILE_ATTRIBUTE_ENCRYPTED | \\
-                            FILE_ATTRIBUTE_HIDDEN | \\
-                            FILE_ATTRIBUTE_READONLY | \\
-                            FILE_ATTRIBUTE_DIRECTORY)
-
-#define ERROR_UNKNOWN_COMPARISON_CRITERION -2
+#define WORKER_ITEM_FILTERS (QDir::AllEntries | QDir::Hidden | QDir::NoDotAndDotDot)
 
 typedef enum {
-  TYPE_FILE,
-  TYPE_DIRECTORY
-} Type;
+  ACTION_ANALYSIS,
+  ACTION_BACKUP
+} Action;
 
 typedef enum {
   CRITERION_MORE_RECENT,
@@ -45,9 +35,9 @@ class Worker : public QObject
 {
   Q_OBJECT
   private:
-    QString * source,
-            * target;
-    quint64 filesCount,
+    QString source,
+            target;
+    qint64 filesCount,
             directoriesCount,
             totalCount,
             size,
@@ -62,15 +52,9 @@ class Worker : public QObject
     volatile bool progress;
 
   private:
-#if defined Q_OS_WIN
-    qint8 compareItems(WIN32_FIND_DATA first, WIN32_FIND_DATA second) const;
-    bool transferFileAttributes(const LPCSTR sourceFileName, const LPCSTR destinationFileName);
-#elif defined Q_OS_LINUX
-    // TODO: For Linux
-#else
-#error Unsupported operating system!
-#endif
-    bool copyFile(const QString &sourceFileName, const QString &destinationFileName, quint64 size);
+    bool isCurrentSuperiorThanBackedUp(const QString &currentPath, const QString &backedUpPath) const;
+    bool transferFileAttributes(const QString &sourcePath, const QString &destinationPath);
+    bool copyFile(const QString &sourcePath, const QString &destinationPath, qint64 size);
 
   public:
     /* Constructor */
@@ -80,10 +64,10 @@ class Worker : public QObject
     ~Worker();
 
     /* Getters */
-    quint64 getFilesCount() const;
-    quint64 getDirectoriesCount() const;
-    quint64 getSize() const;
-    quint64 getProcessedCount() const;
+    qint64 getFilesCount() const;
+    qint64 getDirectoriesCount() const;
+    qint64 getSize() const;
+    qint64 getProcessedCount() const;
     bool getErrorOccurred() const;
     bool getProgress() const;
 
@@ -93,7 +77,7 @@ class Worker : public QObject
     void setSynchronize(bool synchronize);
     void setKeepObsolete(bool keepObsolete);
     void setCriterion(Criterion criterion);
-    void setCopyBufferSize(quint64 copyBufferSize);
+    void setCopyBufferSize(qint64 copyBufferSize);
     void setProgress(bool progress);
 
     /* Other methods */
@@ -107,16 +91,13 @@ class Worker : public QObject
     void doWork();
 
   signals:
-    void triggerEvent(QString message);
-    void triggerError(QString message);
-    void triggerAnalysisProgress(quint64 files, quint64 directories, quint64 size);
+    void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size);
     void triggerCurrentOperation(QString operation);
     void triggerCurrentItem(QString item);
     void triggerCurrentProgress(int currentItem);
     void triggerOverallProgress(int overall);
     void started();
-    void finished();
-
+    void finished(int action);
 };
 
 #endif // __WORKER_H

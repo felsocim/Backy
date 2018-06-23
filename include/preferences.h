@@ -31,8 +31,7 @@ class Preferences : public QDialog
   private:
     Ui::Preferences * ui;
     QFileDialog * browseLogsLocation;
-    qint64 itemBufferSize,
-      copyBufferSize;
+    qint64 copyBufferSize;
     QString logsLocation;
     QVariant locale;
     void setCurrents();
@@ -40,11 +39,9 @@ class Preferences : public QDialog
   public:
     explicit Preferences(QWidget * parent = 0);
     ~Preferences();
-    qint64 getItemBufferSize() const;
     qint64 getCopyBufferSize() const;
     QString getLogsLocation() const;
     QVariant getLocale() const;
-    void setItemBufferSize(qint64 itemBufferSize);
     void setCopyBufferSize(qint64 copyBufferSize);
     void setLogsLocation(QString logsLocation);
     void setLocale(QVariant locale);
