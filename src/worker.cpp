@@ -245,8 +245,6 @@ void Worker::createLogsAt(const QString &path) {
 void Worker::work() {
   emit this->started();
 
-  this->reinitializeCounters();
-
   QDirIterator i(this->source, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
   QDir root(this->source);
 
