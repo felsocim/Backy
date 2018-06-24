@@ -1,5 +1,15 @@
+/*!
+ * \headerfile worker.cpp
+ * \title Worker
+ * \brief The worker.cpp file contains definitions related to the Worker class.
+ * \author Marek Felsoci
+ */
 #include "../include/worker.h"
 
+/*!
+ * \fn Worker::Worker()
+ * \brief Constructor of the Worker class.
+ */
 Worker::Worker() {
   this->source = "";
   this->target = "";
@@ -18,6 +28,12 @@ Worker::Worker() {
   this->progress = true;
 }
 
+/*!
+ * \fn bool Worker::isCurrentSuperiorThanBackedUp(const QString &currentPath, const QString &backedUpPath) const
+ * \param currentPath Path to the current file.
+ * \param backedUpPath Path to the backed up version of the same file.
+ * \return \tt true if the file at \a currentPath is superior to the file at \a backedUpPath according to the user-defined comparison cirterion and \tt false otherwise.
+ */
 bool Worker::isCurrentSuperiorThanBackedUp(const QString &currentPath, const QString &backedUpPath) const {
   QFileInfo current(currentPath),
             backedUp(backedUpPath);
@@ -29,12 +45,20 @@ bool Worker::isCurrentSuperiorThanBackedUp(const QString &currentPath, const QSt
   return (current.lastModified() > backedUp.lastModified());
 }
 
+/*!
+ * \fn bool Worker::transferFileAttributes(const QString &sourcePath, const QString &destinationPath)
+ * \param sourcePath Path to the current file.
+ * \param destinationPath Path to the backed up version of the same file.
+ * \return \tt true if the trasfer completes successfully and \tt false otherwise.
+ * \brief Transfers attributes from the file at \a sourcePath to the file at \a destinationPath.
+ */
 bool Worker::transferFileAttributes(const QString &sourcePath, const QString &destinationPath) {
   QFileInfo s(sourcePath);
   QFile source(sourcePath),
         destination(destinationPath);
   bool succeeded = true;
 
+  /* If the file is not a directory transfer also time information */
   if(!s.isDir()) {
 #if defined Q_OS_LINUX
     struct utimbuf time;
@@ -83,6 +107,7 @@ bool Worker::transferFileAttributes(const QString &sourcePath, const QString &de
   }
 
 #if defined Q_OS_WIN
+  /* Transfer Windows file system attributes */
   DWORD attributes = GetFileAttributesW(source.fileName().toStdWString().c_str());
 
   if(attributes != INVALID_FILE_ATTRIBUTES) {
@@ -99,6 +124,7 @@ bool Worker::transferFileAttributes(const QString &sourcePath, const QString &de
   }
 #endif
 
+  /* Transfer permissions */
   if(destination.setPermissions(source.permissions())) {
     this->log->logEvent(tr("Permissions set successfully for file '%1'.").arg(destinationPath));
   } else {
@@ -109,6 +135,14 @@ bool Worker::transferFileAttributes(const QString &sourcePath, const QString &de
   return succeeded;
 }
 
+/*!
+ * \fn bool Worker::copyFile(const QString &sourcePath, const QString &destinationPath, qint64 size)
+ * \param sourcePath Path to the current file.
+ * \param destinationPath Path to the backed up version of the same file.
+ * \param size Size of the file.
+ * \return \tt true if the file could be copied successfully and \tt false otherwise.
+ * \brief Copies the contents of the file at \a sourcePath to the file at \a destinationPath.
+ */
 bool Worker::copyFile(const QString &sourcePath, const QString &destinationPath, qint64 size) {
   QFile source(sourcePath),
         destination(destinationPath);
@@ -169,58 +203,121 @@ bool Worker::copyFile(const QString &sourcePath, const QString &destinationPath,
   return succeeded;
 }
 
+/*!
+ * \fn Worker::~Worker()
+ * \brief Destructor of the Worker class.
+ */
 Worker::~Worker() {
   delete this->log;
 }
 
+/*!
+ * \fn qint64 Worker::getFilesCount() const
+ * \return Returns the number of file entries that have already been discovered during the backup source folder contents analysis.
+ */
 qint64 Worker::getFilesCount() const {
   return this->filesCount;
 }
 
+/*!
+ * \fn qint64 Worker::getDirectoriesCount() const
+ * \return Returns the number of directory entries that have already been discovered during the backup source folder contents analysis.
+ */
 qint64 Worker::getDirectoriesCount() const {
   return this->directoriesCount;
 }
 
+/*!
+ * \fn qint64 Worker::getSize() const
+ * \return Returns the total size of entries that have already been discovered during the backup source folder contents analysis.
+ */
 qint64 Worker::getSize() const {
   return this->size;
 }
 
+/*!
+ * \fn qint64 Worker::getProcessedCount() const
+ * \return Returns the number of items (files and directories) from the backup source folder that have already been processed in the backup process.
+ */
 qint64 Worker::getProcessedCount() const {
   return this->processedCount;
 }
 
+/*!
+ * \fn bool Worker::getErrorOccurred() const
+ * \return Returns the boolean value which indicates whether an error occurred during the backup process.
+ */
 bool Worker::getErrorOccurred() const {
   return this->errorOccurred;
 }
 
+/*!
+ * \brief bool Worker::getProgress() const
+ * \return Returns the boolean value which indicates whether the current action performed by the Worker class instance has to continue or to be aborted.
+ */
 bool Worker::getProgress() const {
   return this->progress;
 }
 
+/*!
+ * \fn void Worker::setSource(const QString &source)
+ * \param source String corresponding to the path to the backup source folder.
+ * \brief Assigns a new value in \a source to the string corresponding to the path to the backup source folder.
+ */
 void Worker::setSource(const QString &source) {
   this->source = QString(source);
 }
 
+/*!
+ * \fn void Worker::setTarget(const QString &target)
+ * \param target String corresponding to the path to the backup destination folder.
+ * \brief Assigns a new value in \a target to the string corresponding to the path to the backup destination folder.
+ */
 void Worker::setTarget(const QString &target) {
   this->target = QString(target);
 }
 
+/*!
+ * \fn void Worker::setSynchronize(bool synchronize)
+ * \param synchronize Boolean value which decides whether the application should keep obsolete files in the location of previously created backup after synchronization.
+ * \brief Assigns a new value in \a synchronize to the boolean value which decides whether the application should keep obsolete files in the location of previously created backup after synchronization.
+ */
 void Worker::setSynchronize(bool synchronize) {
   this->synchronize = synchronize;
 }
 
+/*!
+ * \fn void Worker::setKeepObsolete(bool keepObsolete)
+ * \param keepObsolete Boolean value which indicates whether an error occurred during the backup process.
+ * \brief Assigns a new value in \a synchronize to the boolean value which indicates whether an error occurred during the backup process.
+ */
 void Worker::setKeepObsolete(bool keepObsolete) {
   this->keepObsolete = keepObsolete;
 }
 
+/*!
+ * \fn void Worker::setCriterion(Criterion criterion)
+ * \param criterion Comparison criterion which decides whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
+ * \brief Assigns a new value in \a criterion to the comparison criterion which decides whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
+ */
 void Worker::setCriterion(Criterion criterion) {
   this->criterion = criterion;
 }
 
+/*!
+ * \fn void Worker::setCopyBufferSize(qint64 copyBufferSize)
+ * \param copyBufferSize Size of the copy buffer used during backup-related file operations, i.e. file copy.
+ * \brief Assigns a new value in \a copyBufferSize to the size of the copy buffer used during backup-related file operations, i.e. file copy.
+ */
 void Worker::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = MEGABYTE * copyBufferSize;
 }
 
+/*!
+ * \fn void Worker::setProgress(bool progress)
+ * \param progress Boolean value which indicates whether the current action performed by the Worker class instance has to continue or to be aborted.
+ * \brief Assigns a new value in \a progress to the boolean value which indicates whether the current action performed by the Worker class instance has to continue or to be aborted.
+ */
 void Worker::setProgress(bool progress) {
   this->progress = progress;
 
@@ -229,6 +326,10 @@ void Worker::setProgress(bool progress) {
   }
 }
 
+/*!
+ * \fn void Worker::reinitializeCounters()
+ * \brief Reinitializes all the item counters to 0.
+ */
 void Worker::reinitializeCounters() {
   this->filesCount = 0;
   this->directoriesCount = 0;
@@ -238,20 +339,31 @@ void Worker::reinitializeCounters() {
   this->processedSize = 0;
 }
 
+/*!
+ * \fn void Worker::createLogsAt(const QString &path)
+ * \param path Path to the log files location.
+ * \brief Creates a new Logger instance in order to be able to keep trace of this Worker instance's activity.
+ */
 void Worker::createLogsAt(const QString &path) {
   this->log = new Logger(path, WORKER_EVENT_LOG_FILE_NAME, WORKER_ERROR_LOG_FILE_NAME);
 }
 
+/*!
+ * \fn void Worker::work()
+ * \brief Performs the backup.
+ */
 void Worker::work() {
   emit this->started();
 
   QDirIterator i(this->source, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
   QDir root(this->source);
 
+  /* Iterate over all entries in the backup source folder */
   while(i.hasNext() && this->progress) {
     QString sourcePath = i.next();
     bool isSystem = false;
 
+    /* Ignore system file(s) and file(s) in the Recycle Bin (Windows) or Trash (Linux) */
 #if defined Q_OS_WIN
     DWORD attributes = GetFileAttributesW(sourcePath.toStdWString().c_str());
 
@@ -270,6 +382,7 @@ void Worker::work() {
 
       emit this->triggerCurrentItem(sourceFileInfo.baseName());
 
+      /* Process current entry */
       if(this->synchronize) {
         if(!sourceFileInfo.isDir()) {
           if(sourceFileInfo.exists()) {
@@ -334,6 +447,7 @@ void Worker::work() {
     }
   }
 
+  /* Remove obsolete files in the backup destination folder if the user did not requested otherwise */
   if(this->progress) {
     if(!this->keepObsolete) {
       QDirIterator i(this->target, WORKER_ITEM_FILTERS, QDirIterator::Subdirectories);
@@ -374,6 +488,10 @@ void Worker::work() {
   emit this->finished((int) ACTION_BACKUP);
 }
 
+/*!
+ * \fn void Worker::analyze()
+ * \brief Performs the backup source folder contents analysis.
+ */
 void Worker::analyze() {
   emit this->started();
 
@@ -413,6 +531,10 @@ void Worker::analyze() {
   emit this->finished((int) ACTION_ANALYSIS);
 }
 
+/*!
+ * \fn void Worker::doWork()
+ * \brief Slot triggered by the main window Interface instance when the user clicks on the \b Backup button in order to launch the backu process.
+ */
 void Worker::doWork() {
   this->work();
 }

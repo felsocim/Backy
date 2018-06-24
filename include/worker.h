@@ -122,7 +122,7 @@ class Worker : public QObject
          errorOccurred;
     /*!
      * \variable Worker::criterion
-     * \brief The comparison criterion which decides whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
+     * \brief Comparison criterion which decides whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
      */
     Criterion criterion;
     /*!
@@ -178,9 +178,9 @@ class Worker : public QObject
   signals:
     /*!
      * \fn void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size)
-     * \param files The number of file entries that have already been discovered during the backup source folder contents analysis.
-     * \param directories The number of directory entries that have already been discovered during the backup source folder contents analysis.
-     * \param size The total size of entries that have already been discovered during the backup source folder contents analysis.
+     * \param files Number of file entries that have already been discovered during the backup source folder contents analysis.
+     * \param directories Number of directory entries that have already been discovered during the backup source folder contents analysis.
+     * \param size Total size of entries that have already been discovered during the backup source folder contents analysis.
      * \brief Signal providing the main window interface instance with the information about current status of the backup source folder contents analysis.
      */
     void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size);
@@ -216,7 +216,7 @@ class Worker : public QObject
     /*!
      * \fn void finished(int action)
      * \param action The type of action performed within the Worker instance which has finished.
-     * \brief Signal telling the main window interface instance which type of action performed within the Worker instance has finished.
+     * \brief Signal telling the main window interface instance which type of action being performed within the Worker instance has finished.
      */
     void finished(int action);
 };

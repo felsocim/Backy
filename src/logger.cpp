@@ -1,11 +1,25 @@
+/*!
+ * \headerfile logger.cpp
+ * \title Logger
+ * \brief The logger.cpp file contains definitions related to the Logger class.
+ * \author Marek Felsoci
+ */
 #include "../include/logger.h"
 
+/*!
+ * \fn Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile)
+ * \param path Path to the log files location.
+ * \param eventFile Event log file name.
+ * \param errorFile Error log file name.
+ * \brief Constructor of the Logger class.
+ */
 Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile) {
   this->eventFile = new QFile(path + "/" + eventFile);
   this->errorFile = new QFile(path + "/" + errorFile);
 
   QDir logs(path);
 
+  /* If the logs folder does not exists create it */
   if(!logs.exists()) {
     if(logs.mkpath(path)) {
       this->accessible = true;
@@ -17,6 +31,7 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
     this->accessible = true;
   }
 
+  /* Open log files */
   if(this->accessible) {
     if(this->eventFile->open(QIODevice::WriteOnly) && this->errorFile->open(QIODevice::WriteOnly)) {
       this->eventStream = new QTextStream(this->eventFile);
@@ -29,6 +44,10 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
   }
 }
 
+/*!
+ * \fn Logger::~Logger()
+ * \brief Destructor of the Logger class.
+ */
 Logger::~Logger() {
   if(this->accessible) {
     this->eventStream->~QTextStream();
@@ -41,11 +60,21 @@ Logger::~Logger() {
   delete this->errorFile;
 }
 
+/*!
+ * \fn void Logger::logEvent(const QString &eventMessage)
+ * \param eventMessage Event message to be logged.
+ * \brief Add new message to the event log.
+ */
 void Logger::logEvent(const QString &eventMessage) {
   if(this->accessible)
     (*this->eventStream) << eventMessage << endl;
 }
 
+/*!
+ * \fn void Logger::logError(const QString &errorMessage)
+ * \param errorMessage Error message to be logged.
+ * \brief Add new message to the error log.
+ */
 void Logger::logError(const QString &errorMessage) {
   if(this->accessible)
     (*this->errorStream) << errorMessage << endl;

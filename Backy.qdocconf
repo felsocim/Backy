@@ -1,0 +1,11 @@
+project = Backy
+description = Simple backup creation and maintain solution
+
+headerdirs = include
+sourcedirs = src
+
+sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
+headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"
+
+outputdir  =    docs/technical
+outputformats = HTML
