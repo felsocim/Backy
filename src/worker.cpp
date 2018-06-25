@@ -372,7 +372,11 @@ void Worker::work() {
     }
 
     isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
-    isSystem |= sourcePath.startsWith(this->source + "$RECYCLE.BIN");
+    isSystem = isSystem || sourcePath.startsWith(this->source + "$RECYCLE.BIN");
+#elif defined Q_OS_LINUX
+    isSystem = sourcePath.startsWith(".local/share/Trash") || sourcePath.startsWith(".Trash-");
+#else
+#error Unsupported operating system!
 #endif
 
     if(!isSystem) {
@@ -512,7 +516,11 @@ void Worker::analyze() {
       }
 
       isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
-      isSystem |= currentPath.startsWith(this->source + "$RECYCLE.BIN");
+      isSystem = isSystem || currentPath.startsWith(this->source + "$RECYCLE.BIN");
+#elif defined Q_OS_LINUX
+      isSystem = currentPath.startsWith(".local/share/Trash") || currentPath.startsWith(".Trash-");
+#else
+#error Unsupported operating system!
 #endif
 
       if(!isSystem) {
