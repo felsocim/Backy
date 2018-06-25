@@ -147,7 +147,7 @@ bool Worker::copyFile(const QString &sourcePath, const QString &destinationPath,
   QFile source(sourcePath),
         destination(destinationPath);
   char * bytes = new char[this->copyBufferSize];
-  quint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
+  qint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
   bool succeeded = true;
 
   if(source.open(QIODevice::ReadOnly)) {
