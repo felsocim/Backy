@@ -2,7 +2,8 @@ project = Backy
 description = Simple backup creation and maintain solution
 
 headerdirs = include
-sourcedirs = src
+sourcedirs = src \
+             docs/technical
 
 sources.fileextensions = "*.cpp *.qdoc *.mm *.qml"
 headers.fileextensions = "*.h *.ch *.h++ *.hh *.hpp *.hxx"

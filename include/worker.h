@@ -2,7 +2,6 @@
  * \headerfile worker.h
  * \title Worker
  * \brief The worker.h file contains declarations and definitions related to the Worker class.
- * \author Marek Felsoci
  */
 #ifndef __WORKER_H
 #define __WORKER_H
@@ -178,34 +177,27 @@ class Worker : public QObject
   signals:
     /*!
      * \fn void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size)
-     * \param files Number of file entries that have already been discovered during the backup source folder contents analysis.
-     * \param directories Number of directory entries that have already been discovered during the backup source folder contents analysis.
-     * \param size Total size of entries that have already been discovered during the backup source folder contents analysis.
-     * \brief Signal providing the main window interface instance with the information about current status of the backup source folder contents analysis.
+     * \brief Signal providing the main window interface instance with the information about how many \a files and \a directories of total \a size have already been discovered during the backup source folder contents analysis.
      */
     void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size);
     /*!
      * \fn void triggerCurrentOperation(QString operation)
-     * \param operation Current operation description.
-     * \brief Signal telling the main window interface instance which operation is being performed by the Worker instance.
+     * \brief Signal telling the main window interface instance which \a operation is being performed by the Worker instance.
      */
     void triggerCurrentOperation(QString operation);
     /*!
      * \fn void triggerCurrentItem(QString item)
-     * \param item Current item path.
-     * \brief Signal telling the main window interface instance which item (file or directory) is being processed by the backup process.
+     * \brief Signal telling the main window interface instance which \a item (file or directory) is being processed by the backup process.
      */
     void triggerCurrentItem(QString item);
     /*!
      * \fn void triggerCurrentProgress(int currentItem)
-     * \param currentItem Current item processing progress (value from \b 0 to \b 100 percent).
-     * \brief Signal providing the main window interface instance with the information about the progress in processing of the current item (file or directory) by the backup process.
+     * \brief Signal providing the main window interface instance with the information about the progress in processing of the current item (file or directory) by the backup process. The value is passed via the \a currentItem argument in percent.
      */
     void triggerCurrentProgress(int currentItem);
     /*!
      * \fn void triggerOverallProgress(int overall)
-     * \param overall Overall backup process progress (value from \b 0 to \b 100 percent).
-     * \brief Signal providing the main window interface instance with the information about overall backup process progress.
+     * \brief Signal providing the main window interface instance with the information about \a overall backup process progress in percent.
      */
     void triggerOverallProgress(int overall);
     /*!
@@ -216,7 +208,8 @@ class Worker : public QObject
     /*!
      * \fn void finished(int action)
      * \param action The type of action performed within the Worker instance which has finished.
-     * \brief Signal telling the main window interface instance which type of action being performed within the Worker instance has finished.
+     * \brief Signal telling the main window interface instance which type of \a action being performed within the Worker instance has finished.
+     * \sa Action
      */
     void finished(int action);
 };

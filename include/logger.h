@@ -2,7 +2,6 @@
  * \headerfile logger.h
  * \title Logger
  * \brief The logger.h file contains declarations related to the Logger class.
- * \author Marek Felsoci
  */
 #ifndef __LOGGER_H
 #define __LOGGER_H

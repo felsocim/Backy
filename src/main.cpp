@@ -2,7 +2,6 @@
  * \headerfile main.cpp
  * \title Main file
  * \brief The main.cpp file is the entry point of the application.
- * \author Marek Felsoci
  */
 #include "../include/interface.h"
 #include <QApplication>
@@ -11,9 +10,7 @@
 
 /*!
  * \fn int main(int argc, char *argv[])
- * \param argc Provided argument(s) count.
- * \param argv Provided argument(s) values.
- * \return Application's exit code.
+ * \brief Main function representing the entry point of the application providing the number of given arguments via the \a argc argument and the values of given arguments via the \a argv argument. The return code of this function corresponds to the return code of the application.
  */
 int main(int argc, char *argv[])
 {

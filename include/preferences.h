@@ -2,7 +2,6 @@
  * \headerfile preferences.h
  * \title Preferences
  * \brief The preferences.h file contains declarations related to the Preferences class.
- * \author Marek Felsoci
  */
 #ifndef __PREFERENCES_H
 #define __PREFERENCES_H

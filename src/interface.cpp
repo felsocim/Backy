@@ -2,15 +2,13 @@
  * \headerfile interface.cpp
  * \title Interface
  * \brief The interface.cpp file contains definitions related to the Interface class.
- * \author Marek Felsoci
  */
 #include "../include/interface.h"
 #include "ui_interface.h"
 
 /*!
  * \fn Interface::Interface(QWidget *parent)
- * \param parent Pointer to the parent widget.
- * \brief Constructor of the Interface class.
+ * \brief Constructor of the Interface class taking the pointer to the \a parent widget as argument.
  */
 Interface::Interface(QWidget *parent) :
   QMainWindow(parent),
@@ -102,7 +100,7 @@ Interface::~Interface() {
 
 /*!
  * \fn bool Interface::inProgress()
- * \return Boolean value indicating whether the user has requested a backup operation cancellation.
+ * \brief Returns \tt true if a backup-related operation is currently in progress and \tt false otherwise.
  */
 bool Interface::inProgress() {
   return this->workerInProgress;
@@ -110,8 +108,7 @@ bool Interface::inProgress() {
 
 /*!
  * \fn QStringList Interface::ready()
- * \return List of unmet conditions to be satisfied before a backup can begin.
- * \brief Verify if all the conditions necessary for a backup to be performed correctly are met and constructs a list of those that have not been satisfied yet.
+ * \brief Verify if all the conditions necessary for a backup to be performed correctly are met and returns a list of those that have not been satisfied yet or an empty list if all of them have been satisfied.
  */
 QStringList Interface::ready() {
   QStringList result;
@@ -234,8 +231,7 @@ void Interface::onBrowseTarget() {
 
 /*!
  * \fn void Interface::onToggleSynchronize(bool checked)
- * \param checked Boolean value indication whether the \b{Synchronize only} check button is checked or not.
- * \brief Slot that toggles the \b{Synchronize only} check button boolean value.
+ * \brief Slot that toggles the \b{Synchronize only} check button boolean value based on its current state passed via the \a checked argument.
  */
 void Interface::onToggleSynchronize(bool checked) {
   this->worker->setSynchronize(checked);
@@ -243,8 +239,7 @@ void Interface::onToggleSynchronize(bool checked) {
 
 /*!
  * \fn void Interface::onToggleKeepObsolete(bool checked)
- * \param checked Boolean value indication whether the \b{Keep obsolete} check button is checked or not.
- * \brief Slot that toggles the \b{Keep obsolete} check button boolean value.
+ * \brief Slot that toggles the \b{Keep obsolete} check button boolean value based on its current state passed via the \a checked argument.
  */
 void Interface::onToggleKeepObsolete(bool checked) {
   this->worker->setKeepObsolete(checked);
@@ -252,8 +247,7 @@ void Interface::onToggleKeepObsolete(bool checked) {
 
 /*!
  * \fn void Interface::onToggleCriterionMostRecent(bool checked)
- * \param checked Boolean value indication whether the \b{Prefer more recent} radio button is checked or not.
- * \brief Slot that checks the \b{Prefer more recent} radio button and unchecks the \b{Prefer bigger} radio button and vice-versa.
+ * \brief Slot that checks the \b{Prefer more recent} radio button and unchecks the \b{Prefer bigger} radio button and vice-versa based on its current state passed via the \a checked argument.
  */
 void Interface::onToggleCriterionMostRecent(bool checked) {
   this->ui->radioCriterionMostRecent->setChecked(checked);
@@ -263,8 +257,7 @@ void Interface::onToggleCriterionMostRecent(bool checked) {
 
 /*!
  * \fn void Interface::onToggleCriterionBiggest(bool checked)
- * \param checked Boolean value indication whether the \b{Prefer bigger} radio button is checked or not.
- * \brief Slot that checks the \b{Prefer bigger} radio button and unchecks the \b{Prefer more recent} radio button and vice-versa.
+ * \brief Slot that checks the \b{Prefer bigger} radio button and unchecks the \b{Prefer more recent} radio button and vice-versa based on its current state passed via the \a checked argument.
  */
 void Interface::onToggleCriterionBiggest(bool checked) {
   this->ui->radioCriterionBiggest->setChecked(checked);
@@ -392,7 +385,6 @@ void Interface::onBeginBackup() {
 
 /*!
  * \fn void Interface::onChooseSource(QString selected)
- * \param selected Path to the selected backup source folder.
  * \brief Slot triggered when the user finshes selecting the backup source folder via corresponding folder selection dialog. The path to the selected folder is available via the \a selected argument.
  */
 void Interface::onChooseSource(QString selected) {
@@ -409,10 +401,7 @@ void Interface::onChooseSource(QString selected) {
 
 /*!
  * \fn void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size)
- * \param files The number of file entries that have already been discovered during the backup source folder contents analysis.
- * \param directories The number of directory entries that have already been discovered during the backup source folder contents analysis.
- * \param size The total size of entries that have already been discovered during the backup source folder contents analysis.
- * \brief Slot triggered by the Worker instance each time a new item (file or directory) is discovered by the backup source folder contents analysis.
+ * \brief Slot triggered by the Worker instance each time a new item (file or directory) is discovered by the backup source folder contents analysis. It gives the information about how many \a files and \a directories of total \a size have already been discovered during the analysis.
  */
 void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size) {
   /* Update the interface */
@@ -444,7 +433,6 @@ void Interface::onAnalysisProgress(qint64 files, qint64 directories, qint64 size
 
 /*!
  * \fn void Interface::onChooseTarget(QString selected)
- * \param selected Path to the selected backup destination folder.
  * \brief Slot triggered when the user finshes selecting the backup destination folder via corresponding folder selection dialog. The path to the selected folder is available via the \a selected argument.
  */
 void Interface::onChooseTarget(QString selected) {
@@ -456,8 +444,7 @@ void Interface::onChooseTarget(QString selected) {
 
 /*!
  * \fn void Interface::onStatusCurrentOperation(QString operation)
- * \param operation Current operation description.
- * \brief Slot triggered by the Worker instance every time a new backup-related operation begins.
+ * \brief Slot triggered by the Worker instance every time a new backup-related \a operation begins.
  */
 void Interface::onStatusCurrentOperation(QString operation) {
   this->ui->labelStatusCurrentOperation->setText(operation);
@@ -465,8 +452,7 @@ void Interface::onStatusCurrentOperation(QString operation) {
 
 /*!
  * \fn void Interface::onStatusCurrentItem(QString item)
- * \param item Current item path.
- * \brief Slot triggered by the Worker instance every time a new item (file or directory) is being processed by the backup process.
+ * \brief Slot triggered by the Worker instance every time a new \a item (file or directory) is being processed by the backup process.
  */
 void Interface::onStatusCurrentItem(QString item) {
   this->ui->labelStatusCurrentName->setText(item);
@@ -474,8 +460,7 @@ void Interface::onStatusCurrentItem(QString item) {
 
 /*!
  * \fn void Interface::onStatusCurrentProgress(int current)
- * \param current Current item processing progress (value from \b 0 to \b 100 percent).
- * \brief Slot triggered by the Worker instance every time the progress in processing of the current item (file or directory) by the backup process changes.
+ * \brief Slot triggered by the Worker instance every time the progress in processing of the current item (file or directory) by the backup process changes. The value is passed via the \a currentItem argument in percent.
  */
 void Interface::onStatusCurrentProgress(int current) {
   this->ui->progressStatusCurrentProgress->setValue(current);
@@ -483,8 +468,7 @@ void Interface::onStatusCurrentProgress(int current) {
 
 /*!
  * \fn void Interface::onStatusOverallProgress(int overall)
- * \param overall Overall backup process progress (value from \b 0 to \b 100 percent).
- * \brief Slot triggered by the Worker instance every time the information about overall backup process progress changes.
+ * \brief Slot triggered by the Worker instance every time the information about \a overall backup process progress in percent.
  */
 void Interface::onStatusOverallProgress(int overall) {
   this->ui->progressStatusOverallProgress->setValue(overall);
@@ -500,8 +484,8 @@ void Interface::onWorkerStarted() {
 
 /*!
  * \fn void Interface::onWorkerFinished(int action)
- * \param action The type of action performed within the Worker instance which has finished.
- * \brief Slot triggered by the Worker instance every time an action performed within the Worker instance has finished. The type of the action is provided by the \a action argument.
+ * \brief Slot triggered by the Worker instance every time an \a action performed within the Worker instance has finished. The type of the action is provided by the \a action argument.
+ * \sa Action
  */
 void Interface::onWorkerFinished(int action) {
   this->workerInProgress = false;

@@ -2,15 +2,13 @@
  * \headerfile preferences.h
  * \title Preferences
  * \brief The preferences.h file contains declarations related to the Preferences class.
- * \author Marek Felsoci
  */
 #include "../include/preferences.h"
 #include "ui_preferences.h"
 
 /*!
  * \fn Preferences::Preferences(QWidget * parent)
- * \param parent Pointer to the parent widget.
- * \brief Constructor of the Preferences class.
+ * \brief Constructor of the Preferences class taking the pointer to the \a parent widget as argument.
  */
 Preferences::Preferences(QWidget * parent) :
   QDialog(parent),
@@ -112,7 +110,7 @@ void Preferences::setCurrents() {
 
 /*!
  * \fn qint64 Preferences::getCopyBufferSize() const
- * \return Returns current copy buffer size.
+ * \brief Returns current copy buffer size.
  */
 qint64 Preferences::getCopyBufferSize() const {
   return this->copyBufferSize;
@@ -120,7 +118,7 @@ qint64 Preferences::getCopyBufferSize() const {
 
 /*!
  * \fn QString Preferences::getLogsLocation() const
- * \return Returns current path to the log files location.
+ * \brief Returns current path to the log files location.
  */
 QString Preferences::getLogsLocation() const {
   return this->logsLocation;
@@ -128,7 +126,7 @@ QString Preferences::getLogsLocation() const {
 
 /*!
  * \fn QVariant Preferences::getLocale() const
- * \return Returns the code of currently used display language.
+ * \brief Returns the code of currently used display language.
  */
 QVariant Preferences::getLocale() const {
   return this->locale;
@@ -136,8 +134,7 @@ QVariant Preferences::getLocale() const {
 
 /*!
  * \fn void Preferences::setCopyBufferSize(qint64 copyBufferSize)
- * \param copyBufferSize New copy buffer size.
- * \brief Assigns a new value to the copy buffer size.
+ * \brief Assigns the value in \a copyBufferSize argument to the copy buffer size.
  */
 void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = copyBufferSize;
@@ -146,8 +143,7 @@ void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
 
 /*!
  * \fn void Preferences::setLogsLocation(QString eventLogLocation)
- * \param eventLogLocation New path to the log files location.
- * \brief Assigns a new value to the log files location.
+ * \brief Replaces the current log files location by the path in \a eventLogLocation.
  */
 void Preferences::setLogsLocation(QString eventLogLocation) {
   this->logsLocation = eventLogLocation;
@@ -156,8 +152,7 @@ void Preferences::setLogsLocation(QString eventLogLocation) {
 
 /*!
  * \fn void Preferences::setLocale(QVariant locale)
- * \param locale New code of display language.
- * \brief Assigns a new value to the code of display language.
+ * \brief Replaces the current code of display language by \a locale.
  */
 void Preferences::setLocale(QVariant locale) {
   this->locale = locale;
@@ -190,8 +185,7 @@ void Preferences::onBrowseLogsLocation() {
 
 /*!
  * \fn void Preferences::onChooseLogsLocation(QString selected)
- * \param selected Path to the selected folder where the log files should be stored.
- * \brief Slots triggered when the user chooses a folder where the log files should be stored.
+ * \brief Slots triggered when the user chooses a folder where the log files should be stored. The path to the folder is passed via the \a selected argument.
  */
 void Preferences::onChooseLogsLocation(QString selected) {
   this->ui->editLogsLocationValue->setText(selected);

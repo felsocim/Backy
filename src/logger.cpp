@@ -2,16 +2,12 @@
  * \headerfile logger.cpp
  * \title Logger
  * \brief The logger.cpp file contains definitions related to the Logger class.
- * \author Marek Felsoci
  */
 #include "../include/logger.h"
 
 /*!
  * \fn Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile)
- * \param path Path to the log files location.
- * \param eventFile Event log file name.
- * \param errorFile Error log file name.
- * \brief Constructor of the Logger class.
+ * \brief Constructor of the Logger class. Prepares a directory at \a path to create an event log file called \a eventFile and an error log file called \a errorFile in.
  */
 Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile) {
   this->eventFile = new QFile(path + "/" + eventFile);
@@ -62,8 +58,7 @@ Logger::~Logger() {
 
 /*!
  * \fn void Logger::logEvent(const QString &eventMessage)
- * \param eventMessage Event message to be logged.
- * \brief Add new message to the event log.
+ * \brief Add new \a eventMessage to the event log.
  */
 void Logger::logEvent(const QString &eventMessage) {
   if(this->accessible)
@@ -72,8 +67,7 @@ void Logger::logEvent(const QString &eventMessage) {
 
 /*!
  * \fn void Logger::logError(const QString &errorMessage)
- * \param errorMessage Error message to be logged.
- * \brief Add new message to the error log.
+ * \brief Add new \a errorMessage to the error log.
  */
 void Logger::logError(const QString &errorMessage) {
   if(this->accessible)

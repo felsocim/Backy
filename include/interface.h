@@ -2,7 +2,6 @@
  * \headerfile interface.h
  * \title Interface
  * \brief The interface.h file contains declarations related to the Interface class.
- * \author Marek Felsoci
  */
 #ifndef __INTERFACE_H
 #define __INTERFACE_H
