@@ -1,15 +1,40 @@
 /*!
- * \headerfile logger.cpp
- * \title Logger
- * \brief The logger.cpp file contains definitions related to the Logger class.
+ * This file is a part of Backy project, a simple backup creation and
+ * maintaining solution.
+ * 
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * \file logger.cpp
+ * \brief Contains definitions related to Logger class.
+ * \author Marek Felsoci
+ * \date 2018-27-06
+ * \version 1.0
  */
 #include "../include/logger.h"
 
 /*!
- * \fn Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile)
- * \brief Constructor of the Logger class. Prepares a directory at \a path to create an event log file called \a eventFile and an error log file called \a errorFile in.
+ * \fn Logger::Logger(const QString &path, const QString &eventFile,
+ *     const QString &errorFile)
+ * \param path Path to log files location.
+ * \param eventFile Event log file name.
+ * \param errorFile Error log file name.
+ * \brief Constructor of Logger class.
  */
-Logger::Logger(const QString &path, const QString &eventFile, const QString &errorFile) {
+Logger::Logger(const QString &path, const QString &eventFile,
+  const QString &errorFile) {
   this->eventFile = new QFile(path + "/" + eventFile);
   this->errorFile = new QFile(path + "/" + errorFile);
 
@@ -21,7 +46,9 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
       this->accessible = true;
     } else {
       this->accessible = false;
-      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create log directory in '%1'! No logs will be created during this instance.").arg(path);
+      qDebug() << QCoreApplication::translate("Logger", "Warning:"
+        " Failed to create log directory in '%1'! No logs will be"
+        " created during this instance.").arg(path);
     }
   } else {
     this->accessible = true;
@@ -29,20 +56,23 @@ Logger::Logger(const QString &path, const QString &eventFile, const QString &err
 
   /* Open log files */
   if(this->accessible) {
-    if(this->eventFile->open(QIODevice::WriteOnly) && this->errorFile->open(QIODevice::WriteOnly)) {
+    if(this->eventFile->open(QIODevice::WriteOnly)
+      && this->errorFile->open(QIODevice::WriteOnly)) {
       this->eventStream = new QTextStream(this->eventFile);
       this->errorStream = new QTextStream(this->errorFile);
       this->accessible = true;
     } else {
       this->accessible = false;
-      qDebug() << QCoreApplication::translate("Logger", "Warning: Failed to create or open log files: '%1', '%2'! No logs will be created for this instance.").arg(eventFile).arg(errorFile);
+      qDebug() << QCoreApplication::translate("Logger", "Warning:"
+        " Failed to create or open log files: '%1', '%2'! No logs will"
+        " be created for this instance.").arg(eventFile).arg(errorFile);
     }
   }
 }
 
 /*!
  * \fn Logger::~Logger()
- * \brief Destructor of the Logger class.
+ * \brief Destructor of Logger class.
  */
 Logger::~Logger() {
   if(this->accessible) {
@@ -58,7 +88,8 @@ Logger::~Logger() {
 
 /*!
  * \fn void Logger::logEvent(const QString &eventMessage)
- * \brief Add new \a eventMessage to the event log.
+ * \param eventMessage Message to be added to the event log.
+ * \brief Adds a new message to the event log.
  */
 void Logger::logEvent(const QString &eventMessage) {
   if(this->accessible)
@@ -67,7 +98,8 @@ void Logger::logEvent(const QString &eventMessage) {
 
 /*!
  * \fn void Logger::logError(const QString &errorMessage)
- * \brief Add new \a errorMessage to the error log.
+ * \param errorMessage Message to be added to the error log.
+ * \brief Adds a new message to the error log.
  */
 void Logger::logError(const QString &errorMessage) {
   if(this->accessible)

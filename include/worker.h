@@ -1,7 +1,27 @@
 /*!
- * \headerfile worker.h
- * \title Worker
- * \brief The worker.h file contains declarations and definitions related to the Worker class.
+ * This file is a part of Backy project, a simple backup creation and
+ * maintaining solution.
+ * 
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * \file worker.h
+ * \brief Contains declarations and definitions related to Worker class.
+ * \author Marek Felsoci
+ * \date 2018-27-06
+ * \version 1.0
  */
 #ifndef __WORKER_H
 #define __WORKER_H
@@ -25,15 +45,15 @@
 #include "logger.h"
 
 /*!
- * \macro WORKER_ITEM_FILTERS
- * \relates Worker
- * \brief File type filters applied when iterating over the backup source folder contents.
+ * \def WORKER_ITEM_FILTERS
+ * \brief File type filters applied when iterating over the contents of
+ *        backup source location.
  */
-#define WORKER_ITEM_FILTERS (QDir::AllEntries | QDir::Hidden | QDir::NoDotAndDotDot)
+#define WORKER_ITEM_FILTERS (QDir::AllEntries | QDir::Hidden | \
+                            QDir::NoDotAndDotDot)
 
 /*!
  * \enum Action
- * \relates Worker
  * \brief Enumerates types of actions that can be performed by Worker.
  */
 typedef enum {
@@ -44,7 +64,11 @@ typedef enum {
 /*!
  * \enum Criterion
  * \relates Worker
- * \brief Enumerates comparison criterions that can be used to decide whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
+ * \brief Enumerates comparison criterions.
+ * 
+ * These are used to decide whether whether a file in selected backup
+ * source location is superior to its version potentially present in
+ * selected target location.
  */
 typedef enum {
   CRITERION_MORE_RECENT,
@@ -53,92 +77,108 @@ typedef enum {
 
 /*!
  * \class Worker
- * \brief The Worker class provides all backup process-related functionalities.
+ * \brief Provides backup process-related functionalities.
  */
 class Worker : public QObject
 {
   Q_OBJECT
   private:
     /*!
-     * \variable Worker::source
-     * \brief String corresponding to the path to the backup source folder.
+     * \var Worker::source
+     * \brief Path to backup source location.
      */
     QString source,
     /*!
-     * \variable Worker::target
-     * \brief String corresponding to the path to the backup destination folder.
+     * \var Worker::target
+     * \brief Path to backup target location.
      */
             target;
     /*!
-     * \variable Worker::filesCount
-     * \brief Holds the number of files detected during analysis of the backup source folder contents.
+     * \var Worker::filesCount
+     * \brief Number of files detected during analysis of backup source
+     *        location.
      */
     qint64 filesCount,
     /*!
-     * \variable Worker::directoriesCount
-     * \brief Holds the number of directories detected during analysis of the backup source folder contents.
+     * \var Worker::directoriesCount
+     * \brief Number of directories detected during analysis of backup
+     *        source location.
      */
             directoriesCount,
     /*!
-     * \variable Worker::totalCount
-     * \brief Holds the sum of the Worker::filesCount and the Worker::directoriesCount values.
+     * \var Worker::totalCount
+     * \brief Sum of Worker::filesCount and Worker::directoriesCount.
      */
             totalCount,
     /*!
-     * \variable Worker::size
-     * \brief Holds the total size of items (files and directories) detected during analysis of the backup source folder contents.
+     * \var Worker::size
+     * \brief Total size of items (files and directories) detected
+     *        during analysis of backup source location.
      */
             size,
     /*!
-     * \variable Worker::processedCount
-     * \brief Holds the number of items (files and directories) from the backup source folder that have already been processed in the backup process.
+     * \var Worker::processedCount
+     * \brief Number of items (files and directories) in backup source
+     *        location that have already been processed.
      */
             processedCount,
     /*!
-     * \variable Worker::processedSize
-     * \brief Holds the total size of items (files and directories) from the backup source folder that have already been processed in the backup process.
+     * \var Worker::processedSize
+     * \brief Total size of items (files and directories) in backup
+     *        source location that have already been processed.
      */
             processedSize,
     /*!
-     * \variable Worker::copyBufferSize
-     * \brief Holds the size of the copy buffer used during backup-related file operations, i.e. file copy.
+     * \var Worker::copyBufferSize
+     * \brief Size of copy buffer used by file copy function.
      */
             copyBufferSize;
     /*!
-     * \variable Worker::synchronize
-     * \brief Boolean value which decides whether the application should only synchronize with a previously created backup.
+     * \var Worker::synchronize
+     * \brief Decides whether backup source location should be only
+     *        synchronized with a previously created backup in target
+     *        location.
      */
     bool synchronize,
     /*!
-     * \variable Worker::keepObsolete
-     * \brief Boolean value which decides whether the application should keep obsolete files in the location of previously created backup after synchronization.
+     * \var Worker::keepObsolete
+     * \brief Decides whether any file in backup target location which
+     *        does not exist in source location anymore should be kept
+     *        or deleted.
      */
          keepObsolete,
     /*!
-     * \variable Worker::errorOccurred
-     * \brief Boolean value which indicates whether an error occurred during the backup process.
+     * \var Worker::errorOccurred
+     * \brief Indicates whether an error occurred during backup process.
      */
          errorOccurred;
     /*!
-     * \variable Worker::criterion
-     * \brief Comparison criterion which decides whether a file in the source location is superior to its previously backed up version when performing backup synchronization.
+     * \var Worker::criterion
+     * \brief Comparison criterion whether a file in backup source
+     *        location is superior to its version potentially present
+     *        in target location.
      */
     Criterion criterion;
     /*!
-     * \variable Worker::log
-     * \brief A Logger instance allowing to keep trace of any action performed within the backup process by the Worker class instance.
+     * \var Worker::log
+     * \brief Logger instance allowing to keep trace of any action
+     *        performed within backup process.
      */
     Logger * log;
     /*!
-     * \variable Worker::progress
-     * \brief Boolean value which indicates whether the current action performed by the Worker class instance has to continue or to be aborted.
+     * \var Worker::progress
+     * \brief Indicates whether the action being currently performed by
+     *        Worker has to continue or to be aborted.
      */
     volatile bool progress;
 
   private:
-    bool isCurrentSuperiorThanBackedUp(const QString &currentPath, const QString &backedUpPath) const;
-    bool transferFileAttributes(const QString &sourcePath, const QString &destinationPath);
-    bool copyFile(const QString &sourcePath, const QString &destinationPath, qint64 size);
+    bool isCurrentSuperiorThanBackedUp(const QString &currentPath,
+      const QString &backedUpPath) const;
+    bool transferFileAttributes(const QString &sourcePath,
+      const QString &destinationPath);
+    bool copyFile(const QString &sourcePath,
+      const QString &destinationPath, qint64 size);
 
   public:
     /* Constructor */
@@ -176,40 +216,60 @@ class Worker : public QObject
 
   signals:
     /*!
-     * \fn void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size)
-     * \brief Signal providing the main window interface instance with the information about how many \a files and \a directories of total \a size have already been discovered during the backup source folder contents analysis.
+     * \fn void triggerAnalysisProgress(qint64 files,
+     *     qint64 directories, qint64 size)
+     * \param files Current files count.
+     * \param directories Current directories count.
+     * \param size Total size of already processed items.
+     * \brief Signal providing main window Interface with the
+     *        information on how many \a files and \a directories of
+     *        total \a size have already been discovered during backup
+     *        source location analysis.
      */
-    void triggerAnalysisProgress(qint64 files, qint64 directories, qint64 size);
+    void triggerAnalysisProgress(qint64 files, qint64 directories,
+      qint64 size);
     /*!
      * \fn void triggerCurrentOperation(QString operation)
-     * \brief Signal telling the main window interface instance which \a operation is being performed by the Worker instance.
+     * \param operation Current operation's description.
+     * \brief Signal telling main window Interface which \a operation
+     *        is being performed by Worker.
      */
     void triggerCurrentOperation(QString operation);
     /*!
      * \fn void triggerCurrentItem(QString item)
-     * \brief Signal telling the main window interface instance which \a item (file or directory) is being processed by the backup process.
+     * \param item Currently processed item.
+     * \brief Signal telling main window Interface instance which
+     *        \a item (file or directory) is currently being processed.
      */
     void triggerCurrentItem(QString item);
     /*!
      * \fn void triggerCurrentProgress(int currentItem)
-     * \brief Signal providing the main window interface instance with the information about the progress in processing of the current item (file or directory) by the backup process. The value is passed via the \a currentItem argument in percent.
+     * \param currentItem Current item progress value in percent.
+     * \brief Signal providing main window Interface with the
+     *        currently processed item (file or directory) progress
+     *        value.
      */
     void triggerCurrentProgress(int currentItem);
     /*!
      * \fn void triggerOverallProgress(int overall)
-     * \brief Signal providing the main window interface instance with the information about \a overall backup process progress in percent.
+     * \param overall Overall progress value in percent.
+     * \brief Signal providing main window Interface with \a overall
+     *        progress value in percent.
      */
     void triggerOverallProgress(int overall);
     /*!
      * \fn void started()
-     * \brief Signal telling the main window interface instance that an action has begun within the Worker instance.
+     * \brief Signal telling main window Interface that an action has
+     *        begun within Worker.
      */
     void started();
     /*!
      * \fn void finished(int action)
-     * \param action The type of action performed within the Worker instance which has finished.
-     * \brief Signal telling the main window interface instance which type of \a action being performed within the Worker instance has finished.
-     * \sa Action
+     * \param action Type of finished action performed within Worker.
+     * \brief Signal telling main window Interface which type of
+     *        \a action being performed within Worker object
+     *        has finished.
+     * \see Action
      */
     void finished(int action);
 };

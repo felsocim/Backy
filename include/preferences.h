@@ -1,7 +1,27 @@
 /*!
- * \headerfile preferences.h
- * \title Preferences
- * \brief The preferences.h file contains declarations related to the Preferences class.
+ * This file is a part of Backy project, a simple backup creation and
+ * maintaining solution.
+ * 
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * \file preferences.h
+ * \brief Contains declarations related to Preferences class.
+ * \author Marek Felsoci
+ * \date 2018-27-06
+ * \version 1.0
  */
 #ifndef __PREFERENCES_H
 #define __PREFERENCES_H
@@ -23,7 +43,7 @@
 #elif defined Q_OS_WIN
 #include <Windows.h>
 #else
-#error "Unsupported operating system!"
+#error Unsupported operating system!
 #endif
 
 namespace Ui {
@@ -32,35 +52,36 @@ namespace Ui {
 
 /*!
  * \class Preferences
- * \brief The Preferences class represents the application's preferences dialog interface.
+ * \brief Provides graphical user interface for preferences dialog.
  */
 class Preferences : public QDialog
 {
   Q_OBJECT
   private:
     /*!
-     * \variable Preferences::ui
-     * \brief Points to an instance of the pereferences dialog interface object.
+     * \var Preferences::ui
+     * \brief Points to an instance of Preferences interface object.
      */
     Ui::Preferences * ui;
     /*!
-     * \variable Preferences::browseLogsLocation
-     * \brief Points to an instance of QFileDialog providing log files destination folder selection dialog.
+     * \var Preferences::browseLogsLocation
+     * \brief Points to an instance of QFileDialog providing log files
+     *        folder selection dialog.
      */
     QFileDialog * browseLogsLocation;
     /*!
-     * \variable Preferences::copyBufferSize
-     * \brief Holds the size of the copy buffer used during backup-related file operations, i.e. file copy.
+     * \var Preferences::copyBufferSize
+     * \brief Size of copy buffer used by file copy function.
      */
     qint64 copyBufferSize;
     /*!
-     * \variable Preferences::logsLocation
-     * \brief Holds the path to the log files destination folder.
+     * \var Preferences::logsLocation
+     * \brief Path to log files location.
      */
     QString logsLocation;
     /*!
-     * \variable Preferences::locale
-     * \brief Holds the code of the current language used within the application.
+     * \var Preferences::locale
+     * \brief Code of the current display language.
      */
     QVariant locale;
 
@@ -87,7 +108,11 @@ class Preferences : public QDialog
   signals:
     /*!
      * \fn void triggerSave()
-     * \brief Signal telling the main window interface object Interface::ui to save current preferences on the disk (to the Registry database on Windows or to a configuration file on Linux).
+     * \brief Signal telling main window Interface#ui object to save
+     *        current preferences on the disk
+     * 
+     * Application's preferences are stored in the Registry database on
+     * Windows(R) respectively in a configuration file on Linux.
      */
     void triggerSave();
 };

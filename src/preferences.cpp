@@ -1,14 +1,35 @@
 /*!
- * \headerfile preferences.h
- * \title Preferences
- * \brief The preferences.h file contains declarations related to the Preferences class.
+ * This file is a part of Backy project, a simple backup creation and
+ * maintaining solution.
+ * 
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * \file preferences.h
+ * \brief Contains declarations related to Preferences class.
+ * \author Marek Felsoci
+ * \date 2018-27-06
+ * \version 1.0
  */
 #include "../include/preferences.h"
 #include "ui_preferences.h"
 
 /*!
  * \fn Preferences::Preferences(QWidget * parent)
- * \brief Constructor of the Preferences class taking the pointer to the \a parent widget as argument.
+ * \param parent Pointer to parent widget.
+ * \brief Constructor of Preferences class.
  */
 Preferences::Preferences(QWidget * parent) :
   QDialog(parent),
@@ -19,15 +40,19 @@ Preferences::Preferences(QWidget * parent) :
   /* Locate available translations */
   QDirIterator i(LOCALE_RELATIVE_PATH, QStringList() << "*.qm");
 
-  this->ui->comboLanguages->addItem(QIcon(":icons/enu.png"), "English (United States)", QVariant("enu"));
+  this->ui->comboLanguages->addItem(QIcon(":icons/enu.png"), "English"
+    " (United States)", QVariant("enu"));
 
   while(i.hasNext()) {
     QString current = i.next();
-    QRegExp filter(QCoreApplication::applicationName() + "_([a-z]{2,3})");
+    QRegExp filter(QCoreApplication::applicationName() +
+      "_([a-z]{2,3})");
     if(filter.indexIn(current) > 0) {
       QString code = filter.cap(1);
       QLocale locale(code);
-      this->ui->comboLanguages->addItem(QIcon(":icons/" + code + ".png"), locale.nativeLanguageName() + " (" + locale.nativeCountryName() + ")", QVariant(code));
+      this->ui->comboLanguages->addItem(QIcon(":icons/" + code +
+       ".png"), locale.nativeLanguageName() + " (" +
+       locale.nativeCountryName() + ")", QVariant(code));
     }
   }
 
@@ -43,7 +68,8 @@ Preferences::Preferences(QWidget * parent) :
 #if defined Q_OS_LINUX
   QProcess lookForMemInfo;
 
-  lookForMemInfo.start("grep", QStringList() << "MemTotal:" << "/proc/meminfo");
+  lookForMemInfo.start("grep", QStringList() << "MemTotal:" <<
+    "/proc/meminfo");
   lookForMemInfo.waitForFinished();
 
   result = lookForMemInfo.readAllStandardOutput();
@@ -70,7 +96,7 @@ Preferences::Preferences(QWidget * parent) :
     goto success;
   }
 #else
-#error "Unsupported operating system!"
+#error Unsupported operating system!
 #endif
 
   error:
@@ -84,16 +110,21 @@ Preferences::Preferences(QWidget * parent) :
 
   /* Perform signal-slot connections */
   following:
-  QObject::connect(this->ui->buttonLogsLocationBrowse, SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
-  QObject::connect(this->ui->buttonApply, SIGNAL(clicked(bool)), this, SLOT(onSave()));
-  QObject::connect(this->ui->buttonDiscard, SIGNAL(clicked(bool)), this, SLOT(onDiscard()));
+  QObject::connect(this->ui->buttonLogsLocationBrowse,
+    SIGNAL(clicked(bool)), this, SLOT(onBrowseLogsLocation()));
+  QObject::connect(this->ui->buttonApply, SIGNAL(clicked(bool)), this,
+    SLOT(onSave()));
+  QObject::connect(this->ui->buttonDiscard, SIGNAL(clicked(bool)), this,
+    SLOT(onDiscard()));
 
-  QObject::connect(this->browseLogsLocation, SIGNAL(fileSelected(QString)), this, SLOT(onChooseLogsLocation(QString)));
+  QObject::connect(this->browseLogsLocation,
+    SIGNAL(fileSelected(QString)), this,
+    SLOT(onChooseLogsLocation(QString)));
 }
 
 /*!
  * \fn Preferences::~Preferences()
- * \brief Destructor of the Preferences class.
+ * \brief Destructor of Preferences class.
  */
 Preferences::~Preferences() {
   delete this->browseLogsLocation;
@@ -110,7 +141,7 @@ void Preferences::setCurrents() {
 
 /*!
  * \fn qint64 Preferences::getCopyBufferSize() const
- * \brief Returns current copy buffer size.
+ * \returns Current copy buffer size.
  */
 qint64 Preferences::getCopyBufferSize() const {
   return this->copyBufferSize;
@@ -118,7 +149,7 @@ qint64 Preferences::getCopyBufferSize() const {
 
 /*!
  * \fn QString Preferences::getLogsLocation() const
- * \brief Returns current path to the log files location.
+ * \returns Current path to log files location.
  */
 QString Preferences::getLogsLocation() const {
   return this->logsLocation;
@@ -126,7 +157,7 @@ QString Preferences::getLogsLocation() const {
 
 /*!
  * \fn QVariant Preferences::getLocale() const
- * \brief Returns the code of currently used display language.
+ * \returns Code of currently used display language.
  */
 QVariant Preferences::getLocale() const {
   return this->locale;
@@ -134,7 +165,8 @@ QVariant Preferences::getLocale() const {
 
 /*!
  * \fn void Preferences::setCopyBufferSize(qint64 copyBufferSize)
- * \brief Assigns the value in \a copyBufferSize argument to the copy buffer size.
+ * \param copyBufferSize New copy buffer size.
+ * \brief Assigns new value to copy buffer size.
  */
 void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
   this->copyBufferSize = copyBufferSize;
@@ -143,7 +175,8 @@ void Preferences::setCopyBufferSize(qint64 copyBufferSize) {
 
 /*!
  * \fn void Preferences::setLogsLocation(QString eventLogLocation)
- * \brief Replaces the current log files location by the path in \a eventLogLocation.
+ * \param eventLogLocation New path to log files location.
+ * \brief Redefines current path to log files location.
  */
 void Preferences::setLogsLocation(QString eventLogLocation) {
   this->logsLocation = eventLogLocation;
@@ -152,7 +185,8 @@ void Preferences::setLogsLocation(QString eventLogLocation) {
 
 /*!
  * \fn void Preferences::setLocale(QVariant locale)
- * \brief Replaces the current code of display language by \a locale.
+ * \param locale New locale code.
+ * \brief Replaces current code of display language by a new value.
  */
 void Preferences::setLocale(QVariant locale) {
   this->locale = locale;
@@ -166,7 +200,8 @@ void Preferences::setLocale(QVariant locale) {
 
 /*!
  * \fn void Preferences::setDefaults()
- * \brief Assigns default values to the Preferences::copyBufferSize and Preferences::logsLocation.
+ * \brief Assigns default values to Preferences::copyBufferSize and
+ *        Preferences::logsLocation.
  */
 void Preferences::setDefaults() {
   this->copyBufferSize = DEFAULT_COPY_BUFFER_SIZE;
@@ -177,7 +212,7 @@ void Preferences::setDefaults() {
 
 /*!
  * \fn void Preferences::onBrowseLogsLocation()
- * \brief Slot triggered when the user clicks on the \b Browse... button in order to select the folder where the log files should be stored.
+ * \brief Slot triggered on log files location browse.
  */
 void Preferences::onBrowseLogsLocation() {
   this->browseLogsLocation->show();
@@ -185,7 +220,10 @@ void Preferences::onBrowseLogsLocation() {
 
 /*!
  * \fn void Preferences::onChooseLogsLocation(QString selected)
- * \brief Slots triggered when the user chooses a folder where the log files should be stored. The path to the folder is passed via the \a selected argument.
+ * \param selected Path to log files location selected via file
+ *        selection dialog.
+ * \brief Slots triggered when a new log files location has been
+ *        selected.
  */
 void Preferences::onChooseLogsLocation(QString selected) {
   this->ui->editLogsLocationValue->setText(selected);
@@ -193,7 +231,7 @@ void Preferences::onChooseLogsLocation(QString selected) {
 
 /*!
  * \fn void Preferences::onDiscard()
- * \brief Slot triggered when the user click on the \b Discard button in order to close the Preferences dialog without saving any changes.
+ * \brief Slot triggered change(s) discard.
  */
 void Preferences::onDiscard() {
   this->setCurrents();
@@ -202,7 +240,7 @@ void Preferences::onDiscard() {
 
 /*!
  * \fn void Preferences::onSave()
- * \brief Slot triggered when the user click on the \b Save button in order to close the Preferences dialog and save the changes he made.
+ * \brief Slot triggered on change(s) save.
  */
 void Preferences::onSave() {
   /* Update class members with the new preferences values */

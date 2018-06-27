@@ -1,22 +1,18 @@
-# Backy : simple backup solution
+# Simple backup creation and maintaining solution
 
-Backy is a simple and open-source solution for creating and maintaining backups of a folder or an entire drive.
+**Backy** is a simple and open-source solution for creating and maintaining backups of a folder or an entire drive. It's very easy to learn to work with and it is suitable for both Linux and Windows® operating systems.
 
 ## Build
 
-This project uses the qmake build system. Just run qmake in the build folder which will generate the most recent makefile you can use to build Backy.
+Use **qmake** to build Backy.
 
 ## Usage
 
-Backy's graphical user interface is very intuitive notable for beginner users.
-
-![Backy's GUI screenshot](Screenshot.png)
-
-Detailed documentation will be available soon :-)
+Backy's graphical user interface is very intuitive notable for beginner users. Visit Backy's project web page to see some screenshots but also to access the documentation and more information about this project.
 
 ## Author
 
-Backy was created and is maintained by [Marek Felsoci](mailto:marek.felsoci@etu.unistra.fr), Master IT student at [University of Strasbourg](http://unistra.fr) in France.
+**Marek Felsoci** (marek.felsoci@gmail.com) - *Student at* [University of Strasbourg](http://unistra.fr).
 
 ## License
 

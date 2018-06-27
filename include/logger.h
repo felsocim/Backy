@@ -1,7 +1,27 @@
 /*!
- * \headerfile logger.h
- * \title Logger
- * \brief The logger.h file contains declarations related to the Logger class.
+ * This file is a part of Backy project, a simple backup creation and
+ * maintaining solution.
+ * 
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * \file logger.h
+ * \brief Contains declarations related to Logger class.
+ * \author Marek Felsoci
+ * \date 2018-27-06
+ * \version 1.0
  */
 #ifndef __LOGGER_H
 #define __LOGGER_H
@@ -14,38 +34,42 @@
 
 /*!
  * \class Logger
- * \brief The Logger class is used by the Worker objects to keep trace of their activity.
+ * \brief Provides Worker objects with the possibility to keep trace of
+ *        their activity.
  */
 class Logger {
   private:
     /*!
-     * \variable Logger::eventFile
-     * \brief Points to a QFile instance corresponding to the event log file.
+     * \var Logger::eventFile
+     * \brief Points to a QFile instance handling the event log file.
      */
     QFile * eventFile,
     /*!
-     * \variable Logger::errorFile
-     * \brief Points to a QFile instance corresponding to the error log file.
+     * \var Logger::errorFile
+     * \brief Points to a QFile instance handling the error log file.
      */
       * errorFile;
     /*!
-     * \variable Logger::eventStream
-     * \brief Points to a QTextStream instance holding the event log contents before being written to the corresponding log file.
+     * \var Logger::eventStream
+     * \brief Points to a QTextStream instance which buffers event log
+     *        contents before writing them to the event log file.
      */
     QTextStream * eventStream,
     /*!
-     * \variable Logger::errorStream
-     * \brief Points to a QTextStream instance holding the error log contents before being written to the corresponding log file.
+     * \var Logger::errorStream
+     * \brief Points to a QTextStream instance which buffers error log
+     *        contents before writing them to the error log file.
      */
       * errorStream;
     /*!
-     * \variable Logger::accessible
-     * \brief Boolean indicating whether the log files are ready to use or not.
+     * \var Logger::accessible
+     * \brief Indicates whether the log files are ready to use or not.
      */
     bool accessible;
 
   public:
-    Logger(const QString &path, const QString &eventFile, const QString &errorFile);
+    Logger(const QString &path, const QString &eventFile,
+      const QString &errorFile);
     ~Logger();
     void logEvent(const QString &eventMessage);
     void logError(const QString &errorMessage);
