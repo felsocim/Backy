@@ -43,7 +43,7 @@
  * create a subfolder with the same name as the application in a folder
  * named after the application's developer. The latter will be located
  * in the user's configuration directory, e.g. 'Documents and Settings\
- * <user>\AppData' on Windows(R) Vista(TM) and later.
+ * <user>\AppData\Local' on Windows(R) Vista(TM) and later.
  * 
  * \see Logger
  * \see main.cpp
@@ -60,7 +60,7 @@
  * create a subfolder with the same name as the application in a folder
  * named after the application's developer. The latter will be located
  * in the user's configuration directory, e.g. 'Documents and Settings\
- * <user>\AppData' on Windows(R) Vista(TM) and later.
+ * <user>\AppData\Local' on Windows(R) Vista(TM) and later.
  * 
  * \see Logger
  * \see main.cpp
