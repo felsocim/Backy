@@ -1,13 +1,18 @@
-# Qt-es
+# Configuration files
 *.pro.user
 *.pro.user.*
+docs/.idea
 
-# Build
-build/*
+# React
+docs/node_modules
+docs/coverage
+docs/build
+docs/.DS_Store
+docs/.env.local
+docs/.env.development.local
+docs/.env.test.local
+docs/.env.production.local
+docs/npm-debug.log*
+docs/yarn-debug.log*
+docs/yarn-error.log*
 
-# LaTeX
-doc/*.aux
-doc/*.log
-doc/*.out
-doc/*.toc
-doc/*.pdf
