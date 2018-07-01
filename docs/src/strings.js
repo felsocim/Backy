@@ -14,6 +14,8 @@ const strings = {
     ABOUT_AUTHOR_CONTENT: "<p>This application has been developed by <a href='mailto:marek.felsoci@gmail.com'>Marek Felsoci</a>, IT student at the <a href='http://www.unistra.fr' target='_blank'>University of Strasbourg, France</a>.",
     ABOUT_CONTACT_HEADER: "Do you have questions, suggestions or want to contribute?",
     ABOUT_CONTACT_CONTENT: "<p>Please let the author know about it either by e-mail at <a href='mailto:marek.felsoci@gmail.com'>marek.felsoci@gmail.com</a> or through the project's <a href='https://github.com/felsocim/Backy' target='_blank'>GitHub® repository</a>.</p><p>Thank you!</p>",
+    ABOUT_LICENSE_HEADER: "License",
+    ABOUT_LICENSE_CONTENT: "<p>Backy is licensed under the terms of <a href='https://www.gnu.org/licenses/gpl-3.0.en.html' target='_blank'>GNU General Public License version 3.0</a>.</p>",
     USAGE_INTRODUCTION_HEADER: "How to use Backy?",
     USAGE_INTRODUCTION_CONTENT: "<p>Backy's graphical user interface is very intuitive notable for beginner users. See some illustrative examples in the screenshot section.</p>",
     USAGE_CREATE_BACKUP_HEADER: "Create a backup",

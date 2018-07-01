@@ -14,6 +14,8 @@ class About extends Component {
         <div dangerouslySetInnerHTML={{ __html: translate("ABOUT_AUTHOR_CONTENT", this.props.language) }}/>
         <Header as="h2">{ translate("ABOUT_CONTACT_HEADER", this.props.language) }</Header>
         <div dangerouslySetInnerHTML={{ __html: translate("ABOUT_CONTACT_CONTENT", this.props.language) }}/>
+        <Header as="h2">{ translate("ABOUT_LICENSE_HEADER", this.props.language) }</Header>
+        <div dangerouslySetInnerHTML={{ __html: translate("ABOUT_LICENSE_CONTENT", this.props.language) }}/>
       </div>
     );
   }
