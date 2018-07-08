@@ -585,8 +585,14 @@ V opačnom prípade sa obráťte na adresu: https://github.com/felsocim/Backy.</
         <translation> &amp;Uložiť</translation>
     </message>
     <message>
+        <location filename="../src/preferences.cpp" line="253"/>
         <source>Restart required</source>
-        <translation type="vanished">Vyžaduje sa opätovné spustenie</translation>
+        <translation>Vyžaduje sa opätovné spustenie</translation>
+    </message>
+    <message>
+        <location filename="../src/preferences.cpp" line="254"/>
+        <source>The changes you&apos;ve made needs the application to restart to take effect.</source>
+        <translation>Vykonané zmeny sa prejavia až po opätovnom spustení programu.</translation>
     </message>
     <message>
         <source>Some changes you&apos;ve made won&apos;t take effect until next application launch.</source>

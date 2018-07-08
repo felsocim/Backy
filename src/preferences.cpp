@@ -248,6 +248,16 @@ void Preferences::onSave() {
   this->logsLocation = this->ui->editLogsLocationValue->text();
   this->locale = this->ui->comboLanguages->currentData();
 
+  if(QMessageBox::information(
+    this,
+    tr("Restart required"),
+    tr("The changes you've made needs the application to restart to take effect."),
+    QMessageBox::Cancel | QMessageBox::Ok,
+    QMessageBox::Cancel
+  ) == QMessageBox::Cancel) {
+    return;
+  }
+
   /* Propagate changes */
   emit triggerSave();
   this->close();

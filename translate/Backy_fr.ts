@@ -585,8 +585,14 @@ A défaut consultez l&apos;adresse https://github.com/felsocim/Backy for the doc
         <translation> &amp;Enregistrer</translation>
     </message>
     <message>
+        <location filename="../src/preferences.cpp" line="253"/>
         <source>Restart required</source>
-        <translation type="vanished">Redémarrage nécessaire</translation>
+        <translation>Redémarrage nécessaire</translation>
+    </message>
+    <message>
+        <location filename="../src/preferences.cpp" line="254"/>
+        <source>The changes you&apos;ve made needs the application to restart to take effect.</source>
+        <translation>Les changements que vous avez effectués nécessitent le redémarrage de l&apos;application.</translation>
     </message>
     <message>
         <source>Some changes you&apos;ve made won&apos;t take effect until next application launch.</source>
