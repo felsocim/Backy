@@ -3,6 +3,9 @@
 *.pro.user.*
 docs/.idea
 
+# Translation binaries
+translate/*.qm
+
 # React
 docs/node_modules
 docs/coverage
