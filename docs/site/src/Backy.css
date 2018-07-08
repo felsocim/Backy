@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css?family=Signika:300,700&subset=latin-ext');
+
+body, .ui, .item {
+  font-family: 'Signika', sans-serif;
+  font-size: 12pt;
+}
+
+.ui.header {
+  font-family: 'Signika', sans-serif;
+}
+
+.Backy {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  width: 75%;
+  margin: 0 auto;
+  padding: 10px 10px;
+}
+
+.ui.menu {
+  border-radius: 0;
+  padding: 0 10%;
+}
+
+.logo {
+  margin-left: 7px;
+  font-weight: bold;
+}
+
+.gui {
+  margin-top: 10px;
+}
+
+.copying {
+  text-align: center;
+}

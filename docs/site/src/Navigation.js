@@ -15,7 +15,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Menu stackable>
+      <Menu inverted stackable>
         <Menu.Item>
           <img src={ logo } alt="Backy"/><span className="logo">Backy</span>
         </Menu.Item>

@@ -1,23 +1,26 @@
 import React, { Component } from "react";
+import Cookies from "universal-cookie"
 import { Segment } from "semantic-ui-react";
 import Navigation from "./Navigation";
-import {About, Usage, Documentation, Download, Error404 } from "./Pages";
+import { About, Usage, Documentation, Download, Error404 } from "./Pages";
 import { defaultLanguage, translate } from "./strings";
 import "semantic-ui-css/semantic.min.css";
-import "./App.css";
+import "./Backy.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.cookie = new Cookies();
     this.state = {
       page: "about",
-      language: defaultLanguage
+      language: this.cookie.get("language") === null || this.cookie.get("language") === "undefined" ? defaultLanguage : this.cookie.get("language")
     };
     this.pageSelectionHandler = this.pageSelectionHandler.bind(this);
   }
 
   pageSelectionHandler(newPage, newLanguage) {
     this.setState({ page: newPage, language: newLanguage });
+    this.cookie.set("language", newLanguage);
   }
 
   render() {
@@ -42,10 +45,12 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div className="Backy">
         <Navigation page={this.state.page} language={this.state.language} handleMenuItemClick={this.pageSelectionHandler}/>
-        { display }
-        <Segment className="copyright"><span dangerouslySetInnerHTML={{ __html: translate("FOOTER", this.state.language) }}/></Segment>
+        <div className="page">
+          { display }
+          <Segment className="copying"><span dangerouslySetInnerHTML={{ __html: translate("FOOTER", this.state.language) }}/></Segment>
+        </div>
       </div>
     );
   }

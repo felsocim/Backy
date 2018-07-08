@@ -1,14 +1,16 @@
 {
   "name": "docs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "homepage": "https://felsocim.github.io/Backy",
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "semantic-ui-css": "^2.3.2",
-    "semantic-ui-react": "^0.81.3"
+    "semantic-ui-react": "^0.81.3",
+    "universal-cookie": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
