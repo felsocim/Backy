@@ -36,7 +36,10 @@ const strings = {
     GET_SOURCES_CONTENT: "<p>You can build Backy by yourself from its sources. Backy uses <strong>qmake</strong> to automatically generate appropriated <em>makefile</em>. Before you begin, verify that you've installed <strong>Qt®</strong> library and <strong>qmake</strong>.</p>",
     ERROR_NOT_FOUND_HEADER: "Error 404: Not found",
     ERROR_NOT_FOUND_CONTENT: "The requested page was not found on this server!",
-    FOOTER: "Created and maintained by Marek Felsoci."
+    FOOTER: "Created and maintained by Marek Felsoci.",
+    COOKIE_MESSAGE: "<p>This site uses cookies to store your display language preference as well as your choice about using cookies on this website. Do you authorize this site to use cookies?</p><p><strong>Note:</strong> The site will continue to work normally even if you does not authorize the use of cookies except that your display language preference will be lost when you reload the page or after you close the browser as well as your choice about cookies authorization.</p>",
+    COOKIE_CONSENT: "Yes",
+    COOKIE_DECLINE: "No"
   },
   fr: {
     NAVIGATION_ABOUT: "À propos",
@@ -73,7 +76,10 @@ const strings = {
     GET_SOURCES_CONTENT: "<p>Vous pouvez compiler Backy par vous-mêmes à partir de ses fichiers sources. Backy utilise <strong>qmake</strong> pour générer automatiquement le fichier <em>makefile</em>. Avant de commencer, vérifier si vous avez installé la librarie <strong>Qt®</strong> ainsi que <strong>qmake</strong>.</p>",
     ERROR_NOT_FOUND_HEADER: "Erreur 404: Page introuvable",
     ERROR_NOT_FOUND_CONTENT: "La page que vous cherchez n'existe pas sur ce site !",
-    FOOTER: "Créé et maintenu par Marek Felsoci."
+    FOOTER: "Créé et maintenu par Marek Felsoci.",
+    COOKIE_MESSAGE: "<p>Ce site utilise des cookies pour se rappeler de votre choix de langue et de votre décision sur l'utilisation de cookies sur ce site. Autorisez-vous ce site à utiliser des cookies ?</p><p><strong>Information :</strong> Le site va continuer à fonctionner normalement mais il ne pourra pas se rappeler de votre choix de langue si vous recharger la page ou après la fermeture du navigateur ni de votre décision concernant l'utilisation de cookies.</p>",
+    COOKIE_CONSENT: "Oui",
+    COOKIE_DECLINE: "Non"
   },
   sk: {
     NAVIGATION_ABOUT: "O programe",
@@ -110,7 +116,10 @@ const strings = {
     GET_SOURCES_CONTENT: "<p>Môžete si skompilovať Backyho aj sami z jeho zdrojových kódov. Backy používa <strong>qmake</strong> na generovanie súboru <em>makefile</em>. Predtým, než začnete sa uistite, že máte nainštalovanú knižnicu <strong>Qt®</strong> a nástroj  <strong>qmake</strong>.</p>",
     ERROR_NOT_FOUND_HEADER: "Chyba 404: Stránka sa nenašla",
     ERROR_NOT_FOUND_CONTENT: "Stránka, ktorú hľadáte sa na tomto serveri nenachádza!",
-    FOOTER: "Vytvoril a spravuje Marek Felsoci."
+    FOOTER: "Vytvoril a spravuje Marek Felsoci.",
+    COOKIE_MESSAGE: "<p>Tieto stránky používajú súbory cookie na zapamätanie si vašej voľby jazyka a vášho súhlasu na používanie súborov cookie na týchto stránkach. Súhlasíte aby tieto stránky používali súbory cookie?</p><p><strong>Poznámka:</strong>Funkcie stránok nebudú obmedzené aj keď zablokujete používanie súborov cookie, lenže váš výber jazyka a vaše rozhodnutie o používaní súborov cookie budú stratené po obnovení stránky či ukončení vášho prehliadača.</p>",
+    COOKIE_CONSENT: "Áno",
+    COOKIE_DECLINE: "Nie"
   }
 };
 
