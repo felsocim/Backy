@@ -531,6 +531,11 @@ A défaut consultez l&apos;adresse https://github.com/felsocim/Backy for the doc
         <translation>Emplacement des &amp;journaux d&apos;événements</translation>
     </message>
     <message>
+        <location filename="../src/preferences.ui" line="139"/>
+        <source>Maximal copy buffer size (MB):</source>
+        <translation>Taille maximal du tampon de copie (Mo) :</translation>
+    </message>
+    <message>
         <location filename="../src/preferences.ui" line="91"/>
         <source>Copy &amp;buffer (for advanced users only)</source>
         <translation>Tampon de &amp;copie (uniquement pour les utilisateurs expérimentés)</translation>
@@ -548,14 +553,13 @@ A défaut consultez l&apos;adresse https://github.com/felsocim/Backy for the doc
         <translation type="vanished">Taille du tampon d&apos;éléments (nb. él.):</translation>
     </message>
     <message>
-        <location filename="../src/preferences.ui" line="139"/>
         <source>Copy buffer size (MB):</source>
-        <translation>Taille du tampon de copie (Mo):</translation>
+        <translation type="vanished">Taille du tampon de copie (Mo):</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="132"/>
         <source>Detected RAM (MB):</source>
-        <translation>RAM détectée (Mo):</translation>
+        <translation>RAM détectée (Mo) :</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;CAUTION!&lt;/span&gt; Overstepping recommended buffers sizes may cause the application to crash and/or harm your system. We strongly discourage you to modify the values below if you are not an experimented user aware of all possible risks. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>

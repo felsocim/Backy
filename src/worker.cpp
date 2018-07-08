@@ -205,7 +205,7 @@ bool Worker::copyFile(const QString &sourcePath,
   const QString &destinationPath, qint64 size) {
   QFile source(sourcePath),
         destination(destinationPath);
-  char * bytes = new char[this->copyBufferSize];
+  char * bytes = new char[size < this->copyBufferSize ? size : this->copyBufferSize];
   qint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
   bool succeeded = true;
 

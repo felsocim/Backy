@@ -531,6 +531,11 @@ V opačnom prípade sa obráťte na adresu: https://github.com/felsocim/Backy.</
         <translation>Umiestnenie &amp;záznamov</translation>
     </message>
     <message>
+        <location filename="../src/preferences.ui" line="139"/>
+        <source>Maximal copy buffer size (MB):</source>
+        <translation>Maximálna veľkosť zásobníka kopírovania (MB):</translation>
+    </message>
+    <message>
         <location filename="../src/preferences.ui" line="91"/>
         <source>Copy &amp;buffer (for advanced users only)</source>
         <translation>Záso&amp;bník kopírovania (len pre skúsených používateľov)</translation>
@@ -548,9 +553,8 @@ V opačnom prípade sa obráťte na adresu: https://github.com/felsocim/Backy.</
         <translation type="vanished">Veľkosť zásobníka položiek (počet pol.):</translation>
     </message>
     <message>
-        <location filename="../src/preferences.ui" line="139"/>
         <source>Copy buffer size (MB):</source>
-        <translation>Veľkosť zásobníka kopírovania (MB):</translation>
+        <translation type="vanished">Veľkosť zásobníka kopírovania (MB):</translation>
     </message>
     <message>
         <location filename="../src/preferences.ui" line="132"/>
