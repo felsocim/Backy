@@ -159,7 +159,7 @@
     </message>
     <message>
         <location filename="../src/interface.ui" line="77"/>
-        <location filename="../src/interface.cpp" line="560"/>
+        <location filename="../src/interface.cpp" line="577"/>
         <source>B</source>
         <translation>o</translation>
     </message>
@@ -213,92 +213,92 @@
         <translation>Avancement global</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="267"/>
+        <location filename="../src/interface.ui" line="296"/>
         <source> &amp;Abort</source>
         <translation> &amp;Interrompre</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="283"/>
+        <location filename="../src/interface.ui" line="269"/>
         <source> &amp;Quit</source>
         <translation> &amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="310"/>
+        <location filename="../src/interface.ui" line="323"/>
         <source> &amp;Backup</source>
         <translation> &amp;Lancer la sauvegarde</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="333"/>
+        <location filename="../src/interface.ui" line="346"/>
         <source>&amp;File</source>
         <translation>&amp;Fichier</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="341"/>
+        <location filename="../src/interface.ui" line="354"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="356"/>
+        <location filename="../src/interface.ui" line="369"/>
         <source>&amp;Quit</source>
         <translation>&amp;Quitter</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="359"/>
+        <location filename="../src/interface.ui" line="372"/>
         <source>Quit the application</source>
         <translation>Quitter l&apos;application</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="362"/>
+        <location filename="../src/interface.ui" line="375"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="371"/>
+        <location filename="../src/interface.ui" line="384"/>
         <source>Online &amp;documentation</source>
         <translation>&amp;Documentation en ligne</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="374"/>
+        <location filename="../src/interface.ui" line="387"/>
         <source>Browse online documentation</source>
         <translation>Consulter la documentation en ligne</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="377"/>
+        <location filename="../src/interface.ui" line="390"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="386"/>
+        <location filename="../src/interface.ui" line="399"/>
         <source>&amp;About Backy</source>
         <translation>A &amp;propos de Backy</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="395"/>
+        <location filename="../src/interface.ui" line="408"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Préférences</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="398"/>
+        <location filename="../src/interface.ui" line="411"/>
         <source>View or edit application&apos;s preferences</source>
         <translation>Consulter ou modifier les paramètres de l&apos;application</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="401"/>
+        <location filename="../src/interface.ui" line="414"/>
         <source>Ctrl+Shift+P</source>
         <translation>Ctrl+Shift+P</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="178"/>
+        <location filename="../src/interface.cpp" line="176"/>
         <source>- No source drive or folder provided!</source>
         <translation>- Aucun emplacement source n&apos;a été indiqué !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="183"/>
+        <location filename="../src/interface.cpp" line="181"/>
         <source>- Source drive or folder does not exists!</source>
         <translation>- L&apos;emplacement source indiqué n&apos;existe pas !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="188"/>
+        <location filename="../src/interface.cpp" line="186"/>
         <source>- No target drive or folder provided!</source>
         <translation>- Aucun emplacement destinataire n&apos;a été indiqué !</translation>
     </message>
@@ -311,7 +311,7 @@
         <translation type="vanished">- L&apos;emplacement source indiqué ne contient aucun fichier ni répertoire !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="376"/>
+        <location filename="../src/interface.cpp" line="394"/>
         <source>About Backy</source>
         <translation>A propos de Backy</translation>
     </message>
@@ -320,38 +320,37 @@
         <translation type="vanished">&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy est un outil open-source simple pour créer et maintenir des sauvegardes d&apos;un répertoire ou de tout un disque.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier au titre des clauses de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; soit la version 2 de la Licence, ou une version ultérieure quelconque.&lt;p&gt;Ce programme est distribué dans l&apos;espoir qu&apos;il sera utile, mais SANS AUCUNE GARANTIE ; sans même une garantie implicite de COMMERCIABILITE ou DE CONFORMITE A UNE UTILISATION PARTICULIERE.&lt;/p&gt;&lt;p&gt;Voir la Licence Publique Générale GNU pour plus de détails. Vous devriez avoir reçu un exemplaire de la Licence Publique Générale GNU avec ce programme ; si ce n&apos;est pas le cas consulter ce site : &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information :&lt;/strong&gt; Vous pouvez trouvez la documentation, le code source et des mises à jour dans le répertoire du logiciel à l&apos;adresse : &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Crédits :&lt;/strong&gt; La police d&apos;écriture &lt;em&gt;Fantasque Sans Mono&lt;/em&gt; a été créée par &lt;a href=&apos;mailto:jany.belluz@hotmail.fr&apos; target=&apos;_blank&apos;&gt;Jany Belluz&lt;/a&gt; et son utilisation est soumise aux clauses de la licence &lt;a href=&apos;http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL&apos;&gt;SIL Open Font License&lt;/a&gt;. Les motifs graphiques &lt;em&gt;Abstract Materials Patterns&lt;/em&gt; ont été librement acquis à l&apos;adresse : &lt;a href=&apos;https://www.brusheezy.com&apos; target=&apos;_blank&apos;&gt;Brusheezy!&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="415"/>
+        <location filename="../src/interface.cpp" line="433"/>
         <source>Abort requested</source>
         <translation>Interruption demandée</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="416"/>
         <source>Backup is still in progress!
 Note that on confirmation the backup process will be aborted once the backup of the current item will be finished.
 Are you sure you want to abort the backup process?</source>
-        <translation>La sauvegarde est toujours en cours !
+        <translation type="vanished">La sauvegarde est toujours en cours !
 Sachez qu&apos;en confirmant votre demande le processus ne sera interrompu qu&apos;après la fin du traitement de l&apos;élément courant.
 Êtes-vous sûr(e) de vouloir interrompre le processus de sauvegarde ?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="439"/>
+        <location filename="../src/interface.cpp" line="457"/>
         <source>Abort and quit</source>
         <translation>Interrompre et quitter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="440"/>
+        <location filename="../src/interface.cpp" line="458"/>
         <source>Backup is still in progress!
 Are you sure you want to abort it and quit?</source>
         <translation>La sauvegarde est toujours en cours !
 Êtes-vous sûr(e) de vouloir l&apos;interrompre et quitter l&apos;application ?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="480"/>
+        <location filename="../src/interface.cpp" line="498"/>
         <source>Wrong parameters</source>
         <translation>Paramètres incorrects</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="481"/>
+        <location filename="../src/interface.cpp" line="499"/>
         <source>Some backup parameters are unset or set incorrectly!
 Please verify them before continuing.
 Error report:
@@ -362,7 +361,7 @@ Erreur(s) détectée(s) :
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="494"/>
+        <location filename="../src/interface.cpp" line="512"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
@@ -375,34 +374,43 @@ Veuillez vérifier tous les paramètres de la sauvegarde avant de continuer.
 Êtes-vous sûr(e) de vouloir démarrer le processus de sauvegarde ?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="193"/>
+        <location filename="../src/interface.cpp" line="191"/>
         <source>- Target drive or folder does notexists!</source>
         <translation>- L&apos;emplacement destinataire indiqué n&apos;existe pas!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="197"/>
+        <location filename="../src/interface.cpp" line="195"/>
         <source>- Source drive or folder does not containany files or folders!</source>
         <translation>- L&apos;emplacement source indiqué ne contient aucun fichier ni répertoire !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="377"/>
+        <location filename="../src/interface.cpp" line="395"/>
         <source>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy is a simple open-source tool to create and maintainbackup of a folder or an entire drive.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information:&lt;/strong&gt; For program&apos;s documentation, source code and updates, please, refer to its repository at: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Credits:&lt;/strong&gt; The &lt;em&gt;Tango&lt;/em&gt; icon theme used in this application was freely acquired from &lt;a href=&apos;http://tango.freedesktop.org/Tango_Desktop_Project&apos; target=&apos;_blank&apos;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy est un outil open-source simple pour créer et maintenir des sauvegardes d&apos;un répertoire ou de tout un disque.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;Ce programme est un logiciel libre ; vous pouvez le redistribuer et/ou le modifier au titre des clauses de la Licence Publique Générale GNU, telle que publiée par la Free Software Foundation ; soit la version 2 de la Licence, ou une version ultérieure quelconque.&lt;p&gt;Ce programme est distribué dans l&apos;espoir qu&apos;il sera utile, mais SANS AUCUNE GARANTIE ; sans même une garantie implicite de COMMERCIABILITE ou DE CONFORMITE A UNE UTILISATION PARTICULIERE.&lt;/p&gt;&lt;p&gt;Voir la Licence Publique Générale GNU pour plus de détails. Vous devriez avoir reçu un exemplaire de la Licence Publique Générale GNU avec ce programme ; si ce n&apos;est pas le cas consulter ce site : &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information :&lt;/strong&gt; Vous pouvez trouvez la documentation, le code source et des mises à jour dans le répertoire du logiciel à l&apos;adresse : &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Crédits :&lt;/strong&gt; Le thème d&apos;icônes &lt;em&gt;Tango&lt;/em&gt; a été librement acquis depuis &lt;a href=&apos;http://tango.freedesktop.org/Tango_Desktop_Project&apos; target=&apos;_blank&apos;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="466"/>
+        <location filename="../src/interface.cpp" line="434"/>
+        <source>An action is still in progress!
+Note that on confirmation the action will be aborted once the backup of the current item will be finished.
+Are you sure you want to abort the action in progress?</source>
+        <translation>Une action est toujours en cours !
+Sachez qu&apos;en confirmant votre demande l&apos;action ne sera interrompue qu&apos;après la fin du traitement de l&apos;élément courant.
+Êtes-vous sûr(e) de vouloir interrompre l&apos;action en cours ?</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="484"/>
         <source>Already in progress</source>
         <translation>Action en cours</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="467"/>
+        <location filename="../src/interface.cpp" line="485"/>
         <source>Another action is already in progress!
 Please wait until it&apos;s finished.</source>
         <translation>Une action est déjà en cours!
 Veuillez attendre sa terminaison.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="495"/>
+        <location filename="../src/interface.cpp" line="513"/>
         <source>Backup is ready to be performed.
 Please, verify all backup parameters before you continue.
 Are you sure you want to beginthe backup process?</source>
@@ -411,68 +419,77 @@ Veuillez vérifier tous les paramètres de celle-ci avant de continuer.
 Êtes-vous sûr de vouloir démarrer le processus de sauvegarde ?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="548"/>
+        <location filename="../src/interface.cpp" line="565"/>
         <source>TB</source>
         <translation>To</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="551"/>
+        <location filename="../src/interface.cpp" line="568"/>
         <source>GB</source>
         <translation>Go</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="554"/>
+        <location filename="../src/interface.cpp" line="571"/>
         <source>MB</source>
         <translation>Mo</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="557"/>
+        <location filename="../src/interface.cpp" line="574"/>
         <source>kB</source>
         <translation>ko</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="668"/>
+        <location filename="../src/interface.cpp" line="689"/>
         <source>Backup aborted</source>
         <translation>Sauvegarde interrompue</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="669"/>
+        <location filename="../src/interface.cpp" line="690"/>
         <source>Backup process has been aborted by the user!</source>
         <translation>Le processus de sauvegarde a été interrompu par l&apos;utilisateur !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="675"/>
+        <location filename="../src/interface.cpp" line="696"/>
         <source>Backup complete with errors</source>
         <translation>Sauvegarde terminée avec erreur(s)</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="676"/>
+        <location filename="../src/interface.cpp" line="697"/>
         <source>Backup completed but errors occurred during the process! Check the log file in &apos;%1&apos; for more details.
 </source>
         <translation>La sauvegarde est terminée. Cependant des erreurs ont été rencontrées ! Consultez les journaux d&apos;erreurs à l&apos;emplacement &quot;%1&quot; pour plus d&apos;informations.
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="684"/>
+        <location filename="../src/interface.cpp" line="705"/>
         <source>Backup complete</source>
         <translation>Sauvegarde terminée</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="685"/>
+        <location filename="../src/interface.cpp" line="706"/>
         <source>Backup completed succefully! </source>
         <translation>La sauvegarde a été créée avec succès ! </translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="751"/>
+        <source>Unable to open the online documentation because of unavailable browser!
+Please, check if there is a default browser set in your system and try again.
+Otherwise refer to https://felsocim.github.io/Backy/ for the documentation.</source>
+        <translation>Impossible d&apos;ouvrir la documentation en ligne en raison d&apos;indisponibilité de l&apos;explorateur Web !
+Veuillez vérifier s&apos;il y a un explorateur par défaut défini dans votre système et réessayer.
+A défaut consultez l&apos;adresse https://felsocim.github.io/Backy/ for the documentation.</translation>
     </message>
     <message>
         <source>Backup completed succefully!</source>
         <translation type="vanished">Sauvegarde terminée avec succès !</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="706"/>
+        <location filename="../src/interface.cpp" line="726"/>
         <source>Unable to save preferences</source>
         <translation>Impossible d&apos;enregistrer les préférences</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="707"/>
+        <location filename="../src/interface.cpp" line="727"/>
         <source>A backup is currently in progress!
 Thus the changes you&apos;ve made to application&apos;s preferences cannot be applied!
 Please redo your changes once the backup will be finished.</source>
@@ -481,16 +498,15 @@ C&apos;est pourquoi les changements de préférences que vous venez d&apos;effec
 Veuillez refaire les changements désirés après la fin du processus de sauvegarde.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="730"/>
+        <location filename="../src/interface.cpp" line="750"/>
         <source>Browser unavailable</source>
         <translation>Explorateur indisponible</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="731"/>
         <source>Unable to open the online documentation because of unavailable browser!
 Please, check if there is a default browser set in your system and try again.
 Otherwise refer to https://github.com/felsocim/Backy for the documentation.</source>
-        <translation>Impossible d&apos;ouvrir la documentation en ligne en raison d&apos;indisponibilité de l&apos;explorateur Web !
+        <translation type="vanished">Impossible d&apos;ouvrir la documentation en ligne en raison d&apos;indisponibilité de l&apos;explorateur Web !
 Veuillez vérifier s&apos;il y a un explorateur par défaut défini dans votre système et réessayer.
 A défaut consultez l&apos;adresse https://github.com/felsocim/Backy for the documentation.</translation>
     </message>
@@ -707,115 +723,125 @@ A défaut consultez l&apos;adresse https://github.com/felsocim/Backy for the doc
         <translation>Impossible de transférer les permissions du fichier &apos;%1&apos; !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="213"/>
-        <location filename="../src/worker.cpp" line="221"/>
+        <location filename="../src/worker.cpp" line="214"/>
+        <location filename="../src/worker.cpp" line="222"/>
         <source>Successfully opened file &apos;%1&apos; for copying.</source>
         <translation>Le fichier &apos;%1&apos; a été ouvert pour la lecture avec succès.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="216"/>
-        <location filename="../src/worker.cpp" line="224"/>
+        <location filename="../src/worker.cpp" line="217"/>
+        <location filename="../src/worker.cpp" line="225"/>
         <source>Failed to open file &apos;%1&apos; for copying: %2!</source>
         <translation>Impossible d&apos;ouvrir le fichier &apos;%1&apos; pour la lecture : %2 !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="252"/>
+        <location filename="../src/worker.cpp" line="253"/>
         <source>Successfully transfered file attributes to &apos;%1&apos;.</source>
         <translation>Les attributs ont été transférés avec succès au fichier &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="255"/>
+        <location filename="../src/worker.cpp" line="256"/>
         <source>Failed to transfer file attributes to &apos;%1&apos;!</source>
         <translation>Impossible de transférer les attributs au fichier &apos;%1&apos; !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="259"/>
+        <location filename="../src/worker.cpp" line="260"/>
         <source>Successfully copied file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation>Le fichier &quot;%1&quot; a été copié dans &quot;%2&quot; avec succès.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="267"/>
+        <location filename="../src/worker.cpp" line="268"/>
         <source>Failed to copy file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation>Erreur lors de la copie du fichier &quot;%1&quot; dans &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="465"/>
-        <location filename="../src/worker.cpp" line="633"/>
+        <location filename="../src/worker.cpp" line="467"/>
+        <location filename="../src/worker.cpp" line="641"/>
         <source>Unable to get attributes of file or directory &apos;%1&apos;!</source>
         <translation>Impossible de déterminer les attributs du fichier ou répertoire &apos;%1&apos; !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="493"/>
+        <location filename="../src/worker.cpp" line="495"/>
         <source>Removing older version of file</source>
         <translation>Suppression de l&apos;ancienne version du fichier</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="497"/>
+        <location filename="../src/worker.cpp" line="499"/>
         <source>Successfully removed older version of a file at &apos;%1&apos;.</source>
         <translation>L&apos;ancienne version du fichier dans &apos;%1&apos; a été supprimée avec succès.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="501"/>
+        <location filename="../src/worker.cpp" line="504"/>
         <source>Failed to remove older version of a file at &apos;%1&apos;.</source>
         <translation>Impossible de supprimer l&apos;ancienne version du fichier depuis &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="526"/>
+        <location filename="../src/worker.cpp" line="527"/>
         <source>Copying file</source>
         <translation>Copie du fichier</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="536"/>
+        <location filename="../src/worker.cpp" line="537"/>
         <source>Creating directory</source>
         <translation>Création du répertoire</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="540"/>
+        <location filename="../src/worker.cpp" line="541"/>
         <source>Successfully recreated directory &apos;%1&apos; as &apos;%2&apos;.</source>
         <translation>Le répertoire &quot;%1&quot; a bien été recréé en tant que &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="544"/>
+        <location filename="../src/worker.cpp" line="545"/>
         <source>Failed to recreate directory &apos;%1&apos; as &apos;%2&apos;!</source>
         <translation>Impossible de recréer le répertoire &apos;%1&apos; en tant que &apos;%2&apos; !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="551"/>
+        <location filename="../src/worker.cpp" line="552"/>
         <source>Skipping file or directory &apos;%1&apos;.</source>
         <translation>Omission du fichier ou répertoire &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="553"/>
+        <location filename="../src/worker.cpp" line="554"/>
         <source>Skipping item</source>
         <translation>Omission de l&apos;élément</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="579"/>
+        <location filename="../src/worker.cpp" line="572"/>
+        <source>Searching for obsolete item(s)</source>
+        <translation>Recherche des élément(s) obsolète(s)</translation>
+    </message>
+    <message>
+        <location filename="../src/worker.cpp" line="573"/>
+        <source>Please, wait...</source>
+        <translation>Veuillez patienter...</translation>
+    </message>
+    <message>
+        <location filename="../src/worker.cpp" line="584"/>
         <source>Removing folder</source>
         <translation>Suppression du répertoire</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="584"/>
+        <location filename="../src/worker.cpp" line="589"/>
         <source>Successfully removed obsolete folder &apos;%1&apos;.</source>
         <translation>Le répertoire obsolète &quot;%1&quot; a bien été supprimé.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="588"/>
+        <location filename="../src/worker.cpp" line="593"/>
         <source>Failed to remove obsolete folder &apos;%1&apos;!</source>
         <translation>Impossible de supprimer le répertoire obsolète &apos;%1&apos; !</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="592"/>
+        <location filename="../src/worker.cpp" line="597"/>
         <source>Removing file</source>
         <translation>Suppression du fichier</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="595"/>
+        <location filename="../src/worker.cpp" line="600"/>
         <source>Successfully removed obsolete file &apos;%1&apos;.</source>
         <translation>Le fichier obsolète &quot;%1&quot; a bien été supprimé.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="599"/>
+        <location filename="../src/worker.cpp" line="604"/>
         <source>Failed to remove obsolete file &apos;%1&apos;.</source>
         <translation>Erreur de suppression du fichier obsolète &quot;%1&quot;.</translation>
     </message>

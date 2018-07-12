@@ -159,7 +159,7 @@
     </message>
     <message>
         <location filename="../src/interface.ui" line="77"/>
-        <location filename="../src/interface.cpp" line="560"/>
+        <location filename="../src/interface.cpp" line="577"/>
         <source>B</source>
         <translation>B</translation>
     </message>
@@ -213,92 +213,92 @@
         <translation>Celkový priebeh</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="267"/>
+        <location filename="../src/interface.ui" line="296"/>
         <source> &amp;Abort</source>
         <translation> Pre&amp;rušiť</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="283"/>
+        <location filename="../src/interface.ui" line="269"/>
         <source> &amp;Quit</source>
         <translation> U&amp;končiť</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="310"/>
+        <location filename="../src/interface.ui" line="323"/>
         <source> &amp;Backup</source>
         <translation> &amp;Zálohovať</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="333"/>
+        <location filename="../src/interface.ui" line="346"/>
         <source>&amp;File</source>
         <translation>&amp;Súbor</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="341"/>
+        <location filename="../src/interface.ui" line="354"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoc</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="356"/>
+        <location filename="../src/interface.ui" line="369"/>
         <source>&amp;Quit</source>
         <translation>U&amp;končiť</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="359"/>
+        <location filename="../src/interface.ui" line="372"/>
         <source>Quit the application</source>
         <translation>Ukončiť aplikáciu</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="362"/>
+        <location filename="../src/interface.ui" line="375"/>
         <source>Ctrl+Q</source>
         <translation>Alt+F4</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="371"/>
+        <location filename="../src/interface.ui" line="384"/>
         <source>Online &amp;documentation</source>
         <translation>Pomocník &amp;online</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="374"/>
+        <location filename="../src/interface.ui" line="387"/>
         <source>Browse online documentation</source>
         <translation>Prehliadať online pomocníka</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="377"/>
+        <location filename="../src/interface.ui" line="390"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="386"/>
+        <location filename="../src/interface.ui" line="399"/>
         <source>&amp;About Backy</source>
         <translation>O programe &amp;Backy</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="395"/>
+        <location filename="../src/interface.ui" line="408"/>
         <source>&amp;Preferences</source>
         <translation>&amp;Predvoľby</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="398"/>
+        <location filename="../src/interface.ui" line="411"/>
         <source>View or edit application&apos;s preferences</source>
         <translation>Zobraziť alebo zmeniť nastavenia aplikácie</translation>
     </message>
     <message>
-        <location filename="../src/interface.ui" line="401"/>
+        <location filename="../src/interface.ui" line="414"/>
         <source>Ctrl+Shift+P</source>
         <translation>Ctrl+Shift+P</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="178"/>
+        <location filename="../src/interface.cpp" line="176"/>
         <source>- No source drive or folder provided!</source>
         <translation>- Nebola zadaná zdrojová jednotka ani priečinok!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="183"/>
+        <location filename="../src/interface.cpp" line="181"/>
         <source>- Source drive or folder does not exists!</source>
         <translation>- Zdrojová jednotka alebo priečinok neexistuje!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="188"/>
+        <location filename="../src/interface.cpp" line="186"/>
         <source>- No target drive or folder provided!</source>
         <translation>- Nebola zadaná cieľová jednotka ani priečinok!</translation>
     </message>
@@ -311,7 +311,7 @@
         <translation type="vanished">- Zdrojová jednotka alebo priečinok neobsahuje žiadne súbory ani priečinky!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="376"/>
+        <location filename="../src/interface.cpp" line="394"/>
         <source>About Backy</source>
         <translation>O programe Backy</translation>
     </message>
@@ -320,38 +320,37 @@
         <translation type="vanished">&lt;h1&gt;Zálohár&lt;/h1&gt;&lt;p&gt;Zálohár je jednoduchý nástroj na vytvorenie a správu zálohy priečinka alebo celej jednotky s otvoreným zdrojovým kódom.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;Tento program je slobodný softvér: môžete ho šíriť a upravovať podľa ustanovení Všeobecnej verejnej licencie GNU (GNU General Public Licence), vydávanej nadáciou Free Software Foundation a to buď podľa 3. verzie tejto Licencie, alebo ktorejkoľvek neskoršej verzie.&lt;p&gt;Tento program je rozširovaný v nádeji, že bude užitočný, avšak BEZ AKEJKOĽVEK ZÁRUKY. Neposkytujú sa ani odvodené záruky PREDAJNOSTI alebo VHODNOSTI PRE URČITÝ ÚČEL. Ďalšie podrobnosti hľadajte vo Všeobecnej verejne licencii GNU. Kópiu Všeobecnej verejnej licencie GNU ste mali dostať spolu s týmto programom. Ak sa tak nestalo, nájdete ju tu: &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Informácia:&lt;/strong&gt; Programovú dokumentáciu, zdrojový kód a aktualizácie môžete nájsť v jeho depozitári na: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Zásluhy:&lt;/strong&gt; Písmo &lt;em&gt;Fantasque Sans Mono&lt;/em&gt; vytvoril &lt;a href=&apos;mailto:jany.belluz@hotmail.fr&apos; target=&apos;_blank&apos;&gt;Jany Belluz&lt;/a&gt; a podlieha podmienkam licencie &lt;a href=&apos;http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&amp;id=OFL&apos;&gt;SIL Open Font License&lt;/a&gt;. Vzorky &lt;em&gt;Abstract Materials Patterns&lt;/em&gt; boli slobodne získané z &lt;a href=&apos;https://www.brusheezy.com&apos; target=&apos;_blank&apos;&gt;Brusheezy!&lt;/a&gt;</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="415"/>
+        <location filename="../src/interface.cpp" line="433"/>
         <source>Abort requested</source>
         <translation>Prerušenie vyžiadané</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="416"/>
         <source>Backup is still in progress!
 Note that on confirmation the backup process will be aborted once the backup of the current item will be finished.
 Are you sure you want to abort the backup process?</source>
-        <translation>Zálohovanie stále prebieha!
+        <translation type="vanished">Zálohovanie stále prebieha!
 Ak potvrdíte prerušenie proces zálohovania sa ukončí až po spracovaní súčasnej položky.
 Ste si istí, že chcete zálohovanie prerušiť?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="439"/>
+        <location filename="../src/interface.cpp" line="457"/>
         <source>Abort and quit</source>
         <translation>Prerušiť a ukončiť</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="440"/>
+        <location filename="../src/interface.cpp" line="458"/>
         <source>Backup is still in progress!
 Are you sure you want to abort it and quit?</source>
         <translation>Zálohovanie stále prebieha!
 Ste si istí, že chcete zálohovanie prerušiť a ukončiť program?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="480"/>
+        <location filename="../src/interface.cpp" line="498"/>
         <source>Wrong parameters</source>
         <translation>Nesprávne nastavenia</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="481"/>
+        <location filename="../src/interface.cpp" line="499"/>
         <source>Some backup parameters are unset or set incorrectly!
 Please verify them before continuing.
 Error report:
@@ -362,7 +361,7 @@ Chybová správa:
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="494"/>
+        <location filename="../src/interface.cpp" line="512"/>
         <source>Ready</source>
         <translation>Pripravený</translation>
     </message>
@@ -375,34 +374,43 @@ Pred tým ako budete pokračovať, prosím, overte správnosť všetkých nastav
 Naozaj chcete spustiť zálohovanie?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="193"/>
+        <location filename="../src/interface.cpp" line="191"/>
         <source>- Target drive or folder does notexists!</source>
         <translation>- Cieľová jednotka alebo priečinok neexistuje!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="197"/>
+        <location filename="../src/interface.cpp" line="195"/>
         <source>- Source drive or folder does not containany files or folders!</source>
         <translation>- Zdrojová jednotka alebo priečinok neobsahuje žiadne súbory ani priečinky!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="377"/>
+        <location filename="../src/interface.cpp" line="395"/>
         <source>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy is a simple open-source tool to create and maintainbackup of a folder or an entire drive.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;p&gt;This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/p&gt;&lt;p&gt;See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Information:&lt;/strong&gt; For program&apos;s documentation, source code and updates, please, refer to its repository at: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Credits:&lt;/strong&gt; The &lt;em&gt;Tango&lt;/em&gt; icon theme used in this application was freely acquired from &lt;a href=&apos;http://tango.freedesktop.org/Tango_Desktop_Project&apos; target=&apos;_blank&apos;&gt;Tango Desktop Project&lt;/a&gt;.</source>
         <translation>&lt;h1&gt;Backy&lt;/h1&gt;&lt;p&gt;Backy je jednoduchý nástroj na vytvorenie a správu zálohy priečinka alebo celej jednotky s otvoreným zdrojovým kódom.&lt;/p&gt;&lt;p&gt;Copyright (C) 2018 Marek Felsoci&lt;/p&gt;&lt;p&gt;Tento program je slobodný softvér: môžete ho šíriť a upravovať podľa ustanovení Všeobecnej verejnej licencie GNU (GNU General Public Licence), vydávanej nadáciou Free Software Foundation a to buď podľa 3. verzie tejto Licencie, alebo ktorejkoľvek neskoršej verzie.&lt;p&gt;Tento program je rozširovaný v nádeji, že bude užitočný, avšak BEZ AKEJKOĽVEK ZÁRUKY. Neposkytujú sa ani odvodené záruky PREDAJNOSTI alebo VHODNOSTI PRE URČITÝ ÚČEL. Ďalšie podrobnosti hľadajte vo Všeobecnej verejne licencii GNU. Kópiu Všeobecnej verejnej licencie GNU ste mali dostať spolu s týmto programom. Ak sa tak nestalo, nájdete ju tu: &lt;a href=&apos;http://www.gnu.org/licenses/&apos; target=&apos;_blank&apos;&gt;http://www.gnu.org/licenses/&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Informácia:&lt;/strong&gt; Programovú dokumentáciu, zdrojový kód a aktualizácie môžete nájsť v jeho depozitári na: &lt;a href=&apos;https://github.com/felsocim/Backy&apos; target=&apos;_blank&apos;&gt;https://github.com/felsocim/Backy&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Zásluhy:&lt;/strong&gt; Ikony zo zbierky &lt;em&gt;Tango&lt;/em&gt; boli slobone získané z &lt;a href=&apos;http://tango.freedesktop.org/Tango_Desktop_Project&apos; target=&apos;_blank&apos;&gt;Tango Desktop Project&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="466"/>
+        <location filename="../src/interface.cpp" line="434"/>
+        <source>An action is still in progress!
+Note that on confirmation the action will be aborted once the backup of the current item will be finished.
+Are you sure you want to abort the action in progress?</source>
+        <translation>Činnosť stále prebieha!
+Ak potvrdíte prerušenie činnosť sa ukončí až po spracovaní súčasnej položky.
+Ste si istí, že chcete prebiehajúcu činnosť prerušiť?</translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="484"/>
         <source>Already in progress</source>
         <translation>Prebiehajúca činnosť</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="467"/>
+        <location filename="../src/interface.cpp" line="485"/>
         <source>Another action is already in progress!
 Please wait until it&apos;s finished.</source>
         <translation>Nejaká činnosť už prebieha!
 Prosím, počkajte kým sa nedokončí.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="495"/>
+        <location filename="../src/interface.cpp" line="513"/>
         <source>Backup is ready to be performed.
 Please, verify all backup parameters before you continue.
 Are you sure you want to beginthe backup process?</source>
@@ -411,68 +419,77 @@ Pred tým než budete pokračovať, prosím, overte či sú všetky predvoľby z
 Ste si istý, že chcete spustiť zálohovanie?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="548"/>
+        <location filename="../src/interface.cpp" line="565"/>
         <source>TB</source>
         <translation>TB</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="551"/>
+        <location filename="../src/interface.cpp" line="568"/>
         <source>GB</source>
         <translation>GB</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="554"/>
+        <location filename="../src/interface.cpp" line="571"/>
         <source>MB</source>
         <translation>MB</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="557"/>
+        <location filename="../src/interface.cpp" line="574"/>
         <source>kB</source>
         <translation>kB</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="668"/>
+        <location filename="../src/interface.cpp" line="689"/>
         <source>Backup aborted</source>
         <translation>Zálohovanie prerušené</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="669"/>
+        <location filename="../src/interface.cpp" line="690"/>
         <source>Backup process has been aborted by the user!</source>
         <translation>Proces zálohovania bol prerušený používateľom!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="675"/>
+        <location filename="../src/interface.cpp" line="696"/>
         <source>Backup complete with errors</source>
         <translation>Zálohovanie sa dokončilo s chybami</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="676"/>
+        <location filename="../src/interface.cpp" line="697"/>
         <source>Backup completed but errors occurred during the process! Check the log file in &apos;%1&apos; for more details.
 </source>
         <translation>Zálohovania sa dokončilo, no v jeho priebehu nastali chyby! Nahliadnite do súborov záznamu v umiestnení &quot;%1&quot; pre viac podrobností.
 </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="684"/>
+        <location filename="../src/interface.cpp" line="705"/>
         <source>Backup complete</source>
         <translation>Zálohovanie dokončené</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="685"/>
+        <location filename="../src/interface.cpp" line="706"/>
         <source>Backup completed succefully! </source>
         <translation>Zálohovanie bolo úspešne dokončené! </translation>
+    </message>
+    <message>
+        <location filename="../src/interface.cpp" line="751"/>
+        <source>Unable to open the online documentation because of unavailable browser!
+Please, check if there is a default browser set in your system and try again.
+Otherwise refer to https://felsocim.github.io/Backy/ for the documentation.</source>
+        <translation>Nepodarilo sa otvoriť online pomocníka z dôvodu nedostupnosti prehliadača!
+Prosím, overte či máte v systéme nastavený predvolený prehliadač a skúste to znova.
+V opačnom prípade sa obráťte na adresu: https://felsocim.github.io/Backy/.</translation>
     </message>
     <message>
         <source>Backup completed succefully!</source>
         <translation type="vanished">Zálohovanie prebehlo úspešne!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="706"/>
+        <location filename="../src/interface.cpp" line="726"/>
         <source>Unable to save preferences</source>
         <translation>Nepodarilo sa uložiť predvoľby</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="707"/>
+        <location filename="../src/interface.cpp" line="727"/>
         <source>A backup is currently in progress!
 Thus the changes you&apos;ve made to application&apos;s preferences cannot be applied!
 Please redo your changes once the backup will be finished.</source>
@@ -481,16 +498,15 @@ V priebehu zálohovanie nie je možné meniť predvoľby aplikácie!
 Prosím, vykonajte želané zmeny po dokončení zálohovania.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="730"/>
+        <location filename="../src/interface.cpp" line="750"/>
         <source>Browser unavailable</source>
         <translation>Prehliadač nedostupný</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="731"/>
         <source>Unable to open the online documentation because of unavailable browser!
 Please, check if there is a default browser set in your system and try again.
 Otherwise refer to https://github.com/felsocim/Backy for the documentation.</source>
-        <translation>Nepodarilo sa otvoriť online pomocníka z dôvodu nedostupnosti prehliadača!
+        <translation type="vanished">Nepodarilo sa otvoriť online pomocníka z dôvodu nedostupnosti prehliadača!
 Prosím, overte či máte v systéme nastavený predvolený prehliadač a skúste to znova.
 V opačnom prípade sa obráťte na adresu: https://github.com/felsocim/Backy.</translation>
     </message>
@@ -710,115 +726,125 @@ V opačnom prípade sa obráťte na adresu: https://github.com/felsocim/Backy.</
         <translation>Nepodarilo sa nastaviť povolenia pre súbor &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="213"/>
-        <location filename="../src/worker.cpp" line="221"/>
+        <location filename="../src/worker.cpp" line="214"/>
+        <location filename="../src/worker.cpp" line="222"/>
         <source>Successfully opened file &apos;%1&apos; for copying.</source>
         <translation>Súbor &quot;%1&quot; bol úspešne otvorený na kopírovanie.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="216"/>
-        <location filename="../src/worker.cpp" line="224"/>
+        <location filename="../src/worker.cpp" line="217"/>
+        <location filename="../src/worker.cpp" line="225"/>
         <source>Failed to open file &apos;%1&apos; for copying: %2!</source>
         <translation>Nepodarilo sa otvoriť súbor &quot;%1&quot; na kopírovanie: %2!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="252"/>
+        <location filename="../src/worker.cpp" line="253"/>
         <source>Successfully transfered file attributes to &apos;%1&apos;.</source>
         <translation>Príznaky boli úspešne prenesené na súbor &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="255"/>
+        <location filename="../src/worker.cpp" line="256"/>
         <source>Failed to transfer file attributes to &apos;%1&apos;!</source>
         <translation>Nepodarilo sa preniesť príznaky na súbor &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="259"/>
+        <location filename="../src/worker.cpp" line="260"/>
         <source>Successfully copied file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation>Súbor &quot;%1&quot; bol úspešne skopírovaný do &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="267"/>
+        <location filename="../src/worker.cpp" line="268"/>
         <source>Failed to copy file &apos;%1&apos; to &apos;%2&apos;.</source>
         <translation>Nepodarilo sa skopírovať súbor &quot;%1&quot; do &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="465"/>
-        <location filename="../src/worker.cpp" line="633"/>
+        <location filename="../src/worker.cpp" line="467"/>
+        <location filename="../src/worker.cpp" line="641"/>
         <source>Unable to get attributes of file or directory &apos;%1&apos;!</source>
         <translation>Nemožno získať príznaky súboru alebo priečinka &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="493"/>
+        <location filename="../src/worker.cpp" line="495"/>
         <source>Removing older version of file</source>
         <translation>Odstraňuje sa staršia verzia súboru</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="497"/>
+        <location filename="../src/worker.cpp" line="499"/>
         <source>Successfully removed older version of a file at &apos;%1&apos;.</source>
         <translation>Staršia verzia súboru v &quot;%1&quot; bola úspešne odstránená.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="501"/>
+        <location filename="../src/worker.cpp" line="504"/>
         <source>Failed to remove older version of a file at &apos;%1&apos;.</source>
         <translation>Nepodarilo sa odstrániť staršiu verziu súboru z &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="526"/>
+        <location filename="../src/worker.cpp" line="527"/>
         <source>Copying file</source>
         <translation>Kopíruje sa súbor</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="536"/>
+        <location filename="../src/worker.cpp" line="537"/>
         <source>Creating directory</source>
         <translation>Vytvára sa priečinok</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="540"/>
+        <location filename="../src/worker.cpp" line="541"/>
         <source>Successfully recreated directory &apos;%1&apos; as &apos;%2&apos;.</source>
         <translation>Priečinok &quot;%1&quot; bol úspešne znovu vytvorený ako &quot;%2&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="544"/>
+        <location filename="../src/worker.cpp" line="545"/>
         <source>Failed to recreate directory &apos;%1&apos; as &apos;%2&apos;!</source>
         <translation>Nepodarilo sa znova vytvoriť priečinok &quot;%1&quot; ako &quot;%2&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="551"/>
+        <location filename="../src/worker.cpp" line="552"/>
         <source>Skipping file or directory &apos;%1&apos;.</source>
         <translation>Preskakuje sa súbor alebo priečinok &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="553"/>
+        <location filename="../src/worker.cpp" line="554"/>
         <source>Skipping item</source>
         <translation>Preskakuje sa položka</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="579"/>
+        <location filename="../src/worker.cpp" line="572"/>
+        <source>Searching for obsolete item(s)</source>
+        <translation>Vyhľadávajú sa nepotrebné položky</translation>
+    </message>
+    <message>
+        <location filename="../src/worker.cpp" line="573"/>
+        <source>Please, wait...</source>
+        <translation>Čakajte, prosím...</translation>
+    </message>
+    <message>
+        <location filename="../src/worker.cpp" line="584"/>
         <source>Removing folder</source>
         <translation>Odstraňuje sa priečinok</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="584"/>
+        <location filename="../src/worker.cpp" line="589"/>
         <source>Successfully removed obsolete folder &apos;%1&apos;.</source>
         <translation>Nepotrebný priečinok &quot;%1&quot; bol úspešne odstránený.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="588"/>
+        <location filename="../src/worker.cpp" line="593"/>
         <source>Failed to remove obsolete folder &apos;%1&apos;!</source>
         <translation>Nepodarilo sa odstrániť nepotrebný priečinok &quot;%1&quot;!</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="592"/>
+        <location filename="../src/worker.cpp" line="597"/>
         <source>Removing file</source>
         <translation>Odstraňuje sa súbor</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="595"/>
+        <location filename="../src/worker.cpp" line="600"/>
         <source>Successfully removed obsolete file &apos;%1&apos;.</source>
         <translation>Nepotrebný súbor &quot;%1&quot; bol úspešne odstránený.</translation>
     </message>
     <message>
-        <location filename="../src/worker.cpp" line="599"/>
+        <location filename="../src/worker.cpp" line="604"/>
         <source>Failed to remove obsolete file &apos;%1&apos;.</source>
         <translation>Nepodarilo sa odstrániť nepotrebný súbor &quot;%1&quot;.</translation>
     </message>
