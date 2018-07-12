@@ -6,6 +6,10 @@ docs/site/.idea
 # Translation binaries
 translate/*.qm
 
+# Deployment
+deploy/*
+!deploy/*.iss
+
 # React
 docs/site/node_modules
 docs/site/coverage

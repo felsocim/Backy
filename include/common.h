@@ -169,7 +169,7 @@
  * 
  * Initial value is \c "lang".
  */
-#define LOCALE_RELATIVE_PATH "lang"
+#define LOCALE_RELATIVE_PATH "translations"
 
 /*!
  * \def CEILD(dividend, divisor)

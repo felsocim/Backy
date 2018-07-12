@@ -18,6 +18,8 @@ SOURCES += src/interface.cpp \
 
 RESOURCES += res/backy.qrc
 
+RC_FILE = res/backy.rc
+
 FORMS += src/interface.ui \
   src/preferences.ui
 
