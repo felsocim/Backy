@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['togglecontrolsstate',['toggleControlsState',['../classInterface.html#a77c4fc102435aff9d776e2d511fa241e',1,'Interface']]],
   ['transferfileattributes',['transferFileAttributes',['../classWorker.html#a846966d235b2e14ecc823fa0fd711ee0',1,'Worker']]],
   ['triggeranalysis',['triggerAnalysis',['../classInterface.html#a2a0f88253e1d22af5614519c55f8c480',1,'Interface']]],
   ['triggeranalysisprogress',['triggerAnalysisProgress',['../classWorker.html#ae9f15db38b39c5836c4bb0b8abf6f3a6',1,'Worker']]],

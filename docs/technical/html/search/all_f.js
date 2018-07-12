@@ -3,6 +3,7 @@ var searchData=
   ['target',['target',['../classWorker.html#a5ceacfdb7b12d803aa70824fc94cc87f',1,'Worker']]],
   ['targetdialog',['targetDialog',['../classInterface.html#a9b3aafcea4041ed65ab25691f2587879',1,'Interface']]],
   ['terabyte',['TERABYTE',['../common_8h.html#a47c98de3376c95ba38c572d1b6e414af',1,'common.h']]],
+  ['togglecontrolsstate',['toggleControlsState',['../classInterface.html#a77c4fc102435aff9d776e2d511fa241e',1,'Interface']]],
   ['totalcount',['totalCount',['../classWorker.html#abf2bfdb0d1390619115f048b2035da2a',1,'Worker']]],
   ['transferfileattributes',['transferFileAttributes',['../classWorker.html#a846966d235b2e14ecc823fa0fd711ee0',1,'Worker']]],
   ['triggeranalysis',['triggerAnalysis',['../classInterface.html#a2a0f88253e1d22af5614519c55f8c480',1,'Interface']]],
