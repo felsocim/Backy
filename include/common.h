@@ -171,4 +171,12 @@
  */
 #define LOCALE_RELATIVE_PATH "lang"
 
+/*!
+ * \def CEILD(dividend, divisor)
+ * \brief Performs integer division of \a dividend by \a divider and if the
+ *        latter does not divide the former it adds 1 to the result of their
+ * division.
+ */
+#define CEILD(dividend, divisor) ( !(dividend % divisor) ? (dividend / divisor) : ((dividend / divisor) + 1) )
+
 #endif // __COMMON_H

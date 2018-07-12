@@ -205,7 +205,8 @@ bool Worker::copyFile(const QString &sourcePath,
   const QString &destinationPath, qint64 size) {
   QFile source(sourcePath),
         destination(destinationPath);
-  char * bytes = new char[size < this->copyBufferSize ? size : this->copyBufferSize];
+  qint64 actualBufferSize = size < this->copyBufferSize ? size : this->copyBufferSize;
+  char * bytes = new char[actualBufferSize];
   qint64 actuallyWritten = 0, toBeWritten = 0, totalWritten = 0;
   bool succeeded = true;
 
@@ -227,7 +228,7 @@ bool Worker::copyFile(const QString &sourcePath,
 
   if(source.isReadable() && destination.isWritable()) {
     while((toBeWritten = source.read(bytes,
-      this->copyBufferSize)) != 0) {
+      actualBufferSize)) != 0) {
       if(toBeWritten < 0) {
         goto error;
       }
@@ -241,11 +242,11 @@ bool Worker::copyFile(const QString &sourcePath,
       this->processedSize += actuallyWritten;
 
       emit this->triggerCurrentProgress(
-        (int) ceil(totalWritten * 100 / size));
+        CEILD(totalWritten * 100, size));
       emit this->triggerOverallProgress(
-        (int) ceil(this->processedSize * 100 / this->size));
+        CEILD(this->processedSize * 100, this->size));
 
-      memset(bytes, 0, this->copyBufferSize);
+      memset(bytes, 0, actualBufferSize);
     }
 
     if(this->transferFileAttributes(sourcePath, destinationPath)) {
@@ -442,6 +443,7 @@ void Worker::createLogsAt(const QString &path) {
  * \brief Performs the backup.
  */
 void Worker::work() {
+  this->progress = true;
   emit this->started();
 
   QDirIterator i(this->source, WORKER_ITEM_FILTERS,
@@ -468,10 +470,9 @@ void Worker::work() {
 
     isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
     isSystem = isSystem || sourcePath.startsWith(this->source +
-      "$RECYCLE.BIN");
+      "$RECYCLE.BIN", Qt::CaseInsensitive);
 #elif defined Q_OS_LINUX
-    isSystem = sourcePath.startsWith(".local/share/Trash")
-      || sourcePath.startsWith(".Trash-");
+    isSystem = sourcePath.startsWith(".local/share/Trash");
 #else
 #error Unsupported operating system!
 #endif
@@ -480,14 +481,15 @@ void Worker::work() {
       QString destinationPath = this->target + '/'
         + root.relativeFilePath(sourcePath);
 
-      QFileInfo sourceFileInfo(sourcePath);
+      QFileInfo sourceFileInfo(sourcePath),
+                destinationFileInfo(destinationPath);
 
-      emit this->triggerCurrentItem(sourceFileInfo.baseName());
+      emit this->triggerCurrentItem(sourcePath);
 
       /* Process current entry */
       if(this->synchronize) {
         if(!sourceFileInfo.isDir()) {
-          if(sourceFileInfo.exists()) {
+          if(destinationFileInfo.exists()) {
             if(this->isCurrentSuperiorThanBackedUp(sourcePath,
               destinationPath)) {
               emit this->triggerCurrentOperation(tr("Removing older"
@@ -496,20 +498,19 @@ void Worker::work() {
               if(QFile::remove(destinationPath)) {
                 this->log->logEvent(tr("Successfully removed older"
                   " version of a file at '%1'.").arg(destinationPath));
+                goto copying;
               } else {
                 this->errorOccurred = true;
                 this->log->logError(tr("Failed to remove older version"
                   " of a file at '%1'.").arg(destinationPath));
               }
-
-              goto copying;
             } else {
               goto skipping;
             }
           } else {
             goto copying;
           }
-        } else if(!sourceFileInfo.exists()) {
+        } else if(!destinationFileInfo.exists()) {
           goto cloning;
         } else {
           goto skipping;
@@ -564,9 +565,12 @@ void Worker::work() {
    */
   if(this->progress) {
     if(!this->keepObsolete) {
+      this->triggerOverallProgress(-1);
       QDirIterator i(this->target, WORKER_ITEM_FILTERS,
         QDirIterator::Subdirectories);
       root = QDir(this->target);
+      emit triggerCurrentOperation(tr("Searching for obsolete item(s)"));
+      emit triggerCurrentItem(tr("Please, wait..."));
 
       while(i.hasNext()) {
         QString currentFile(i.next());
@@ -575,6 +579,7 @@ void Worker::work() {
         QFileInfo currentFileInfo(currentFile);
 
         if(!correspondingFile.exists() && currentFileInfo.exists()) {
+          emit this->triggerCurrentItem(currentFile);
           if(currentFileInfo.isDir()) {
             emit this->triggerCurrentOperation(tr("Removing folder"));
 
@@ -602,6 +607,8 @@ void Worker::work() {
           }
         }
       }
+
+      this->triggerOverallProgress(0);
     }
   }
 
@@ -613,6 +620,7 @@ void Worker::work() {
  * \brief Performs backup source location analysis.
  */
 void Worker::analyze() {
+  this->progress = true;
   emit this->started();
 
   this->reinitializeCounters();
@@ -620,42 +628,42 @@ void Worker::analyze() {
   QDirIterator i(this->source, WORKER_ITEM_FILTERS,
     QDirIterator::Subdirectories);
 
-    while(i.hasNext()) {
-      QString currentPath(i.next());
-      QFileInfo current(currentPath);
-      bool isSystem = false;
+  while(i.hasNext() && this->progress) {
+    QString currentPath(i.next());
+    QFileInfo current(currentPath);
+    bool isSystem = false;
 
 #if defined Q_OS_WIN
-      DWORD attributes = GetFileAttributesW(
-        currentPath.toStdWString().c_str());
+    DWORD attributes = GetFileAttributesW(
+      currentPath.toStdWString().c_str());
 
-      if(attributes == INVALID_FILE_ATTRIBUTES) {
-        this->log->logError(tr("Unable to get attributes of file or"
-          " directory '%1'!").arg(currentPath));
-      }
+    if(attributes == INVALID_FILE_ATTRIBUTES) {
+      this->log->logError(tr("Unable to get attributes of file or"
+        " directory '%1'!").arg(currentPath));
+    }
 
-      isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
-      isSystem = isSystem || currentPath.startsWith(this->source
-        + "$RECYCLE.BIN");
+    isSystem = attributes & FILE_ATTRIBUTE_SYSTEM;
+    isSystem = isSystem || currentPath.startsWith(this->source
+      + "$RECYCLE.BIN");
 #elif defined Q_OS_LINUX
-      isSystem = currentPath.startsWith(".local/share/Trash")
-        || currentPath.startsWith(".Trash-");
+    isSystem = currentPath.startsWith(".local/share/Trash");
 #else
 #error Unsupported operating system!
 #endif
 
-      if(!isSystem) {
-        if(current.isDir()) {
-          this->directoriesCount++;
-        } else {
-          this->filesCount++;
-        }
-
-        this->totalCount++;
-        this->size += current.size();
-        emit this->triggerAnalysisProgress(this->filesCount,
-          this->directoriesCount, this->size);
+    if(!isSystem) {
+      if(current.isDir()) {
+        this->directoriesCount++;
+      } else {
+        this->filesCount++;
       }
+
+      this->totalCount++;
+      this->size += current.size();
+
+      emit this->triggerAnalysisProgress(this->filesCount,
+        this->directoriesCount, this->size);
+    }
   }
 
   emit this->finished((int) ACTION_ANALYSIS);

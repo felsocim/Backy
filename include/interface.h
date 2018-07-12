@@ -109,6 +109,7 @@ class Interface : public QMainWindow {
     void abort();
     void loadSettings();
     void saveSettings();
+    void toggleControlsState(bool actionInProgress);
 
   private slots:
     void onBrowseSource();

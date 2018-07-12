@@ -69,8 +69,6 @@ Interface::Interface(QWidget *parent) :
     SLOT(onWorkerStarted()));
   QObject::connect(this->worker, SIGNAL(finished(int)), this,
     SLOT(onWorkerFinished(int)));
-  QObject::connect(this, SIGNAL(triggerAnalysis()), this->worker,
-    SLOT(analyze()));
   QObject::connect(this->worker, SIGNAL(triggerAnalysisProgress(qint64,
     qint64, qint64)), this,
     SLOT(onAnalysisProgress(qint64,qint64,qint64)));
@@ -298,6 +296,26 @@ void Interface::saveSettings() {
 }
 
 /*!
+ * \fn void Interface::toggleControlsState(bool actionInProgress)
+ * \brief Toggles the visibility of selected user interface controls depending
+ *        on the current state of the Worker (i.e. deactivates the process
+ *        cancellation button when no action is in progress and so on).
+ * \param actionInProgress Boolean indicating whether the Worker currently
+ *                         performs an action or not.
+ */
+void Interface::toggleControlsState(bool actionInProgress) {
+  this->ui->buttonBrowseSource->setEnabled(!actionInProgress);
+  this->ui->buttonBrowseTarget->setEnabled(!actionInProgress);
+  this->ui->radioCriterionBiggest->setEnabled(!actionInProgress);
+  this->ui->radioCriterionMostRecent->setEnabled(!actionInProgress);
+  this->ui->checkKeepObsolete->setEnabled(!actionInProgress);
+  this->ui->checkSynchronize->setEnabled(!actionInProgress);
+  this->ui->buttonBackup->setEnabled(!actionInProgress);
+  this->ui->buttonAbort->setEnabled(actionInProgress);
+  this->ui->actionPreferences->setEnabled(!actionInProgress);
+}
+
+/*!
  * \fn void Interface::onBrowseSource()
  * \brief Slot that launches backup source location selection dialog.
  */
@@ -413,10 +431,10 @@ void Interface::onAbort() {
   if(QMessageBox::question(
     this,
     tr("Abort requested"),
-    tr("Backup is still in progress!\nNote that on confirmation the"
-      " backup process will be aborted once the backup of the current"
+    tr("An action is still in progress!\nNote that on confirmation the"
+      " action will be aborted once the backup of the current"
       " item will be finished.\nAre you sure you want to abort the"
-      " backup process?"),
+      " action in progress?"),
     QMessageBox::Yes | QMessageBox::No
   ) == QMessageBox::Yes) {
     this->ui->buttonAbort->setEnabled(false);
@@ -517,7 +535,6 @@ void Interface::onChooseSource(QString selected) {
   this->ui->editSourcePath->setText(selected);
 
   /* Launch the backup source folder contents analysis */
-  this->worker->reinitializeCounters();
   this->worker->setSource(selected);
   emit this->triggerAnalysis();
 }
@@ -618,7 +635,12 @@ void Interface::onStatusCurrentProgress(int current) {
  * \see Worker
  */
 void Interface::onStatusOverallProgress(int overall) {
-  this->ui->progressStatusOverallProgress->setValue(overall);
+  if(overall < 0) {
+    this->ui->progressStatusOverallProgress->setMaximum(0);
+  } else {
+    this->ui->progressStatusOverallProgress->setMaximum(100);
+    this->ui->progressStatusOverallProgress->setValue(overall);
+  }
 }
 
 /*!
@@ -629,6 +651,7 @@ void Interface::onStatusOverallProgress(int overall) {
  */
 void Interface::onWorkerStarted() {
   this->workerInProgress = true;
+  this->toggleControlsState(true);
 }
 
 /*!
@@ -649,13 +672,11 @@ void Interface::onWorkerFinished(int action) {
   if((Action) action == ACTION_ANALYSIS) {
     this->ui->progressSourceAnalysis->setMaximum(1);
     this->ui->progressSourceAnalysis->hide();
-  }
-
-  /*
-   * If the action is the backup process then reset progress information
-   * and inform the user about the backup process results
-   */
-  if((Action) action == ACTION_BACKUP) {
+  } else if((Action) action == ACTION_BACKUP) {
+    /*
+     * If the action is the backup process then reset progress information
+     * and inform the user about the backup process results
+     */
     this->ui->labelStatusCurrentOperation->setText("");
     this->ui->labelStatusCurrentName->setText("");
     this->ui->progressStatusCurrentProgress->setValue(0);
@@ -686,10 +707,9 @@ void Interface::onWorkerFinished(int action) {
         QMessageBox::Ok
       );
     }
-
-    this->ui->buttonBackup->setEnabled(true);
-    this->ui->buttonAbort->setEnabled(false);
   }
+
+  this->toggleControlsState(false);
 }
 
 /*!
@@ -724,14 +744,14 @@ void Interface::onSavePreferences() {
  */
 void Interface::onDocumentationSolicitation() {
   if(!QDesktopServices::openUrl(
-    QUrl("https://github.com/felsocim/Backy"))) {
+    QUrl("https://felsocim.github.io/Backy/"))) {
     QMessageBox::critical(
       this,
       tr("Browser unavailable"),
       tr("Unable to open the online documentation because of"
         " unavailable browser!\nPlease, check if there is a default"
         " browser set in your system and try again.\nOtherwise refer to"
-        " https://github.com/felsocim/Backy for the documentation."),
+        " https://felsocim.github.io/Backy/ for the documentation."),
       QMessageBox::Ok
     );
   }

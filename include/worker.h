@@ -30,6 +30,7 @@
 #include <QDir>
 #include <QDirIterator>
 #include <QDateTime>
+#include <QElapsedTimer>
 
 #if defined Q_OS_LINUX
 #include <utime.h>
