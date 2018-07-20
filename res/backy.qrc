@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>application-logo.png</file>
         <file>document-save.png</file>
         <file>edit-undo.png</file>
         <file>info.png</file>
@@ -12,5 +11,6 @@
         <file>fr.png</file>
         <file>sk.png</file>
         <file>document-save-as.png</file>
+        <file>Backy.png</file>
     </qresource>
 </RCC>
