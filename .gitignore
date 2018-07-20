@@ -27,7 +27,7 @@ deploy/linux/backy-1.0.1/Backy
 deploy/linux/backy-1.0.1/debian/backy
 deploy/linux/backy-1.0.1/debian/.debhelper
 deploy/linux/backy-1.0.1/debian/*.substvars
-deploy/linux/backy-1.0.1/debian/debhelper-build-stamp
+deploy/linux/backy-1.0.1/debian/*debhelper*
 deploy/linux/backy-1.0.1/debian/files
 
 # React

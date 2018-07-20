@@ -1,5 +1,7 @@
 QT += core gui widgets
 
+QMAKE_CXXFLAGS += $$QMAKE_CFLAGS -std=c++11
+
 TARGET = Backy
 
 TEMPLATE = app
