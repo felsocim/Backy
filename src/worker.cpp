@@ -246,8 +246,8 @@ bool Worker::copyFile(const QString &sourcePath,
 
       emit this->triggerCurrentProgress(totalWritten == size ? 100 :
         (totalWritten * 100) / size);
-      emit this->triggerOverallProgress(this->processedSize == this->size ? 100 :
-        (this->processedSize * 100) / this->size);
+      emit this->triggerOverallProgress(this->processedSize == this->size ?
+        100 : (this->processedSize * 100) / this->size);
 
       memset(bytes, 0, actualBufferSize);
     }
@@ -544,6 +544,8 @@ void Worker::work() {
         this->log->logEvent(tr("Successfully recreated directory '%1'"
           " as '%2'.").arg(sourcePath, destinationPath));
         this->processedSize += sourceFileInfo.size();
+        emit this->triggerOverallProgress(this->processedSize == this->size ?
+          100 : (this->processedSize * 100) / this->size);
       } else {
         this->errorOccurred = true;
         this->log->logError(tr("Failed to recreate directory '%1'"
@@ -555,7 +557,10 @@ void Worker::work() {
       skipping:
       this->log->logEvent(tr("Skipping file or directory"
         " '%1'.").arg(sourcePath));
+      this->processedSize += sourceFileInfo.size();
       emit this->triggerCurrentOperation(tr("Skipping item"));
+      emit this->triggerOverallProgress(this->processedSize == this->size ?
+        100 : (this->processedSize * 100) / this->size);
 
       done:
       this->processedCount++;
