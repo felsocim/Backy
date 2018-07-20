@@ -7,8 +7,28 @@ docs/site/.idea
 translate/*.qm
 
 # Deployment
-deploy/*
-!deploy/*.iss
+deploy/win
+!deploy/win/*.iss
+deploy/linux/*.deb
+deploy/linux/*.build*
+deploy/linux/*.dsc
+deploy/linux/*.tar.*
+deploy/linux/*.changes
+deploy/linux/backy-1.0.1/include
+deploy/linux/backy-1.0.1/res
+deploy/linux/backy-1.0.1/src
+deploy/linux/backy-1.0.1/translate
+deploy/linux/backy-1.0.1/*.o
+deploy/linux/backy-1.0.1/*.cpp
+deploy/linux/backy-1.0.1/*.h
+deploy/linux/backy-1.0.1/*.pro
+deploy/linux/backy-1.0.1/Makefile
+deploy/linux/backy-1.0.1/Backy
+deploy/linux/backy-1.0.1/debian/backy
+deploy/linux/backy-1.0.1/debian/.debhelper
+deploy/linux/backy-1.0.1/debian/*.substvars
+deploy/linux/backy-1.0.1/debian/debhelper-build-stamp
+deploy/linux/backy-1.0.1/debian/files
 
 # React
 docs/site/node_modules

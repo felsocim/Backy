@@ -25,3 +25,23 @@ FORMS += src/interface.ui \
 
 TRANSLATIONS += translate/Backy_sk.ts \
   translate/Backy_fr.ts
+
+unix:!macx {
+  program.files = Backy
+  program.path = $$(DESTDIR)/usr/bin/Backy
+
+  language.files = translate/Backy_sk.qm \
+                   translate/Backy_fr.qm
+  language.path = $$(DESTDIR)/usr/bin/Backy/translations
+
+  icon.files = res/Backy.png
+  icon.path = $$(DESTDIR)/usr/share/pixmaps
+
+  launcher.files = res/Backy.desktop
+  launcher.path = $$(DESTDIR)/usr/share/applications
+
+  INSTALLS += program \
+              language \
+              icon \
+              launcher
+}

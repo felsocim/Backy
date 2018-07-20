@@ -1,0 +1,5 @@
+backy (1.0.1-1) UNRELEASED; urgency=medium
+
+  * Corrected bug causing the application to show wrong backup overall progress.
+
+ -- Marek Felsoci <marek.felsoci@gmail.com>  Fri, 20 Jul 2018 18:46:14 +0200
