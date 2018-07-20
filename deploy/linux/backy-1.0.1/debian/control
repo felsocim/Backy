@@ -2,8 +2,8 @@ Source: backy
 Maintainer: Marek Felsoci <marek.felsoci@gmail.com>
 Section: misc
 Priority: optional
-Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 10), qt5-default, qtdeclarative5-dev
+Standards-Version: 3.9.7
+Build-Depends: debhelper (>= 9), qt5-default, qtdeclarative5-dev
 
 Package: backy
 Architecture: amd64
