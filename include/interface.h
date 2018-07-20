@@ -2,12 +2,15 @@
  * This file is a part of Backy project, a simple backup creation and
  * maintaining solution.
  * 
- * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
+ *
+ * The complete license text can be found in the 'LICENSE' file in the root of
+ * the application's repository.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +24,7 @@
  * \brief Contains declarations related to Interface class.
  * \author Marek Felsoci
  * \date 2018-27-06
- * \version 1.0
+ * \version 1.0.1
  */
 #ifndef __INTERFACE_H
 #define __INTERFACE_H

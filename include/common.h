@@ -2,12 +2,15 @@
  * This file is a part of Backy project, a simple backup creation and
  * maintaining solution.
  * 
- * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
+ *
+ * The complete license text can be found in the 'LICENSE' file in the root of
+ * the application's repository.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -22,7 +25,7 @@
  *        whole project and includes commonly used headers.
  * \author Marek Felsoci
  * \date 2018-27-06
- * \version 1.0
+ * \version 1.0.1
  */
 #ifndef __COMMON_H
 #define __COMMON_H
@@ -31,6 +34,7 @@
 #include <QDebug>
 #include <QtGlobal>
 #include <QStandardPaths>
+#include <QCoreApplication>
 
 #if defined Q_OS_LINUX
 /*!
@@ -116,9 +120,9 @@
  * \brief Default size (in megabytes) of copy buffer used by file copy
  *        function which serves during backup process.
  * 
- * Initial value is \c 1.
+ * Initial value is \c 4.
  */
-#define DEFAULT_COPY_BUFFER_SIZE 1
+#define DEFAULT_COPY_BUFFER_SIZE 4
 
 /*!
  * \def DEFAULT_SYNCHRONIZE
@@ -158,25 +162,17 @@
  * \brief Default code of the language to display the application's
  *        graphical user interface in.
  * 
- * Initial value is \c "sk" which corresponds to \e Slovak.
+ * Initial value is \c "enu" which corresponds to \e US \e English.
  */
-#define DEFAULT_LOCALE_CODE "sk"
+#define DEFAULT_LOCALE_CODE "enu"
 
 /*!
- * \def LOCALE_RELATIVE_PATH
+ * \def LOCALE_PATH
  * \brief Path to the folder which contains application's translation
  *        files relatively to the application's executable location.
  * 
- * Initial value is \c "lang".
+ * Initial value is \c (QCoreApplication::applicationDirPath() + "/translations").
  */
-#define LOCALE_RELATIVE_PATH "translations"
-
-/*!
- * \def CEILD(dividend, divisor)
- * \brief Performs integer division of \a dividend by \a divider and if the
- *        latter does not divide the former it adds 1 to the result of their
- * division.
- */
-#define CEILD(dividend, divisor) ( !(dividend % divisor) ? (dividend / divisor) : ((dividend / divisor) + 1) )
+#define LOCALE_PATH (QCoreApplication::applicationDirPath() + "/translations")
 
 #endif // __COMMON_H

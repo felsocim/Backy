@@ -2,12 +2,15 @@
  * This file is a part of Backy project, a simple backup creation and
  * maintaining solution.
  * 
- * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com> (Feldev)
+ * Copyright (C) 2018 Marek Felsoci <marek.felsoci@gmail.com>
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
+ *
+ * The complete license text can be found in the 'LICENSE' file in the root of
+ * the application's repository.
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -21,7 +24,7 @@
  * \brief Contains definitions related to Worker class.
  * \author Marek Felsoci
  * \date 2018-27-06
- * \version 1.0
+ * \version 1.0.1
  */
 #include "../include/worker.h"
 
@@ -92,8 +95,8 @@ bool Worker::transferFileAttributes(const QString &sourcePath,
 #if defined Q_OS_LINUX
     struct utimbuf time;
 
-    time.actime = s.lastRead().toSecsSinceEpoch();
-    time.modtime = s.lastModified().toSecsSinceEpoch();
+    time.actime = s.lastRead().toMSecsSinceEpoch() / 1000;
+    time.modtime = s.lastModified().toMSecsSinceEpoch() / 1000;
 
     if(utime(destination.fileName().toStdString().c_str(),
       &time) == -1) {
@@ -241,10 +244,10 @@ bool Worker::copyFile(const QString &sourcePath,
       totalWritten += actuallyWritten;
       this->processedSize += actuallyWritten;
 
-      emit this->triggerCurrentProgress(
-        CEILD(totalWritten * 100, size));
-      emit this->triggerOverallProgress(
-        CEILD(this->processedSize * 100, this->size));
+      emit this->triggerCurrentProgress(totalWritten == size ? 100 :
+        (totalWritten * 100) / size);
+      emit this->triggerOverallProgress(this->processedSize == this->size ? 100 :
+        (this->processedSize * 100) / this->size);
 
       memset(bytes, 0, actualBufferSize);
     }
@@ -540,6 +543,7 @@ void Worker::work() {
         sourcePath, destinationPath)) {
         this->log->logEvent(tr("Successfully recreated directory '%1'"
           " as '%2'.").arg(sourcePath, destinationPath));
+        this->processedSize += sourceFileInfo.size();
       } else {
         this->errorOccurred = true;
         this->log->logError(tr("Failed to recreate directory '%1'"
@@ -555,7 +559,6 @@ void Worker::work() {
 
       done:
       this->processedCount++;
-      this->processedSize += sourceFileInfo.size();
     }
   }
 
