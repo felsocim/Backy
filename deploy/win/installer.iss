@@ -2,8 +2,8 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Backy"
-#define MyAppVersion "1.0"
-#define MyAppPublisher "Marek Felsoci (Feldev)"
+#define MyAppVersion "1.0.1"
+#define MyAppPublisher "Marek Felsoci"
 #define MyAppURL "https://felsocim.github.io/Backy/"
 #define MyAppExeName "Backy.exe"
 
@@ -14,7 +14,6 @@
 AppId={{1A92706F-646B-4393-BEFA-969BE1E2F14A}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -24,13 +23,14 @@ DefaultGroupName={#MyAppName}
 UninstallDisplayIcon={app}\Backy.exe
 AllowNoIcons=yes
 LicenseFile=D:\Dokumenty\Backy\LICENSE
-OutputDir=D:\Dokumenty\Backy\docs\download
-OutputBaseFilename=Backy_v1.0_setup_x64
+OutputDir=D:\Dokumenty\Backy\deploy\win
+OutputBaseFilename=Backy-1.0.1-win64
 Compression=lzma
 SolidCompression=yes
 ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 SetupIconFile=D:\Dokumenty\Backy\res\Backy_setup.ico
+PrivilegesRequired=poweruser
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -41,8 +41,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "D:\Dokumenty\Backy\deploy\win64\Backy.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\Dokumenty\Backy\deploy\win64\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "D:\Dokumenty\Backy\deploy\win\backy-1.0.1\Backy.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\Dokumenty\Backy\deploy\win\backy-1.0.1\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
