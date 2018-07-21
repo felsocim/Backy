@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="application-logo-mini.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Backy
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.0.1</span>
    </div>
    <div id="projectbrief">Simple backup creation and maintaining solution</div>
   </td>
@@ -81,25 +81,28 @@ $(function() {
 <code>#include &lt;QDebug&gt;</code><br />
 <code>#include &lt;QtGlobal&gt;</code><br />
 <code>#include &lt;QStandardPaths&gt;</code><br />
+<code>#include &lt;QCoreApplication&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for common.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="common_8h__incl.png" border="0" usemap="#include_2common_8h" alt=""/></div>
+<map name="include_2common_8h" id="include_2common_8h">
+</map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="common_8h__dep__incl.png" border="0" usemap="#include_2common_8hdep" alt=""/></div>
 <map name="include_2common_8hdep" id="include_2common_8hdep">
-<area shape="rect" id="node2" href="worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="5,155,123,181"/>
-<area shape="rect" id="node7" href="logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="102,80,215,107"/>
-<area shape="rect" id="node9" href="preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="240,80,387,107"/>
-<area shape="rect" id="node3" href="interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="183,229,311,256"/>
-<area shape="rect" id="node6" href="worker_8cpp.html" title="Contains definitions related to Worker class. " alt="" coords="10,229,118,256"/>
-<area shape="rect" id="node4" href="interface_8cpp.html" title="Contains definitions related to Interface class. " alt="" coords="121,304,239,331"/>
-<area shape="rect" id="node5" href="main_8cpp.html" title="This file is the entry point of the application. " alt="" coords="263,304,361,331"/>
-<area shape="rect" id="node8" href="logger_8cpp.html" title="Contains definitions related to Logger class. " alt="" coords="147,155,251,181"/>
-<area shape="rect" id="node10" href="preferences_8cpp.html" title="src/preferences.cpp" alt="" coords="326,155,463,181"/>
+<area shape="rect" id="node2" href="worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="5,155,121,181"/>
+<area shape="rect" id="node7" href="logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="101,80,215,107"/>
+<area shape="rect" id="node9" href="preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="239,80,384,107"/>
+<area shape="rect" id="node3" href="interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="183,229,309,256"/>
+<area shape="rect" id="node6" href="worker_8cpp.html" title="Contains definitions related to Worker class. " alt="" coords="10,229,117,256"/>
+<area shape="rect" id="node4" href="interface_8cpp.html" title="Contains definitions related to Interface class. " alt="" coords="121,304,240,331"/>
+<area shape="rect" id="node5" href="main_8cpp.html" title="This file is the entry point of the application. " alt="" coords="264,304,361,331"/>
+<area shape="rect" id="node8" href="logger_8cpp.html" title="Contains definitions related to Logger class. " alt="" coords="146,155,250,181"/>
+<area shape="rect" id="node10" href="preferences_8cpp.html" title="src/preferences.cpp" alt="" coords="325,155,461,181"/>
 </map>
 </div>
 </div>
@@ -125,7 +128,7 @@ Macros</h2></td></tr>
 <tr class="memitem:ad2c69ead63eaac352a86b00d97b979cc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#ad2c69ead63eaac352a86b00d97b979cc">WORKER_ERROR_LOG_FILE_NAME</a>&#160;&#160;&#160;&quot;errors.log&quot;</td></tr>
 <tr class="memdesc:ad2c69ead63eaac352a86b00d97b979cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">File name of the application's error log.  <a href="#ad2c69ead63eaac352a86b00d97b979cc">More...</a><br /></td></tr>
 <tr class="separator:ad2c69ead63eaac352a86b00d97b979cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af54346ef2e1e962bbc542546a6ae0a0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#af54346ef2e1e962bbc542546a6ae0a0b">DEFAULT_COPY_BUFFER_SIZE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:af54346ef2e1e962bbc542546a6ae0a0b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#af54346ef2e1e962bbc542546a6ae0a0b">DEFAULT_COPY_BUFFER_SIZE</a>&#160;&#160;&#160;4</td></tr>
 <tr class="memdesc:af54346ef2e1e962bbc542546a6ae0a0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default size (in megabytes) of copy buffer used by file copy function which serves during backup process.  <a href="#af54346ef2e1e962bbc542546a6ae0a0b">More...</a><br /></td></tr>
 <tr class="separator:af54346ef2e1e962bbc542546a6ae0a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac50425396100b13724d6414d05206a6f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#ac50425396100b13724d6414d05206a6f">DEFAULT_SYNCHRONIZE</a>&#160;&#160;&#160;false</td></tr>
@@ -137,57 +140,25 @@ Macros</h2></td></tr>
 <tr class="memitem:add2e1905ab79f1b9de41fbf1bd6c9eae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#add2e1905ab79f1b9de41fbf1bd6c9eae">DEFAULT_COMPARISON_CRITERION</a>&#160;&#160;&#160;<a class="el" href="worker_8h.html#ad97a578416975a8d384c94bf9aaca05fabc53c6e30c06337aacc7b6a33e77ee50">CRITERION_MORE_RECENT</a></td></tr>
 <tr class="memdesc:add2e1905ab79f1b9de41fbf1bd6c9eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default comparison criterion.  <a href="#add2e1905ab79f1b9de41fbf1bd6c9eae">More...</a><br /></td></tr>
 <tr class="separator:add2e1905ab79f1b9de41fbf1bd6c9eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca98151b0ccadf2af5cbe7dc5aa7e8a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#aca98151b0ccadf2af5cbe7dc5aa7e8a7">DEFAULT_LOCALE_CODE</a>&#160;&#160;&#160;&quot;sk&quot;</td></tr>
+<tr class="memitem:aca98151b0ccadf2af5cbe7dc5aa7e8a7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#aca98151b0ccadf2af5cbe7dc5aa7e8a7">DEFAULT_LOCALE_CODE</a>&#160;&#160;&#160;&quot;enu&quot;</td></tr>
 <tr class="memdesc:aca98151b0ccadf2af5cbe7dc5aa7e8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default code of the language to display the application's graphical user interface in.  <a href="#aca98151b0ccadf2af5cbe7dc5aa7e8a7">More...</a><br /></td></tr>
 <tr class="separator:aca98151b0ccadf2af5cbe7dc5aa7e8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd140866bd2f1e189eefaf779b770d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a8bd140866bd2f1e189eefaf779b770d3">LOCALE_RELATIVE_PATH</a>&#160;&#160;&#160;&quot;lang&quot;</td></tr>
-<tr class="memdesc:a8bd140866bd2f1e189eefaf779b770d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the folder which contains application's translation files relatively to the application's executable location.  <a href="#a8bd140866bd2f1e189eefaf779b770d3">More...</a><br /></td></tr>
-<tr class="separator:a8bd140866bd2f1e189eefaf779b770d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12129c237e9eeaf485d0a6923a5be89f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#a12129c237e9eeaf485d0a6923a5be89f">CEILD</a>(dividend,  divisor)&#160;&#160;&#160;( !(dividend % divisor) ? (dividend / divisor) : ((dividend / divisor) + 1) )</td></tr>
-<tr class="memdesc:a12129c237e9eeaf485d0a6923a5be89f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs integer division of <em>dividend</em> by <em>divider</em> and if the latter does not divide the former it adds 1 to the result of their division.  <a href="#a12129c237e9eeaf485d0a6923a5be89f">More...</a><br /></td></tr>
-<tr class="separator:a12129c237e9eeaf485d0a6923a5be89f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada2e44df4696de3f81f5b0edcc791e99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="common_8h.html#ada2e44df4696de3f81f5b0edcc791e99">LOCALE_PATH</a>&#160;&#160;&#160;(QCoreApplication::applicationDirPath() + &quot;/translations&quot;)</td></tr>
+<tr class="memdesc:ada2e44df4696de3f81f5b0edcc791e99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Path to the folder which contains application's translation files relatively to the application's executable location.  <a href="#ada2e44df4696de3f81f5b0edcc791e99">More...</a><br /></td></tr>
+<tr class="separator:ada2e44df4696de3f81f5b0edcc791e99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Provides various pre-processor macros used throughout the whole project and includes commonly used headers. </p>
 <p>This file is a part of Backy project, a simple backup creation and maintaining solution.</p>
-<p>Copyright (C) 2018 Marek Felsoci <a href="#" onclick="location.href='mai'+'lto:'+'mar'+'ek'+'.fe'+'ls'+'oci'+'@g'+'mai'+'l.'+'com'; return false;">marek<span style="display: none;">.nosp@m.</span>.fel<span style="display: none;">.nosp@m.</span>soci@<span style="display: none;">.nosp@m.</span>gmai<span style="display: none;">.nosp@m.</span>l.com</a> (Feldev)</p>
+<p>Copyright (C) 2018 Marek Felsoci <a href="#" onclick="location.href='mai'+'lto:'+'mar'+'ek'+'.fe'+'ls'+'oci'+'@g'+'mai'+'l.'+'com'; return false;">marek<span style="display: none;">.nosp@m.</span>.fel<span style="display: none;">.nosp@m.</span>soci@<span style="display: none;">.nosp@m.</span>gmai<span style="display: none;">.nosp@m.</span>l.com</a></p>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+<p>The complete license text can be found in the 'LICENSE' file in the root of the application's repository.</p>
 <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
 <p>You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 <dl class="section author"><dt>Author</dt><dd>Marek Felsoci </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2018-27-06 </dd></dl>
-<dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1.0.1 </dd></dl>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a12129c237e9eeaf485d0a6923a5be89f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12129c237e9eeaf485d0a6923a5be89f">&#9670;&nbsp;</a></span>CEILD</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define CEILD</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">dividend, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">divisor&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;( !(dividend % divisor) ? (dividend / divisor) : ((dividend / divisor) + 1) )</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Performs integer division of <em>dividend</em> by <em>divider</em> and if the latter does not divide the former it adds 1 to the result of their division. </p>
-
-</div>
-</div>
 <a id="add2e1905ab79f1b9de41fbf1bd6c9eae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add2e1905ab79f1b9de41fbf1bd6c9eae">&#9670;&nbsp;</a></span>DEFAULT_COMPARISON_CRITERION</h2>
 
@@ -213,13 +184,13 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEFAULT_COPY_BUFFER_SIZE&#160;&#160;&#160;1</td>
+          <td class="memname">#define DEFAULT_COPY_BUFFER_SIZE&#160;&#160;&#160;4</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Default size (in megabytes) of copy buffer used by file copy function which serves during backup process. </p>
-<p>Initial value is <code>1</code>. </p>
+<p>Initial value is <code>4</code>. </p>
 
 </div>
 </div>
@@ -247,13 +218,13 @@ Macros</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEFAULT_LOCALE_CODE&#160;&#160;&#160;&quot;sk&quot;</td>
+          <td class="memname">#define DEFAULT_LOCALE_CODE&#160;&#160;&#160;&quot;enu&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Default code of the language to display the application's graphical user interface in. </p>
-<p>Initial value is <code>"sk"</code> which corresponds to <em>Slovak</em>. </p>
+<p>Initial value is <code>"enu"</code> which corresponds to <em>US</em> <em>English</em>. </p>
 
 </div>
 </div>
@@ -306,20 +277,20 @@ Macros</h2></td></tr>
 
 </div>
 </div>
-<a id="a8bd140866bd2f1e189eefaf779b770d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bd140866bd2f1e189eefaf779b770d3">&#9670;&nbsp;</a></span>LOCALE_RELATIVE_PATH</h2>
+<a id="ada2e44df4696de3f81f5b0edcc791e99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada2e44df4696de3f81f5b0edcc791e99">&#9670;&nbsp;</a></span>LOCALE_PATH</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define LOCALE_RELATIVE_PATH&#160;&#160;&#160;&quot;lang&quot;</td>
+          <td class="memname">#define LOCALE_PATH&#160;&#160;&#160;(QCoreApplication::applicationDirPath() + &quot;/translations&quot;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Path to the folder which contains application's translation files relatively to the application's executable location. </p>
-<p>Initial value is <code>"lang"</code>. </p>
+<p>Initial value is <code></code>(QCoreApplication::applicationDirPath() + "/translations"). </p>
 
 </div>
 </div>

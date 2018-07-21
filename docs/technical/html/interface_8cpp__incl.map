@@ -1,7 +1,7 @@
 <map id="src/interface.cpp" name="src/interface.cpp">
-<area shape="rect" id="node2" href="$interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="853,80,993,107"/>
-<area shape="rect" id="node10" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="406,155,478,181"/>
-<area shape="rect" id="node26" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="961,155,1062,181"/>
-<area shape="rect" id="node17" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="521,304,603,331"/>
-<area shape="rect" id="node22" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="140,229,208,256"/>
+<area shape="rect" id="node2" href="$interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="995,80,1134,107"/>
+<area shape="rect" id="node10" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="427,155,497,181"/>
+<area shape="rect" id="node27" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="1103,155,1203,181"/>
+<area shape="rect" id="node18" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="359,304,442,331"/>
+<area shape="rect" id="node24" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="152,229,220,256"/>
 </map>

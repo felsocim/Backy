@@ -1,11 +1,11 @@
 <map id="include/common.h" name="include/common.h">
-<area shape="rect" id="node2" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="5,155,123,181"/>
-<area shape="rect" id="node7" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="102,80,215,107"/>
-<area shape="rect" id="node9" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="240,80,387,107"/>
-<area shape="rect" id="node3" href="$interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="183,229,311,256"/>
-<area shape="rect" id="node6" href="$worker_8cpp.html" title="Contains definitions related to Worker class. " alt="" coords="10,229,118,256"/>
-<area shape="rect" id="node4" href="$interface_8cpp.html" title="Contains definitions related to Interface class. " alt="" coords="121,304,239,331"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title="This file is the entry point of the application. " alt="" coords="263,304,361,331"/>
-<area shape="rect" id="node8" href="$logger_8cpp.html" title="Contains definitions related to Logger class. " alt="" coords="147,155,251,181"/>
-<area shape="rect" id="node10" href="$preferences_8cpp.html" title="src/preferences.cpp" alt="" coords="326,155,463,181"/>
+<area shape="rect" id="node2" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="5,155,121,181"/>
+<area shape="rect" id="node7" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="101,80,215,107"/>
+<area shape="rect" id="node9" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="239,80,384,107"/>
+<area shape="rect" id="node3" href="$interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="183,229,309,256"/>
+<area shape="rect" id="node6" href="$worker_8cpp.html" title="Contains definitions related to Worker class. " alt="" coords="10,229,117,256"/>
+<area shape="rect" id="node4" href="$interface_8cpp.html" title="Contains definitions related to Interface class. " alt="" coords="121,304,240,331"/>
+<area shape="rect" id="node5" href="$main_8cpp.html" title="This file is the entry point of the application. " alt="" coords="264,304,361,331"/>
+<area shape="rect" id="node8" href="$logger_8cpp.html" title="Contains definitions related to Logger class. " alt="" coords="146,155,250,181"/>
+<area shape="rect" id="node10" href="$preferences_8cpp.html" title="src/preferences.cpp" alt="" coords="325,155,461,181"/>
 </map>

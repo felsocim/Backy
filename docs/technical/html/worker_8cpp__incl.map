@@ -1,5 +1,5 @@
 <map id="src/worker.cpp" name="src/worker.cpp">
-<area shape="rect" id="node2" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="239,80,369,107"/>
-<area shape="rect" id="node9" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="139,229,221,256"/>
-<area shape="rect" id="node14" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="218,155,286,181"/>
+<area shape="rect" id="node2" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="433,80,561,107"/>
+<area shape="rect" id="node10" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="281,229,363,256"/>
+<area shape="rect" id="node16" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="360,155,428,181"/>
 </map>

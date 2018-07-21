@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['megabyte',['MEGABYTE',['../common_8h.html#a92b22720309846541a7bfc406212076f',1,'common.h']]]
+  ['terabyte',['TERABYTE',['../common_8h.html#a47c98de3376c95ba38c572d1b6e414af',1,'common.h']]]
 ];

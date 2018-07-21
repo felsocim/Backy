@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['ceild',['CEILD',['../common_8h.html#a12129c237e9eeaf485d0a6923a5be89f',1,'common.h']]],
   ['common_2eh',['common.h',['../common_8h.html',1,'']]],
   ['copybuffersize',['copyBufferSize',['../classPreferences.html#ae20737e1d2e7cb72bd20579b24a102d2',1,'Preferences::copyBufferSize()'],['../classWorker.html#a06af02a02e6611a7ebe0278b67ea9651',1,'Worker::copyBufferSize()']]],
   ['copyfile',['copyFile',['../classWorker.html#a926d9789f66ce9cb03c9d21cc0d6e675',1,'Worker']]],

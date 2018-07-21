@@ -1,6 +1,6 @@
 <map id="include/interface.h" name="include/interface.h">
-<area shape="rect" id="node9" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="406,80,478,107"/>
-<area shape="rect" id="node25" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="961,80,1062,107"/>
-<area shape="rect" id="node16" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="521,229,603,256"/>
-<area shape="rect" id="node21" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="140,155,208,181"/>
+<area shape="rect" id="node9" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="427,80,497,107"/>
+<area shape="rect" id="node26" href="$preferences_8h.html" title="Contains declarations related to Preferences class. " alt="" coords="1103,80,1203,107"/>
+<area shape="rect" id="node17" href="$common_8h.html" title="Provides various pre&#45;processor macros used throughout the whole project and includes commonly used he..." alt="" coords="359,229,442,256"/>
+<area shape="rect" id="node23" href="$logger_8h.html" title="Contains declarations related to Logger class. " alt="" coords="152,155,220,181"/>
 </map>
