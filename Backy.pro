@@ -1,6 +1,8 @@
 QT += core gui widgets
 
-QMAKE_CXXFLAGS += $$QMAKE_CFLAGS -std=c++11
+unix:!macx {
+  QMAKE_CXXFLAGS += $$QMAKE_CFLAGS -std=c++11
+}
 
 TARGET = Backy
 
