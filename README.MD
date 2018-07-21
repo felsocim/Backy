@@ -4,7 +4,7 @@
 
 ## Get
 
-The first release of Backy has just been released. For the moment only a 64-bit Windows(R) installer is available for download from  [the project's site](https://felsocim.github.io/Backy). We are working on Linux(R) packages as well :-)
+Binary packages as well as source files corresponding to the most recent release are available in the *Releases* section in this repository.
 
 ## Build
 
