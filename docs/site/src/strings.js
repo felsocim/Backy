@@ -107,7 +107,7 @@ const strings = {
     DOCUMENTATION_HEADER: "Technická dokumentácia",
     DOCUMENTATION_CONTENT: "<p>Technická dokumentácia zdrojového kódu programu vygenerovaná pomocou nástroja <strong>Doxygen</strong> je dostupná <a href='https://felsocim.github.io/Backy/technical/html/index.html' target='_blank'>na tejto stránke</a>.</p>",
     GET_BACKY_HEADER: "Stiahnuť",
-    GET_BACKY_CONTENT: "<p>Backyho môžete získať buď tak, že si stiahnete binárny súbor určený pre váš cieľový operačný systém alebo tak, že si stiahnete zdrojové súbory Backyho a skompilujete si ho sami. V obidvoch prípadoch, prosím, <span onclick='redirect(\"https://github.com/felsocim/Backy/releases\")'>pročko</span> prejdite na <a href='https://github.com/felsocim/Backy/releases' target='_blank'>zoznam vydaní</a> Backyho, ktorý je dostupný v jeho GitHub depozitári.</p>",
+    GET_BACKY_CONTENT: "<p>Backyho môžete získať buď tak, že si stiahnete binárny súbor určený pre váš cieľový operačný systém alebo tak, že si stiahnete zdrojové súbory Backyho a skompilujete si ho sami. V obidvoch prípadoch, prosím, prejdite na <a href='https://github.com/felsocim/Backy/releases' target='_blank'>zoznam vydaní</a> Backyho, ktorý je dostupný v jeho GitHub depozitári.</p>",
     ERROR_NOT_FOUND_HEADER: "Chyba 404: Stránka sa nenašla",
     ERROR_NOT_FOUND_CONTENT: "Stránka, ktorú hľadáte sa na tomto serveri nenachádza!",
     FOOTER: "Vytvoril a spravuje Marek Felsoci.",
