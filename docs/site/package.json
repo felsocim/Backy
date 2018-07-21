@@ -1,8 +1,7 @@
 {
   "name": "docs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
-  "homepage": "https://felsocim.github.io/Backy",
   "dependencies": {
     "prop-types": "^15.6.2",
     "react": "^16.4.1",

@@ -70,10 +70,8 @@ class Download extends Component {
   render() {
     return(
       <div>
-        <Header as="h1">{ translate("GET_BINARIES_HEADER", this.props.language) }</Header>
-        <div dangerouslySetInnerHTML={{ __html: translate("GET_BINARIES_CONTENT", this.props.language) }}/>
-        <Header as="h2">{ translate("GET_SOURCES_HEADER", this.props.language) }</Header>
-        <div dangerouslySetInnerHTML={{ __html: translate("GET_SOURCES_CONTENT", this.props.language) }}/>
+        <Header as="h1">{ translate("GET_BACKY_HEADER", this.props.language) }</Header>
+        <div dangerouslySetInnerHTML={{ __html: translate("GET_BACKY_CONTENT", this.props.language) }}/>
       </div>
     );
   }

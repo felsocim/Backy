@@ -51,7 +51,7 @@ class Navigation extends Component {
         <Menu.Menu position="right">
           <Dropdown
             item
-            text={ translate("NAVIGATION_LANGUAGE") }
+            text={ translate("NAVIGATION_LANGUAGE", this.props.language) }
           >
             <Dropdown.Menu>
               <Dropdown.Item
