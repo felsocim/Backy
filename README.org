@@ -1,0 +1,83 @@
+* Backy, a simple backup manager
+
+*Backy* is a simple, open-source and multi-platform tool for creating and
+maintaining backups developed using Qt.
+
+** Preview
+
+It's very easy to learn to work with. Backy's interface is very intuitive even
+for beginners.
+
+[[ doc/images/main_window.png]]
+
+** Building and installing
+
+Some time ago, I have completely stopped to use Windows as well as common Linux
+distributions such as Ubuntu and I have moved to
+[[https://guix.gnu.org][GNU/Guix]]. Therefore, since version 1.0.1, I will no longer make pre-built binary
+available for these platforms. Although, you are still able to build Backy from
+sources by yourself.
+
+*** On GNU/Guix
+
+A Guix package definition for Backy is available trough
+[[https://gitlab.inria.fr/mfelsoci/guix-extra][my personal Guix channel]].
+
+*** Other platforms
+
+In order to be able to build Backy from sources on any platform, please, ensure
+that the latest version of qmake, gcc (or any other C++ compiler) and the Qt
+framework is available on your system.
+
+Then, the next step is to clone this repository onto your machine, navigate to
+the root of the latter and execute the commands listed below.
+
+**** Debian-based Linux distributions (Debian, Ubuntu, Mint, etc.)
+
+The corresponding dependency packages are ~build-essential~ and ~qt5-default~.
+
+Eventually, navigate to the folder containing Backy's sources and execute the
+commands listed below.
+
+#+BEGIN_SRC shell
+qmake -config release .
+make
+sudo make install
+#+END_SRC
+
+**** Microsoft(R) Windows(R)
+
+On Windows(R), the only thing you need to install prior to building Backy is the
+latest release of the Qt framework. See the [[https://qt.io][Qt website]] for more information.
+
+The Qt distribution contains the QtCreator IDE which you can use to open the
+~backy.pro~ project configuration file and build Backy using the graphical user
+interface.
+
+**** Other Linux distributions and Apple(R) macOS(R)
+
+Unfortunately, I have not enough experience with these platforms, so I am unable
+to provide you with any advice on how to install Backy's dependencies.
+
+** Localization
+
+As of this day, Backy is localized in US English, French and Slovak.
+
+** User's guide
+
+Accordingly, a complete user's guide for Backy is available online in
+[[doc/GUIDE.en.org][US English]], [[doc/GUIDE.fr.org][French]] and [[doc/GUIDE.sk.org][Slovak]].
+
+To generate the technical documentation of the source code, use
+[[https://www.doxygen.org][Doxygen]].
+
+** Author
+
+*Marek Felsoci* (marek.felsoci@etu.unistra.fr) - /former student in Computer/
+/science/ at the [[http://unistra.fr][University of Strasbourg]].
+
+** License
+
+Backy is licensed under the terms of the
+[[LICENSE][GNU General Public License version 3.0]].
+

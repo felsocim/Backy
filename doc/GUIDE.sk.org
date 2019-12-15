@@ -1,0 +1,68 @@
+* Používateľská príručka programu Backy
+
+** Čo je Backy?
+
+Backy je jednoduché riešenie na vytváranie a správu záloh s otvoreným zdrojovým
+kódom. Veľmi jednoducho sa používa a je kompatibilné s mnohými operačnými
+systémami.
+
+Backy umožňuje vytvárať zálohy priečinkov alebo celých diskových jednotiek.
+Potom je možné vytvorenú zálohu aktualizovať zakaždým keď sa obsah zdrojového
+umiestnenia zmení.
+
+** Ako používať Backyho?
+
+Grafické používateľské rozhranie Backyho je značne intuitívne i pre
+začiatočníkov.
+
+*** Vytvoriť zálohu
+
+Pre vytvorenie zálohy musíte zadať cestu k umiestneniu obsahu, ktorý chcete
+zálohovať a zároveň aj cestu k umiestneniu, kde má byť záloha vytvorená. Potom
+odznačte možnosť *Iba aktualizovať* pre vytvorenie úplne novej zálohy.
+
+Nakoniec kliknite na tlačidlo *Zálohovať* pre spustenie procesu zálohovania a
+čakajte kým sa nedokončí.
+
+*** Aktualizovať/Synchronizovať zálohu
+
+Ak už máte vytvorenú zálohu uvedeného zdrojového umiestnenia, môžete ju s ním
+jednoducho synchronizovať bez toho, aby ste museli znova vytvárať ďalšiu zálohu
+čo môže byť nákladné čo sa týka času a miesta na disku.
+
+Backy porovná všetky položky v zdrojovom a cieľovom umiestnení a skopíruje len
+tie, ktoré boli zmenené od posledného zálohovania. Môžete si vybrať spomedzi
+dvoch porovnávacích kritérií. Buď sa zachovajú tie najnovšie alebo tie najväčšie
+(rozumej veľkosť súboru v bajtoch) verzie súborov.
+
+Môžete si vybrať aj to, či sa súbory, ktoré stále jestvujú v cieľovom umiestnení
+ale už sa nenachádzajú v zdrojovom umiestnení zálohy, odstránia alebo budú
+zachované. Predvolene sa takéto súbory odstraňujú. Toto nastavenie môžete zmeniť
+tým, že označíte možnosť *Zachovať nepotrebné súbory*.
+
+Pre spustenie zálohovania kliknite na tlačidlo *Zálohovať*.
+
+*** Prerušiť prebiehajúce zálohovanie
+
+V prípade, že chcete prerušiť prebiehajúci proces zálohovania kliknite na
+tlačidlo *Prerušiť*. Buete požiadaný o potvrdenie vašej voľby. Vyberte možnosť
+*Áno* ak ste si istý, že chcete prerušiť zálohovanie.
+
+Vedzte, že proces zálohovania nebude prerušený okamžite! Najprv bude dokončené
+spracovanie aktuálnej položky.
+
+*** Zmeniť jazyk programu
+
+Pre zmenu jazyka prejdite do okna *Predvoľby* cez hlavnú ponuku programu alebo
+pomocou klávesovej skratky *Shift+Ctrl+P*, vyberte požadovaný jazyk a kliknite
+na tlačidlo *Uložiť*. Zmena sa prejaví po opätovnom spustení programu.
+
+*** Zmeniť maximálnu veľkosť zásobníka kopírovania
+
+Okno *Predvoľby* umožňuje ručne nastaviť najväčšiu možnú veľkosť zásobníka
+kopírovania. Táto hodnota nesmie prekročiť veľkosť pamäte RAM vášho počítača,
+ktorá je tiež zobrazená v okne *Predvoľby*.
+
+Nastavenie zlej hodnoty môže spôsobiť pád programu alebo dokonca aj celého
+systému. Neodporúčame vám, teda, túto hodnotu meniť ak si nie ste úplne istí
+tým, čo robíte!

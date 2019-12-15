@@ -1,8 +1,0 @@
-<map id="include/logger.h" name="include/logger.h">
-<area shape="rect" id="node2" href="$worker_8h.html" title="Contains declarations and definitions related to Worker class. " alt="" coords="143,80,259,107"/>
-<area shape="rect" id="node7" href="$logger_8cpp.html" title="Contains definitions related to Logger class. " alt="" coords="283,80,387,107"/>
-<area shape="rect" id="node3" href="$interface_8h.html" title="Contains declarations related to Interface class. " alt="" coords="67,155,193,181"/>
-<area shape="rect" id="node6" href="$worker_8cpp.html" title="Contains definitions related to Worker class. " alt="" coords="218,155,325,181"/>
-<area shape="rect" id="node4" href="$interface_8cpp.html" title="Contains definitions related to Interface class. " alt="" coords="5,229,124,256"/>
-<area shape="rect" id="node5" href="$main_8cpp.html" title="This file is the entry point of the application. " alt="" coords="148,229,245,256"/>
-</map>

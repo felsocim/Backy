@@ -1,5 +1,0 @@
-<map id="Interface" name="Interface">
-<area shape="rect" id="node3" href="$classPreferences.html" title="Provides graphical user interface for preferences dialog. " alt="" coords="136,95,227,121"/>
-<area shape="rect" id="node5" href="$classWorker.html" title="Provides backup process&#45;related functionalities. " alt="" coords="251,95,315,121"/>
-<area shape="rect" id="node7" href="$classLogger.html" title="Provides Worker objects with the possibility to keep trace of their activity. " alt="" coords="339,5,400,32"/>
-</map>

@@ -1,0 +1,64 @@
+* User's guide for Backy
+
+** What is Backy?
+ 
+Backy is a simple and free open-source solution for creating and maintaining
+backups. It's very easy to use and multi-platform.
+
+Backy allows you to create a backup of either a folder or an entire drive. Then,
+whenever your source content changes you can simply update your previous backup.
+
+** How to use Backy?
+
+Backy's graphical user interface is very intuitive even for beginners.
+
+*** Create a backup
+
+To create a backup, you need to specify the location where the content to be
+backed up is stored as well as the location where the backup will be created.
+
+Then uncheck the *Synchronize only* checkbox in order to create a fresh backup.
+
+Finally, click on the *Backup* button to begin the backup process and wait until
+it completes.
+
+*** Update/Synchronize a backup
+
+If you already have done a backup of the selected source location, you can
+synchronize it with the most recent changes of the latter without having to
+re-create an another backup which can become very disk space-consuming.
+
+Backy will compare all the items in the source and the target backup locations
+and copy only those that had been changed since the last backup. You can choose
+between two comparison criterions. Either the most recent version or the biggest
+(in terms of file size) version of an item will be kept.
+
+Moreover, you can define whether the files which exists in the target backup
+location should be preserved or deleted if they no longer exist in the source
+backup location. By default, such files are deleted. You can avoid it by ticking
+the *Keep obsolete file(s)* checkbox.
+
+To begin the backup process, click on the *Backup* button.
+
+*** Abort a backup in progress
+
+In the case you want to abort a backup which is still in progress you can do so
+by clicking on the *Abort* button. You will be prompted to confirm your choice.
+Click *Yes* if you are sure you want to abort the backup.
+
+Please note that the backup process won't be stopped immediately! You'll have to
+wait until the application has finished processing the current item.
+
+*** Change application's language
+
+In order to change the display language of the application, go to the
+*Preferences* dialog through the main menu or by pressing *Shift+Ctrl+P*, select
+the desired language from the list and click on the *Apply* button.
+
+*** Change maximal copy buffer size
+
+The *Preferences* dialog allows you to set manually the maximal value of copy
+buffer size. This must not exceed your computer's RAM size which is displayed in
+the Backy's *Preferences* dialog. As setting a wrong value can make the
+application to crash or harm your system, you're strongly advised to *NOT* to
+change this value unless you know exactly what you are doing!

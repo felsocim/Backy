@@ -1,0 +1,75 @@
+* Guide d'utilisateur pour le logiciel Backy
+
+** Qu'est-ce que Backy ?
+
+Backy est un logiciel simple et open-source de création et de maintenance de
+sauvegardes de fichiers. Il est très facile à utiliser et multi-plateforme.
+
+Backy permet de créer la sauvegarde soit d'un répertoire soit d'un disque
+entier. Il est ensuite possible de simplement mettre à jour cette sauvegarde à
+chaque fois que le contenu de l'emplacement source change.
+
+** Comment utiliser Backy ?
+
+L'interface graphique d'utilisateur de Backy est assez intuitive également pour
+les débutants.
+
+*** Créer une sauvegarde
+
+Pour créer une sauvegarde vous devez spécifier l'emplacement où se trouve le
+contenu qui doit être sauvegardé ainsi que celui où la sauvegarde doit être
+créée. Ensuite, déchochez l'option *Synchorniser uniquement* afin de créer une
+nouvelle sauvegarde.
+
+Finalement, cliquez sur le bouton *Lancer la sauvegarde* pour démarrer le
+processus de sauvegarde et attendez qu'il se termine.
+
+*** Mettre à jour/Synchroniser une sauvegarde
+
+Si auparavant vous avez déjà créé une sauvegarde de l'emplacement source
+séléctionné vous pouvez la synchroniser avec ce dernier sans avoir à recréer de
+nouveau la sauvegarde ce qui peut être coûteux en termes de temps et de l'espace
+disque.
+
+Backy comparera tous les éléments dans les emplacements source et destination et
+copiera uniquement ceux qui ont été changés depuis la dernière sauvegarde. Vous
+pouvez choisir parmi deux critères de comparaison. Soit la version la plus
+récente soit la plus volumineuse (en termes de la taille de fichier en octets)
+sera conservée.
+
+De plus, vous pouvez décider si les fichiers qui existent dans l'emplacement
+destinataire doivent être conservés même si ces derniers n'existent plus dans
+l'emplacement source. Par défaut, de tels fichiers sont suppprimés. Vous pouvez
+désactiver ceci en décochant l'option *Conserver les fichiers obsolètes*.
+
+Pour démarrer le processus de sauvegarde cliquez sur le bouton *Lancer la
+sauvegarde*.
+
+*** Interrompre le processus de sauvegarde
+
+Dans le cas où vous souhaiteriez interrompre un processus de sauvegarde qui est
+en cours cliquez sur le bouton *Interrompre*. On vous demandera de confimer
+votre décision. Cliquez sur *Oui* si vous êtes sûr de vouloir interrompre le
+processus de sauvegarde.
+
+Veuillez noter que ce dernier ne sera pas interrompu immédiatement ! Le logiciel
+devra d'abord terminer le traitement de l'élément courant.
+
+*** Changer la langue de l'interface d'utilisateur
+
+Afin de changer la langue de l'interface d'utilisateur activer la fenêtre
+*Préférences* en passant par le menu principal ou grâce au raccourci clavier
+*Maj+Ctrl+P*, séléctionnez la langue souhaitée et cliquez sur le bouton
+*Enregistrer*. Le changement prendra l'effet après le redémarrage de
+l'application.
+
+*** Changer la taille maximale du tampon de copie de fichier(s)
+
+La fenêtre de *Préférences* vous permet de saisir manuellement la valeur
+maximale de la taille du tampon de copie de fichier(s). Celle-ci ne doit pas
+dépasser la tailler de la mémoire vive disponible sur votre ordinateur qui est
+affichée également dans la fenêtre de *Préférences*.
+
+Puisque la saisie d'une valeur incorrecte peut causer la terminaison impromptue
+de l'application ou endommager votre système, nous vous recommandons de ne pas
+changer cette valeur à moins que vous sachiez exactement ce que vous faites !
