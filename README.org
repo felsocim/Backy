@@ -3,13 +3,6 @@
 *Backy* is a simple, open-source and multi-platform tool for creating and
 maintaining backups developed using Qt.
 
-** Preview
-
-It's very easy to learn to work with. Backy's interface is very intuitive even
-for beginners.
-
-[[ doc/images/main_window.png]]
-
 ** Building and installing
 
 Some time ago, I have completely stopped to use Windows as well as common Linux
